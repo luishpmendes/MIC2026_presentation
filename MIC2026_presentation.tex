@@ -224,15 +224,21 @@ AT\&T Labs Research\\
 \begin{frame}
 \frametitle{Why PCI assignment is a hard (and practical) optimization task}
 
-\begin{itemize}
-\item Each Radio Access Network (RAN) cell must broadcast a \textbf{Physical Cell Identity (PCI)} so User Equipments (UEs) can detect and distinguish cells.
+Each Radio Access Network~(RAN) cell must broadcast a \textbf{Physical Cell Identity~(PCI)} so User Equipments~(UEs) can detect and distinguish cells.
 
-\item The PCI space is \textbf{limited} (e.g., $\mathbf{504}$ values in LTE; $\mathbf{1008}$ in 5G), so PCIs must be \textbf{reused}.
+~\\
 
-\item Poor reuse leads to technological conflicts (collisions, confusions, modulo-$k$ interference) that degrade measurements and mobility.
+The PCI space is \textbf{limited} (e.g., $\mathbf{504}$ values in LTE; $\mathbf{1008}$ in 5G), so PCIs must be \textbf{reused}.
 
-\item Operators also care about \textbf{operational objectives}: minimize disruptive PCI changes (PCI shuffles) and avoid deployment failures during staged rollouts.
-\end{itemize}
+~\\
+
+Poor reuse leads to technological conflicts (collisions, confusions, \\
+modulo-$k$ interference) that degrade measurements and mobility.
+
+~\\
+
+Operators also care about \textbf{operational objectives}: minimize disruptive \\
+PCI changes (PCI shuffles) and avoid deployment failures during staged rollouts.
 
 % Speaker framing: “This is not only about feasibility; it is about managing trade-offs between interference, deployment safety, and stability.”
 \end{frame}
@@ -243,17 +249,23 @@ AT\&T Labs Research\\
 
 \begin{columns}[c,onlytextwidth]
 \column{0.62\textwidth}
-\begin{itemize}
-\item Neighboring cells must have different PCIs.
-Otherwise, a \textbf{collision} occurs, and the UE cannot connect to either cell.
-For example, UE in the figure cannot connect to a cell because both cells A and B have the same PCI 10.
-\item Also, due to constraints in the primary and second sync signal and the 5G numerology, it is very desirable that neighboring PCIs be different in modules.
-\end{itemize}
+Neighboring cells must have different PCIs. \\
+Otherwise, a \textbf{collision} occurs, and \\
+the UE cannot connect to either cell. \\
+For example, UE in the figure cannot connect to a \\
+cell because both cells A and B have the same PCI $10$.
+
+~\\
+
+Also, due to constraints in the primary \\
+and second sync signal and the 5G \\
+numerology, it is very desirable that \\
+neighboring PCIs be different in modules.
 
 \column{0.38\textwidth}
 \centering
 \begin{figure}
-\includegraphics[width=0.99\textwidth]{figs/collision.pdf}
+\includegraphics[width=0.96\textwidth]{figs/collision.pdf}
 \end{figure}
 \end{columns}
 
@@ -265,19 +277,30 @@ For example, UE in the figure cannot connect to a cell because both cells A and 
 
 \begin{columns}[c,onlytextwidth]
 \column{0.62\textwidth}
-\begin{itemize}
-\item However, it is extremely hard to ensure module-$3$ and module-$4$ assignments in large production networks.
-\item The reason is that it is very common to have a cluster of size $\ge 5$ in which all cells are neighbors of the other cells with the cluster.
-\item Precisely speaking, if we model these cells as nodes and the neighborhood relationships as edges in a neighboring graph, it is very common to find cliques of size $5+$.
-\end{itemize}
+However, it is extremely hard to \\
+ensure module-$3$ and module-$4$ \\
+assignments in large production networks.
+
+~\\
+
+The reason is that it is very common to have \\
+a cluster of size $\ge 5$ in which all cells are \\
+neighbors of the other cells with the cluster.
+
+~\\
+
+Precisely speaking, if we model these cells \\
+as nodes and the neighborhood relationships \\
+as edges in a neighboring graph, it is \\
+very common to find cliques of size $5+$.
 
 \column{0.38\textwidth}
 \centering
 \begin{figure}
-\includegraphics[width=0.99\textwidth]{figs/clique.pdf}
+\includegraphics[width=0.96\textwidth]{figs/clique.pdf}
 \end{figure}
 \begin{figure}
-\includegraphics[width=0.99\textwidth]{figs/top_neighbors.pdf}
+\includegraphics[width=0.96\textwidth]{figs/top_neighbors.pdf}
 \end{figure}
 \end{columns}
 
@@ -289,19 +312,29 @@ For example, UE in the figure cannot connect to a cell because both cells A and 
 
 \begin{columns}[c,onlytextwidth]
 \column{0.62\textwidth}
-\begin{itemize}
-\item \textbf{Confusion} occurs when a cell has two neighbors with the same PCI.
-When a UE asks for handover, the base station does not know to which cell itshould hand the UE over.
-\item In other words, if \textbf{second-level neighbors (neighbor of neighbors)} have thesame PCI that the current cell, confusion may occur.
-\item Example: The UE is moving from cell A to cell C.
-Then, the UE asks Cell A to hand the connections over to the cell with PCI $10$.
-But now, Cell A cannot determine whether UE refers to Cell B or Cell C since they have the same PCI.
-\end{itemize}
+\textbf{Confusion} occurs when a cell has \\
+two neighbors with the same PCI. \\
+When a UE asks for handover, the base station does \\
+not know to which cell itshould hand the UE over.
+
+~\\
+
+In other words, if \textbf{second-level neighbors \\
+(neighbor of neighbors)} have the same PCI \\
+that the current cell, confusion may occur.
+
+~\\
+
+Example: The UE is moving from cell A to cell C. \\
+Then, the UE asks Cell A to hand the \\
+connections over to the cell with PCI $10$. \\
+But now, Cell A cannot determine whether UE refers \\
+to Cell B or Cell C since they have the same PCI.
 
 \column{0.38\textwidth}
 \centering
 \begin{figure}
-\includegraphics[width=0.99\textwidth]{figs/confusion.pdf}
+\includegraphics[width=0.96\textwidth]{figs/confusion.pdf}
 \end{figure}
 \end{columns}
 
@@ -311,10 +344,14 @@ But now, Cell A cannot determine whether UE refers to Cell B or Cell C since the
 \begin{frame}
 \frametitle{Operational constraints -- Batch deployment}
 
-\begin{itemize}
-\item When scheduling batches, a \textbf{PCI shuffle} may occur: a node receives the PCI number previously assigned to a neighbor or a second-level neighbor, which is assigned to another batch.
-\item Since the batches are deployed in sequence, we may find collisions and/or confusions, and therefore, the deployment will not be validated.
-\end{itemize}
+When scheduling batches, a PCI shuffle may occur: a node \\
+receives the PCI number previously assigned to a neighbor \\
+or a second-level neighbor, which is assigned to another batch.
+
+~\\
+
+Since the batches are deployed in sequence, we may find collisions and/or confusions, and therefore, the deployment will not be validated.
+
 
 \end{frame}
 
@@ -324,18 +361,34 @@ But now, Cell A cannot determine whether UE refers to Cell B or Cell C since the
 
 \begin{columns}[c,onlytextwidth]
 \column{0.62\textwidth}
-\begin{itemize}
-\item Suppose we have two neighboring cells A and B, which PCIs must be changed.
-\item The original PCI for cell A is $100$, and for cell B is $150$.
-\item Now, let us suppose that we must assign PCI $150$ for cell A.
-\item Since cells A and B are in different batches, we cannot deploy batch 1 first because it will cause a PCI collision with cell B, even though the PCI for B should be changed later on.
-\item To avoid PCI shuffle, we must proper order the batches for delivery.
-\end{itemize}
+Suppose we have two neighboring cells \\
+A and B, which PCIs must be changed.
+
+~\\
+
+The original PCI for cell A is $100$, and for cell B is $150$.
+
+~\\
+
+Now, let us suppose that we \\
+must assign PCI $150$ for cell A.
+
+~\\
+
+Since cells A and B are in different batches, \\
+we cannot deploy batch $1$ first because it will \\
+cause a PCI collision with cell B, even though \\
+the PCI for B should be changed later on.
+
+~\\
+
+To avoid PCI shuffle, we must proper \\
+order the batches for delivery.
 
 \column{0.38\textwidth}
 \centering
 \begin{figure}
-\includegraphics[width=0.99\textwidth]{figs/PCI_shuffle_1.pdf}
+\includegraphics[width=0.96\textwidth]{figs/PCI_shuffle_1.pdf}
 \end{figure}
 \end{columns}
 
@@ -347,18 +400,34 @@ But now, Cell A cannot determine whether UE refers to Cell B or Cell C since the
 
 \begin{columns}[c,onlytextwidth]
 \column{0.62\textwidth}
-\begin{itemize}
-\item Here, PCI $150$ must be assigned to cell A and PCI $100$ must be assigned to cell B (crossed PCI shuffle).
-\item In this case, it does not matter the other we try to deploy the batches because collisions will happen in any case.
-\item To avoid PCI shuffle we must assign dependent nodes (for which we must change the PCIs) in the same batch.
-\item However, each batch has a limited size or capacity.
-\item Therefore, it can be challenging to find a proper packing.
-\end{itemize}
+Here, PCI $150$ must be assigned to cell A and PCI \\
+$100$ must be assigned to cell B (crossed PCI shuffle).
+
+~\\
+
+In this case, it does not matter the \\
+other we try to deploy the batches \\
+because collisions will happen in any case.
+
+~\\
+
+To avoid PCI shuffle we must assign \\
+dependent nodes (for which we must \\
+change the PCIs) in the same batch.
+
+~\\
+
+However, each batch has a limited size or capacity.
+
+~\\
+
+Therefore, it can be challenging \\
+to find a proper packing.
 
 \column{0.38\textwidth}
 \centering
 \begin{figure}
-\includegraphics[width=0.99\textwidth]{figs/PCI_shuffle_2.pdf}
+\includegraphics[width=0.96\textwidth]{figs/PCI_shuffle_2.pdf}
 \end{figure}
 \end{columns}
 
@@ -485,6 +554,55 @@ Goal: approximate the \textbf{Pareto front} for $(f_{1}, f_{2}, f_{3})$ over fea
 \begin{center}
 {\Huge Proposed method\\(\textsc{NS-BRKGA})}
 \end{center}
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+    \frametitle{Genetic Algorithm~(\textsc{GA})}
+
+    Paradigm that mimics natural evolution.
+    
+    ~\\
+
+    Analogy between a set of solutions and a population of individuals.
+    
+    ~\\
+    
+    Each individual is coded as a chromosome (string of genes).
+
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.75\linewidth]{figs/evolution.png}
+    \end{figure}
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+    \frametitle{Genetic Algorithm (GA)}
+
+    \begin{columns}[c,onlytextwidth]
+        \column{0.62\textwidth}
+        Each individual has a fitness value \\
+        related to the solution quality.
+
+        ~\\
+
+        The population evolves over several generations.
+
+        ~\\
+
+        A new population is created using \\
+        genetic operators (crossover and mutation).
+
+        ~\\
+
+        ``Survival of the fittest''
+
+        \column{0.38\textwidth}
+        \begin{figure}
+            \includegraphics[width=0.80\textwidth]{figs/darwin.png}
+        \end{figure}
+    \end{columns}
 \end{frame}
 
 %----------------------------------------------------------------------------------------
