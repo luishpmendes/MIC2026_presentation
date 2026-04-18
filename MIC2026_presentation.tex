@@ -35,8 +35,12 @@
 \usepackage[noend]{algpseudocode}
 
 % For simple explanatory diagrams (consistent with prior decks)
+\usepackage{pgfplots}
 \usepackage{tikz}
-\usetikzlibrary{positioning,arrows.meta,calc}
+\usetikzlibrary{arrows, arrows.meta, backgrounds, calc, calligraphy, decorations, decorations.pathreplacing, external, fit, hobby, matrix, positioning, shapes}
+\usepgfplotslibrary{fillbetween}
+
+\pgfplotsset{compat=1.18}
 
 %----------------------------------------------------------------------------------------
 %	SELECT LAYOUT THEME
@@ -558,51 +562,278 @@ Goal: approximate the \textbf{Pareto front} for $(f_{1}, f_{2}, f_{3})$ over fea
 
 %----------------------------------------------------------------------------------------
 \begin{frame}
-    \frametitle{Genetic Algorithm~(\textsc{GA})}
+\frametitle{Genetic Algorithm~(\textsc{GA})}
 
-    Paradigm that mimics natural evolution.
-    
-    ~\\
+Paradigm that mimics natural evolution.
 
-    Analogy between a set of solutions and a population of individuals.
-    
-    ~\\
-    
-    Each individual is coded as a chromosome (string of genes).
+~\\
 
-    \begin{figure}
-        \centering
-        \includegraphics[width=0.75\linewidth]{figs/evolution.png}
-    \end{figure}
+Analogy between a set of solutions and a population of individuals.
+
+~\\
+
+Each individual is coded as a chromosome (string of genes).
+
+\begin{figure}
+\centering
+\includegraphics[width=0.75\linewidth]{figs/evolution.png}
+\end{figure}
 \end{frame}
 
 %----------------------------------------------------------------------------------------
 \begin{frame}
-    \frametitle{Genetic Algorithm (GA)}
+\frametitle{Genetic Algorithm (GA)}
 
-    \begin{columns}[c,onlytextwidth]
-        \column{0.62\textwidth}
-        Each individual has a fitness value \\
-        related to the solution quality.
+\begin{columns}[c,onlytextwidth]
+\column{0.62\textwidth}
+Each individual has a fitness value \\
+related to the solution quality.
 
-        ~\\
+~\\
 
-        The population evolves over several generations.
+The population evolves over several generations.
 
-        ~\\
+~\\
 
-        A new population is created using \\
-        genetic operators (crossover and mutation).
+A new population is created using \\
+genetic operators (crossover and mutation).
 
-        ~\\
+~\\
 
-        ``Survival of the fittest''
+``Survival of the fittest''
 
-        \column{0.38\textwidth}
-        \begin{figure}
-            \includegraphics[width=0.80\textwidth]{figs/darwin.png}
-        \end{figure}
-    \end{columns}
+\column{0.38\textwidth}
+\begin{figure}
+\includegraphics[width=0.80\textwidth]{figs/darwin.png}
+\end{figure}
+\end{columns}
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Random-Key Genetic Algorithm (RKGA)}
+\framesubtitle{Chromosome representation \& Decoder}
+
+\only<1>{
+\begin{figure}
+\resizebox{0.75\textwidth}{!}{
+\begin{tikzpicture}
+\node at (0.00, 0.00) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (h00) {};
+\node at (0.00, 0.80) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (h01) {};
+\node at (0.00, 1.60) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (h02) {};
+\node at (0.00, 2.40) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (h03) {};
+\node at (0.80, 0.00) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (h04) {};
+\node at (0.80, 0.80) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (h05) {};
+\node at (0.80, 1.60) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (h06) {};
+\node at (0.80, 2.40) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (h07) {};
+\node at (1.60, 0.00) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (h08) {};
+\node at (1.60, 0.80) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (h09) {};
+\node at (1.60, 1.60) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (h10) {};
+\node at (1.60, 2.40) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (h11) {};
+\node at (2.40, 0.00) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (h12) {};
+\node at (2.40, 0.80) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (h13) {};
+\node at (2.40, 1.60) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (h14) {};
+\node at (2.40, 2.40) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (h15) {};
+
+\begin{pgfonlayer}{background}
+\node[draw=black, fill=white!66!gray!33, thick, label=below:{$[0, 1)^{n}$} , inner sep=12.80, fit=(h00)(h01)(h02)(h03)(h04)(h05)(h06)(h07)(h08)(h09)(h10)(h11)(h12)(h13)(h14)(h15)] (hypercube) {};
+\end{pgfonlayer}
+
+\node at (5.30, 1.20) [shape=rectangle, draw=black, fill=black, text=white, ultra thick, inner sep=4.80, opacity = 0.00] (decoder) {\textbf{DECODER}};
+
+\node at (09.40-0.24, -0.81-0.25) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (s00) {};
+\node at (09.00-0.02, -0.14+0.12) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (s01) {};
+\node at (09.00+0.30, -0.14-0.19) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (s02) {};
+\node at (08.60-0.22,  0.54-0.32) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (s03) {};
+\node at (09.40-0.10,  0.54-0.22) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (s04) {};
+\node at (10.20+0.01,  0.54-0.22) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (s05) {};
+\node at (08.20+0.07,  1.20+0.06) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (s06) {};
+\node at (09.00-0.18,  1.20+0.22) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (s07) {};
+\node at (09.80-0.38,  1.20+0.25) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (s08) {};
+\node at (10.60+0.05,  1.20-0.37) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (s09) {};
+\node at (08.60-0.28,  1.87-0.08) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (s10) {};
+\node at (09.40+0.23,  1.87-0.10) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (s11) {};
+\node at (10.20-0.39,  1.87+0.31) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (s12) {};
+\node at (09.00+0.17,  2.54-0.19) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (s13) {};
+\node at (09.80+0.38,  2.54+0.02) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (s14) {};
+\node at (09.40-0.35,  3.21-0.39) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (s15) {};
+
+\begin{pgfonlayer}{background}
+\node[shape=ellipse, draw=black, fill=white!66!gray!33, thick, label=below:{$\mathcal{X}$}, fit=(s00)(s01)(s02)(s03)(s04)(s05)(s06)(s07)(s08)(s09)(s10)(s11)(s12)(s13)(s14)(s15)] (solutions) {};
+\end{pgfonlayer}
+
+\draw (h10) edge[-Stealth, very thick, draw=black, opacity = 0.00] (decoder.west);
+
+\draw (decoder.east) edge[-Stealth, very thick, draw=black, opacity = 0.00] (s11.west);
+\end{tikzpicture}
+}
+\end{figure}
+}
+\only<2>{
+\begin{figure}
+\resizebox{0.75\textwidth}{!}{
+\begin{tikzpicture}
+\node at (0.00, 0.00) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (h00) {};
+\node at (0.00, 0.80) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (h01) {};
+\node at (0.00, 1.60) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (h02) {};
+\node at (0.00, 2.40) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (h03) {};
+\node at (0.80, 0.00) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (h04) {};
+\node at (0.80, 0.80) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (h05) {};
+\node at (0.80, 1.60) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (h06) {};
+\node at (0.80, 2.40) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (h07) {};
+\node at (1.60, 0.00) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (h08) {};
+\node at (1.60, 0.80) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (h09) {};
+\node at (1.60, 1.60) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (h10) {};
+\node at (1.60, 2.40) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (h11) {};
+\node at (2.40, 0.00) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (h12) {};
+\node at (2.40, 0.80) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (h13) {};
+\node at (2.40, 1.60) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (h14) {};
+\node at (2.40, 2.40) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (h15) {};
+
+\begin{pgfonlayer}{background}
+\node[draw=black, fill=white!66!gray!33, thick, label=below:{$[0, 1)^{n}$} , inner sep=12.80, fit=(h00)(h01)(h02)(h03)(h04)(h05)(h06)(h07)(h08)(h09)(h10)(h11)(h12)(h13)(h14)(h15)] (hypercube) {};
+\end{pgfonlayer}
+
+\node at (5.30, 1.20) [shape=rectangle, draw=black, fill=black, text=white, ultra thick, inner sep=4.80] (decoder) {\textbf{DECODER}};
+
+\node at (09.40-0.24, -0.81-0.25) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (s00) {};
+\node at (09.00-0.02, -0.14+0.12) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (s01) {};
+\node at (09.00+0.30, -0.14-0.19) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (s02) {};
+\node at (08.60-0.22,  0.54-0.32) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (s03) {};
+\node at (09.40-0.10,  0.54-0.22) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (s04) {};
+\node at (10.20+0.01,  0.54-0.22) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (s05) {};
+\node at (08.20+0.07,  1.20+0.06) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (s06) {};
+\node at (09.00-0.18,  1.20+0.22) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (s07) {};
+\node at (09.80-0.38,  1.20+0.25) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (s08) {};
+\node at (10.60+0.05,  1.20-0.37) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (s09) {};
+\node at (08.60-0.28,  1.87-0.08) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (s10) {};
+\node at (09.40+0.23,  1.87-0.10) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (s11) {};
+\node at (10.20-0.39,  1.87+0.31) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (s12) {};
+\node at (09.00+0.17,  2.54-0.19) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (s13) {};
+\node at (09.80+0.38,  2.54+0.02) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (s14) {};
+\node at (09.40-0.35,  3.21-0.39) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (s15) {};
+
+\begin{pgfonlayer}{background}
+\node[shape=ellipse, draw=black, fill=white!66!gray!33, thick, label=below:{$\mathcal{X}$}, fit=(s00)(s01)(s02)(s03)(s04)(s05)(s06)(s07)(s08)(s09)(s10)(s11)(s12)(s13)(s14)(s15)] (solutions) {};
+\end{pgfonlayer}
+
+\draw (h10) edge[-Stealth, very thick, draw=black, opacity = 0.00] (decoder.west);
+
+\draw (decoder.east) edge[-Stealth, very thick, draw=black, opacity = 0.00] (s11.west);
+\end{tikzpicture}
+}
+\end{figure}
+}
+\only<3>{
+\begin{figure}
+\resizebox{0.75\textwidth}{!}{
+\begin{tikzpicture}
+\node at (0.00, 0.00) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (h00) {};
+\node at (0.00, 0.80) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (h01) {};
+\node at (0.00, 1.60) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (h02) {};
+\node at (0.00, 2.40) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (h03) {};
+\node at (0.80, 0.00) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (h04) {};
+\node at (0.80, 0.80) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (h05) {};
+\node at (0.80, 1.60) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (h06) {};
+\node at (0.80, 2.40) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (h07) {};
+\node at (1.60, 0.00) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (h08) {};
+\node at (1.60, 0.80) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (h09) {};
+\node at (1.60, 1.60) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (h10) {};
+\node at (1.60, 2.40) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (h11) {};
+\node at (2.40, 0.00) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (h12) {};
+\node at (2.40, 0.80) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (h13) {};
+\node at (2.40, 1.60) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (h14) {};
+\node at (2.40, 2.40) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (h15) {};
+
+\begin{pgfonlayer}{background}
+\node[draw=black, fill=white!66!gray!33, thick, label=below:{$[0, 1)^{n}$} , inner sep=12.80, fit=(h00)(h01)(h02)(h03)(h04)(h05)(h06)(h07)(h08)(h09)(h10)(h11)(h12)(h13)(h14)(h15)] (hypercube) {};
+\end{pgfonlayer}
+
+\node at (5.30, 1.20) [shape=rectangle, draw=black, fill=black, text=white, ultra thick, inner sep=4.80] (decoder) {\textbf{DECODER}};
+
+\node at (09.40-0.24, -0.81-0.25) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (s00) {};
+\node at (09.00-0.02, -0.14+0.12) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (s01) {};
+\node at (09.00+0.30, -0.14-0.19) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (s02) {};
+\node at (08.60-0.22,  0.54-0.32) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (s03) {};
+\node at (09.40-0.10,  0.54-0.22) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (s04) {};
+\node at (10.20+0.01,  0.54-0.22) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (s05) {};
+\node at (08.20+0.07,  1.20+0.06) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (s06) {};
+\node at (09.00-0.18,  1.20+0.22) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (s07) {};
+\node at (09.80-0.38,  1.20+0.25) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (s08) {};
+\node at (10.60+0.05,  1.20-0.37) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (s09) {};
+\node at (08.60-0.28,  1.87-0.08) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (s10) {};
+\node at (09.40+0.23,  1.87-0.10) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (s11) {};
+\node at (10.20-0.39,  1.87+0.31) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (s12) {};
+\node at (09.00+0.17,  2.54-0.19) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (s13) {};
+\node at (09.80+0.38,  2.54+0.02) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (s14) {};
+\node at (09.40-0.35,  3.21-0.39) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (s15) {};
+
+\begin{pgfonlayer}{background}
+\node[shape=ellipse, draw=black, fill=white!66!gray!33, thick, label=below:{$\mathcal{X}$}, fit=(s00)(s01)(s02)(s03)(s04)(s05)(s06)(s07)(s08)(s09)(s10)(s11)(s12)(s13)(s14)(s15)] (solutions) {};
+\end{pgfonlayer}
+
+\draw (h10) edge[-Stealth, very thick, draw=black] (decoder.west);
+
+\draw (decoder.east) edge[-Stealth, very thick, draw=black, opacity = 0.00] (s11.west);
+\end{tikzpicture}
+}
+\end{figure}
+}
+\only<4>{
+\begin{figure}
+\resizebox{0.75\textwidth}{!}{
+\begin{tikzpicture}
+\node at (0.00, 0.00) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (h00) {};
+\node at (0.00, 0.80) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (h01) {};
+\node at (0.00, 1.60) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (h02) {};
+\node at (0.00, 2.40) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (h03) {};
+\node at (0.80, 0.00) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (h04) {};
+\node at (0.80, 0.80) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (h05) {};
+\node at (0.80, 1.60) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (h06) {};
+\node at (0.80, 2.40) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (h07) {};
+\node at (1.60, 0.00) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (h08) {};
+\node at (1.60, 0.80) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (h09) {};
+\node at (1.60, 1.60) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (h10) {};
+\node at (1.60, 2.40) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (h11) {};
+\node at (2.40, 0.00) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (h12) {};
+\node at (2.40, 0.80) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (h13) {};
+\node at (2.40, 1.60) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (h14) {};
+\node at (2.40, 2.40) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (h15) {};
+
+\begin{pgfonlayer}{background}
+\node[draw=black, fill=white!66!gray!33, thick, label=below:{$[0, 1)^{n}$} , inner sep=12.80, fit=(h00)(h01)(h02)(h03)(h04)(h05)(h06)(h07)(h08)(h09)(h10)(h11)(h12)(h13)(h14)(h15)] (hypercube) {};
+\end{pgfonlayer}
+
+\node at (5.30, 1.20) [shape=rectangle, draw=black, fill=black, text=white, ultra thick, inner sep=4.80] (decoder) {\textbf{DECODER}};
+
+\node at (09.40-0.24, -0.81-0.25) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (s00) {};
+\node at (09.00-0.02, -0.14+0.12) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (s01) {};
+\node at (09.00+0.30, -0.14-0.19) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (s02) {};
+\node at (08.60-0.22,  0.54-0.32) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (s03) {};
+\node at (09.40-0.10,  0.54-0.22) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (s04) {};
+\node at (10.20+0.01,  0.54-0.22) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (s05) {};
+\node at (08.20+0.07,  1.20+0.06) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (s06) {};
+\node at (09.00-0.18,  1.20+0.22) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (s07) {};
+\node at (09.80-0.38,  1.20+0.25) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (s08) {};
+\node at (10.60+0.05,  1.20-0.37) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (s09) {};
+\node at (08.60-0.28,  1.87-0.08) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (s10) {};
+\node at (09.40+0.23,  1.87-0.10) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (s11) {};
+\node at (10.20-0.39,  1.87+0.31) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (s12) {};
+\node at (09.00+0.17,  2.54-0.19) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (s13) {};
+\node at (09.80+0.38,  2.54+0.02) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (s14) {};
+\node at (09.40-0.35,  3.21-0.39) [shape=circle, draw=black, fill=gray!33!black!66, scale=0.40] (s15) {};
+
+\begin{pgfonlayer}{background}
+\node[shape=ellipse, draw=black, fill=white!66!gray!33, thick, label=below:{$\mathcal{X}$}, fit=(s00)(s01)(s02)(s03)(s04)(s05)(s06)(s07)(s08)(s09)(s10)(s11)(s12)(s13)(s14)(s15)] (solutions) {};
+\end{pgfonlayer}
+
+\draw (h10) edge[-Stealth, very thick, draw=black] (decoder.west);
+
+\draw (decoder.east) edge[-Stealth, very thick, draw=black] (s11.west);
+\end{tikzpicture}
+}
+\end{figure}
+}
 \end{frame}
 
 %----------------------------------------------------------------------------------------
