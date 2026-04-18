@@ -21,7 +21,7 @@
 \documentclass[
 	11pt, % Set the default font size, options include: 8pt, 9pt, 10pt, 11pt, 12pt, 14pt, 17pt, 20pt
 	%t, % Uncomment to vertically align all slide content to the top of the slide, rather than the default centered
-	%aspectratio=169, % Uncomment to set the aspect ratio to a 16:9 ratio which matches the aspect ratio of 1080p and 4K screens and projectors
+	aspectratio=169, % Uncomment to set the aspect ratio to a 16:9 ratio which matches the aspect ratio of 1080p and 4K screens and projectors
 ]{beamer}
 
 \graphicspath{{Images/}{./}} % Specifies where to look for included images (trailing slash required)
@@ -222,55 +222,147 @@ AT\&T Labs Research\\
 
 %----------------------------------------------------------------------------------------
 \begin{frame}
-\frametitle{Why PCI planning is hard in practice}
+\frametitle{Why PCI assignment is a hard (and practical) optimization task}
 
-\begin{columns}[T,onlytextwidth]
-\column{0.62\textwidth}
 \begin{itemize}
-\item \textbf{Every LTE/5G cell broadcasts a Physical Cell Identity (PCI)} so user equipment can detect and distinguish cells.
-\item \textbf{The PCI space is limited} (LTE: $504$; 5G: $1008$) $\Rightarrow$ reuse is unavoidable.
-\item Reuse must avoid \textbf{technological conflicts} (collision, confusion, and critical modulo-$k$ interference).
-\item Operators also need \textbf{operational safety}: staged rollouts mean that a good final plan can still fail due to \emph{PCI shuffles}.
+\item Each Radio Access Network (RAN) cell must broadcast a \textbf{Physical Cell Identity (PCI)} so User Equipments (UEs) can detect and distinguish cells.
+
+\item The PCI space is \textbf{limited} (e.g., $\mathbf{504}$ values in LTE; $\mathbf{1008}$ in 5G), so PCIs must be \textbf{reused}.
+
+\item Poor reuse leads to technological conflicts (collisions, confusions, modulo-$k$ interference) that degrade measurements and mobility.
+
+\item Operators also care about \textbf{operational objectives}: minimize disruptive PCI changes (PCI shuffles) and avoid deployment failures during staged rollouts.
 \end{itemize}
 
-\vspace{0.35em}
-\small
-\textit{We model this as a constrained multi-objective optimization problem and approximate its Pareto front.}
-
-\column{0.38\textwidth}
-\centering
-% \includegraphics[width=\textwidth]{figs/fig_hexgrid.png}
-\end{columns}
-
-% Speaker note: Keep this slide high-level. The next slide defines each conflict with a visual.
+% Speaker framing: “This is not only about feasibility; it is about managing trade-offs between interference, deployment safety, and stability.”
 \end{frame}
 
 %----------------------------------------------------------------------------------------
 \begin{frame}
-\frametitle{Conflicts to avoid (technology + rollout)}
+\frametitle{Technological constraints -- Collisions}
 
 \begin{columns}[T,onlytextwidth]
-\column{0.55\textwidth}
+\column{0.62\textwidth}
 \begin{itemize}
-\item \textbf{Collision (hard):} neighbors share the same PCI $\rightarrow$ UE cannot distinguish signals.
-\item \textbf{Confusion (hard):} a cell has two distinct neighbors with the same PCI $\rightarrow$ ambiguous handover target.
-\item \textbf{Modulo-$\mathbf{k}$ collision:} neighbors have PCIs congruent modulo $k$ $\rightarrow$ reference signals interfere (critical on \emph{top neighbors}).
-\item \textbf{PCI shuffle:} batched rollout assigns a new PCI equal to a neighbor's \emph{current} PCI $\rightarrow$ transient collision/confusion and deployment failure.
+\item Neighboring cells must have different PCIs.
+Otherwise, a \textbf{collision} occurs, and the UE cannot connect to either cell.
+For example, UE in the figure cannot connect to a cell because both cells A and B have the same PCI 10.
+\item Also, due to constraints in the primary and second sync signal and the 5G numerology, it is very desirable that neighboring PCIs be different in modules.
 \end{itemize}
 
-\column{0.45\textwidth}
+\column{0.38\textwidth}
 \centering
-\begin{tabular}{@{}cc@{}}
-% \includegraphics[width=0.48\textwidth]{figs/fig_collision.png} &
-% \includegraphics[width=0.48\textwidth]{figs/fig_confusion.png} \\
-% \includegraphics[width=0.48\textwidth]{figs/fig_modk_clique.png} &
-% \includegraphics[width=0.48\textwidth]{figs/fig_shuffle.png} \\
-\end{tabular}
+\begin{figure}
+\includegraphics[width=0.99\textwidth]{figs/collision.pdf}
+\end{figure}
 \end{columns}
 
-% Speaker note: Map each visual to the constraints/objectives on the next section (hard vs optimized).
 \end{frame}
 
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Technological constraints -- Collisions}
+
+\begin{columns}[T,onlytextwidth]
+\column{0.62\textwidth}
+\begin{itemize}
+\item However, it is extremely hard to ensure module-$3$ and module-$4$ assignments in large production networks.
+\item The reason is that it is very common to have a cluster of size $\ge 5$ in which all cells are neighbors of the other cells with the cluster.
+\item Precisely speaking, if we model these cells as nodes and the neighborhood relationships as edges in a neighboring graph, it is very common to find cliques of size $5+$.
+\end{itemize}
+
+\column{0.38\textwidth}
+\centering
+\begin{figure}
+\includegraphics[width=0.99\textwidth]{figs/clique.pdf}
+\end{figure}
+\begin{figure}
+\includegraphics[width=0.99\textwidth]{figs/top_neighbors.pdf}
+\end{figure}
+\end{columns}
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Technological constraints -- Confusions}
+
+\begin{columns}[T,onlytextwidth]
+\column{0.62\textwidth}
+\begin{itemize}
+\item \textbf{Confusion} occurs when a cell has two neighbors with the same PCI.
+When a UE asks for handover, the base station does not know to which cell itshould hand the UE over.
+\item In other words, if \textbf{second-level neighbors (neighbor of neighbors)} have thesame PCI that the current cell, confusion may occur.
+\item Example: The UE is moving from cell A to cell C.
+Then, the UE asks Cell A to hand the connections over to the cell with PCI $10$.
+But now, Cell A cannot determine whether UE refers to Cell B or Cell C since they have the same PCI.
+\end{itemize}
+
+\column{0.38\textwidth}
+\centering
+\begin{figure}
+\includegraphics[width=0.99\textwidth]{figs/confusion.pdf}
+\end{figure}
+\end{columns}
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Operational constraints -- Batch deployment}
+
+\begin{itemize}
+\item When scheduling batches, a \textbf{PCI shuffle} may occur: a node receives the PCI number previously assigned to a neighbor or a second-level neighbor, which is assigned to another batch.
+\item Since the batches are deployed in sequence, we may find collisions and/or confusions, and therefore, the deployment will not be validated.
+\end{itemize}
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{PCI shuffle -- Example 1}
+
+\begin{columns}[T,onlytextwidth]
+\column{0.62\textwidth}
+\begin{itemize}
+\item Suppose we have two neighboring cells A and B, which PCIs must be changed.
+\item The original PCI for cell A is $100$, and for cell B is $150$.
+\item Now, let us suppose that we must assign PCI $150$ for cell A.
+\item Since cells A and B are in different batches, we cannot deploy batch 1 first because it will cause a PCI collision with cell B, even though the PCI for B should be changed later on.
+\item To avoid PCI shuffle, we must proper order the batches for delivery.
+\end{itemize}
+
+\column{0.38\textwidth}
+\centering
+\begin{figure}
+\includegraphics[width=0.99\textwidth]{figs/PCI_shuffle_1.pdf}
+\end{figure}
+\end{columns}
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{PCI shuffle -- Example 2}
+
+\begin{columns}[T,onlytextwidth]
+\column{0.62\textwidth}
+\begin{itemize}
+\item Here, PCI $150$ must be assigned to cell A and PCI $100$ must be assigned to cell B (crossed PCI shuffle).
+\item In this case, it does not matter the other we try to deploy the batches because collisions will happen in any case.
+\item To avoid PCI shuffle we must assign dependent nodes (for which we must change the PCIs) in the same batch.
+\item However, each batch has a limited size or capacity.
+\item Therefore, it can be challenging to find a proper packing.
+\end{itemize}
+
+\column{0.38\textwidth}
+\centering
+\begin{figure}
+\includegraphics[width=0.99\textwidth]{figs/PCI_shuffle_2.pdf}
+\end{figure}
+\end{columns}
+
+\end{frame}
 
 %----------------------------------------------------------------------------------------
 \begin{frame}
@@ -303,49 +395,27 @@ AT\&T Labs Research\\
 
 %----------------------------------------------------------------------------------------
 \begin{frame}
-\frametitle{Network model and neighborhoods}
+\frametitle{Modeling the network and neighborhoods}
 
-\begin{columns}[T,onlytextwidth]
-\column{0.64\textwidth}
 We model the network as an undirected graph $G = (V,E)$:
 \begin{itemize}
-\item $V$: cells; $E$: neighbor/interference relations.
-\item The edge set is partitioned: $E = T \cup N,\; T \cap N = \emptyset$.
-\begin{itemize}
-\item $T$: \textbf{top neighbors} (critical relations) where modulo-$k$ collisions are \emph{forbidden};
-\item $N$: regular neighbors where direct collisions are \emph{forbidden}, while modulo-$k$ collisions are \emph{minimized}.
+\item $V$: cells;
+\item $E$: neighbor/interference relations.
 \end{itemize}
-\item Second-level neighbor pairs (used to model confusions):
+
+The edge set is partitioned:
 \[
-S = \{(u, w)\mid (u, v) \in E,\ (v, w) \in E,\ (u, w) \notin E\}.
+    E = T \cup N,\qquad T \cap N = \emptyset,
 \]
+\begin{itemize}
+    \item $T$: \textbf{top-neighbors} (critical relations) where modulo-$k$ collisions are \emph{forbidden};
+    \item $N$: regular neighbors where direct collisions are forbidden, and modulo-$k$ collisions are undesirable.
 \end{itemize}
 
-\column{0.36\textwidth}
-\centering
-\begin{tikzpicture}[
-node/.style={circle,draw,inner sep=1.2pt},
-Eedge/.style={thick},
-Tedge/.style={thick},
-Sedge/.style={thick,dashed},
-scale=1.0
-]
-\node[node] (u) at (0,1.0) {\scriptsize $u$};
-\node[node] (v) at (1.4,0.0) {\scriptsize $v$};
-\node[node] (w) at (0,-1.0) {\scriptsize $w$};
-
-\draw[Tedge] (u) -- (v);
-\draw[Eedge] (v) -- (w);
-\draw[Sedge] (u) -- (w);
-
-\node[above=0.05cm of u] {\scriptsize top neighbor $(u, v) \in T$};
-\node[below=0.05cm of w] {\scriptsize regular neighbor $(v, w) \in N$};
-\node[left=0.25cm of v] {\scriptsize second-level pair $(u, w) \in S$};
-\end{tikzpicture}
-
-\vspace{0.25em}
-{\scriptsize Dashed edges are \emph{not} in $E$ (they represent confusion pairs).}
-\end{columns}
+Second-level neighbors (used to model confusions):
+\[
+    S = \{(u,w)\mid (u,v)\in E,\ (v,w)\in E,\ (u,w)\notin E\}.
+\]
 
 % Speaker note: Top neighbors represent critical pairs (e.g., high handover). This is why we only enforce modulo-$k$ as a hard constraint on $T$.
 \end{frame}
