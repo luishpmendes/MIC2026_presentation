@@ -216,11 +216,11 @@ AT\&T Labs Research\\
 % Sections are added in order to organize your presentation into discrete blocks, all sections and subsections are automatically output to the table of contents as an overview of the talk but NOT output in the presentation as separate slides
 
 %========================================================================================
-\section{Motivation and context}
+\section{Motivation \& Context}
 
 \begin{frame}[plain]
 \begin{center}
-{\Huge Motivation\\and context}
+{\Huge Motivation \\ \& \\ Context}
 \end{center}
 \end{frame}
 
@@ -439,7 +439,7 @@ to find a proper packing.
 
 %----------------------------------------------------------------------------------------
 \begin{frame}
-\frametitle{Main contributions}
+\frametitle{Main Contributions}
 
 \begin{enumerate}
 \item We propose a \textbf{Non-dominated Sorting \textsc{BRKGA} (\textsc{NS-BRKGA})} to solve the \textbf{multi-objective} PCI assignment problem with conflicting objectives.
@@ -458,11 +458,11 @@ to find a proper packing.
 \end{frame}
 
 %========================================================================================
-\section{Problem definition}
+\section{Problem Definition}
 
 \begin{frame}[plain]
 \begin{center}
-{\Huge Problem\\definition}
+{\Huge Problem \\ Definition}
 \end{center}
 \end{frame}
 
@@ -552,17 +552,19 @@ Goal: approximate the \textbf{Pareto front} for $(f_{1}, f_{2}, f_{3})$ over fea
 \end{frame}
 
 %========================================================================================
-\section{Proposed method}
+\section{Proposed Method}
 
 \begin{frame}[plain]
 \begin{center}
-{\Huge Proposed method\\(\textsc{NS-BRKGA})}
+{\Huge Proposed Method:\\
+\textsc{NS-BRKGA}}
 \end{center}
 \end{frame}
 
 %----------------------------------------------------------------------------------------
 \begin{frame}
-\frametitle{Genetic Algorithm~(\textsc{GA})}
+\frametitle{Non-dominated Sorting Biased Random-Key Genetic Algorithm}
+\framesubtitle{Genetic Algorithm~(\textsc{GA})}
 
 Paradigm that mimics natural evolution.
 
@@ -576,13 +578,14 @@ Each individual is coded as a chromosome (string of genes).
 
 \begin{figure}
 \centering
-\includegraphics[width=0.75\linewidth]{figs/evolution.png}
+\includegraphics[width=0.70\linewidth]{figs/evolution.png}
 \end{figure}
 \end{frame}
 
 %----------------------------------------------------------------------------------------
 \begin{frame}
-\frametitle{Genetic Algorithm (GA)}
+\frametitle{Non-dominated Sorting Biased Random-Key Genetic Algorithm}
+\framesubtitle{Genetic Algorithm~(\textsc{GA})}
 
 \begin{columns}[c,onlytextwidth]
 \column{0.62\textwidth}
@@ -604,15 +607,15 @@ genetic operators (crossover and mutation).
 
 \column{0.38\textwidth}
 \begin{figure}
-\includegraphics[width=0.80\textwidth]{figs/darwin.png}
+\includegraphics[width=0.75\textwidth]{figs/darwin.png}
 \end{figure}
 \end{columns}
 \end{frame}
 
 %----------------------------------------------------------------------------------------
 \begin{frame}
-\frametitle{Random-Key Genetic Algorithm (RKGA)}
-\framesubtitle{Chromosome representation \& Decoder}
+\frametitle{Non-dominated Sorting Biased Random-Key Genetic Algorithm}
+\framesubtitle{Random-Key Genetic Algorithm (RKGA)}
 
 \only<1>{
 \begin{figure}
@@ -830,6 +833,288 @@ genetic operators (crossover and mutation).
 \draw (h10) edge[-Stealth, very thick, draw=black] (decoder.west);
 
 \draw (decoder.east) edge[-Stealth, very thick, draw=black] (s11.west);
+\end{tikzpicture}
+}
+\end{figure}
+}
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Non-dominated Sorting Biased Random-Key Genetic Algorithm}
+\framesubtitle{Evolution}
+
+\only<1>{
+\begin{figure}[ht!]
+\resizebox{0.58 \textwidth}{!}{
+\begin{tikzpicture}
+\node [fill={rgb,255:red,94; green,60; blue,153}, text=white, text centered, outer sep=0, text width=88, minimum height=55, label={[yshift=5]north:$P_{t}$}, opacity=0.00] (elite) {\textbf{ELITE}};
+\node at (elite.south) [anchor=north, fill={rgb,255:red,230; green,97; blue,1}, text=white, text width=88, text centered, minimum height=143, outer sep=0, opacity=0.00] (aux2) {};
+\node at (elite.south) [anchor=north, fill={rgb,255:red,230; green,97; blue,1}, text=white, text width=88, text centered, minimum height=198, outer sep=0, opacity=0.00] (nonelite) {\textbf{NON-ELITE}};
+
+\node at (elite.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, text=white, text centered, outer sep=0, text width=88, minimum height=55, xshift=139, label={[yshift=5]north:$P_{t + 1}$}] (top) {};
+\node at (top.south) [anchor=north, draw=black, text=white, text centered, outer sep=0, text width=88, minimum height=198] (offspring) {};
+\node at (top.south) [anchor=north, fill=white, text=white, text centered, outer sep=0, text width=88, minimum height=143, opacity=0.00] (middle) {\textbf{OFFSPRING}};
+\node at (middle.south) [anchor=north, fill=white, text=black, text centered, outer sep=0, text width=88, minimum height=55, opacity=0.00] (bot) {};
+
+\node at (bot.west) [anchor=east, fill={rgb,255:red,230; green,97; blue,1}, text=white, text centered, outer sep=0, text width=88, minimum height=55, xshift=-139] (aux) {};
+
+\node at (aux2.west) [anchor=west, fill=white, draw=black, text centered, outer sep=0, text width=88, minimum height=253, xshift=-0, yshift=0] (Pt) {};
+
+\node at (middle.west) [anchor=west, fill=white, draw=black, text centered, outer sep=0, text width=88, minimum height=253, xshift=-0, yshift=0] (Pt+1) {};
+
+\node at (elite.west) [anchor=east, text width=55, text centered, opacity=0.00] (most) {Most fit};
+\node at (aux.west) [anchor=east, text width=55, text centered, opacity=0.00] (least) {Least fit};
+\node at($(most)!0.5!(least)$) [single arrow, draw=black, fill=white, thick, shape border rotate=180, rotate=90, fill={rgb,255:red,178; green,171; blue,210}, opacity=0.00] (sort) {Crowding Non-Dominated Sort};
+
+\node at ($(aux2)!0.5!(middle)$) [circle, fill=black, text=white, text centered, xshift=25, label={[align=flush center, xshift=-25, opacity=0.00]west:Crossover \\ + \\ Mutation}, opacity=0.00] (crossover) {\textbf{X}};
+
+\draw (elite) edge[-Stealth, thick, black, opacity=0.00] node[above] {Copy best solutions} (top);
+\draw (elite.east) edge[-Stealth, thick, black, out=300, in=150, opacity=0.00] node[midway, align=flush left, xshift=55, yshift=07, opacity=0.00] {Select $\pi^{e}$ \\ parents from \\ elite set} (crossover);
+\draw (aux.east) edge[-Stealth, thick, black, out=60, in=210, opacity=0.00] node[midway, align=flush left, xshift=55, yshift=-07, opacity=0.00] {Select $\pi - \pi^{e}$ \\ parents from \\ population} (crossover);
+\draw (crossover.east) edge[-Stealth, thick, black, opacity=0.00] (middle.west);
+\end{tikzpicture}
+}
+\end{figure}
+}
+\only<2>{
+\begin{figure}[ht!]
+\resizebox{0.58 \textwidth}{!}{
+\begin{tikzpicture}
+\node [fill={rgb,255:red,94; green,60; blue,153}, text=white, text centered, outer sep=0, text width=88, minimum height=55, label={[yshift=5]north:$P_{t}$}, opacity=0.00] (elite) {\textbf{ELITE}};
+\node at (elite.south) [anchor=north, fill={rgb,255:red,230; green,97; blue,1}, text=white, text width=88, text centered, minimum height=143, outer sep=0, opacity=0.00] (aux2) {};
+\node at (elite.south) [anchor=north, fill={rgb,255:red,230; green,97; blue,1}, text=white, text width=88, text centered, minimum height=198, outer sep=0, opacity=0.00] (nonelite) {\textbf{NON-ELITE}};
+
+\node at (elite.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, text=white, text centered, outer sep=0, text width=88, minimum height=55, xshift=139, label={[yshift=5]north:$P_{t + 1}$}] (top) {};
+\node at (top.south) [anchor=north, draw=black, text=white, text centered, outer sep=0, text width=88, minimum height=198] (offspring) {};
+\node at (top.south) [anchor=north, fill=white, text=white, text centered, outer sep=0, text width=88, minimum height=143, opacity=0.00] (middle) {\textbf{OFFSPRING}};
+\node at (middle.south) [anchor=north, fill=white, text=black, text centered, outer sep=0, text width=88, minimum height=55, opacity=0.00] (bot) {};
+
+\node at (bot.west) [anchor=east, fill={rgb,255:red,230; green,97; blue,1}, text=white, text centered, outer sep=0, text width=88, minimum height=55, xshift=-139] (aux) {};
+
+\node at (aux2.west) [anchor=west, fill=white, draw=black, text centered, outer sep=0, text width=88, minimum height=253, xshift=-0, yshift=0] (Pt) {};
+
+\node at (middle.west) [anchor=west, fill=white, draw=black, text centered, outer sep=0, text width=88, minimum height=253, xshift=-0, yshift=0] (Pt+1) {};
+
+\node at (elite.west) [anchor=east, text width=55, text centered] (most) {Most fit};
+\node at (aux.west) [anchor=east, text width=55, text centered] (least) {Least fit};
+\node at($(most)!0.5!(least)$) [single arrow, draw=black, fill=white, thick, shape border rotate=180, rotate=90, fill={rgb,255:red,178; green,171; blue,210}] (sort) {Crowding Non-Dominated Sort};
+
+\node at ($(aux2)!0.5!(middle)$) [circle, fill=black, text=white, text centered, xshift=25, label={[align=flush center, xshift=-25, opacity=0.00]west:Crossover \\ + \\ Mutation}, opacity=0.00] (crossover) {\textbf{X}};
+
+\draw (elite) edge[-Stealth, thick, black, opacity=0.00] node[above] {Copy best solutions} (top);
+\draw (elite.east) edge[-Stealth, thick, black, out=300, in=150, opacity=0.00] node[midway, align=flush left, xshift=55, yshift=07, opacity=0.00] {Select $\pi^{e}$ \\ parents from \\ elite set} (crossover);
+\draw (aux.east) edge[-Stealth, thick, black, out=60, in=210, opacity=0.00] node[midway, align=flush left, xshift=55, yshift=-07, opacity=0.00] {Select $\pi - \pi^{e}$ \\ parents from \\ population} (crossover);
+\draw (crossover.east) edge[-Stealth, thick, black, opacity=0.00] (middle.west);
+\end{tikzpicture}
+}
+\end{figure}
+}
+\only<3>{
+\begin{figure}[ht!]
+\resizebox{0.58 \textwidth}{!}{
+\begin{tikzpicture}
+\node [fill={rgb,255:red,94; green,60; blue,153}, text=white, text centered, outer sep=0, text width=88, minimum height=55, label={[yshift=5]north:$P_{t}$}] (elite) {\textbf{ELITE}};
+\node at (elite.south) [anchor=north, fill={rgb,255:red,230; green,97; blue,1}, text=white, text width=88, text centered, minimum height=143, outer sep=0, opacity=0.00] (aux2) {};
+\node at (elite.south) [anchor=north, fill={rgb,255:red,230; green,97; blue,1}, text=white, text width=88, text centered, minimum height=198, outer sep=0, opacity=0.00] (nonelite) {\textbf{NON-ELITE}};
+
+\node at (elite.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, text=white, text centered, outer sep=0, text width=88, minimum height=55, xshift=139, label={[yshift=5]north:$P_{t + 1}$}] (top) {};
+\node at (top.south) [anchor=north, draw=black, text=white, text centered, outer sep=0, text width=88, minimum height=198] (offspring) {};
+\node at (top.south) [anchor=north, fill=white, text=white, text centered, outer sep=0, text width=88, minimum height=143, opacity=0.00] (middle) {\textbf{OFFSPRING}};
+\node at (middle.south) [anchor=north, fill=white, text=black, text centered, outer sep=0, text width=88, minimum height=55, opacity=0.00] (bot) {};
+
+\node at (bot.west) [anchor=east, fill={rgb,255:red,230; green,97; blue,1}, text=white, text centered, outer sep=0, text width=88, minimum height=55, xshift=-139] (aux) {};
+
+\node at (aux2.west) [anchor=west, fill=white, draw=black, text centered, outer sep=0, text width=88, minimum height=198, xshift=-0, yshift=-28] (Pt) {};
+
+\node at (middle.west) [anchor=west, fill=white, draw=black, text centered, outer sep=0, text width=88, minimum height=253, xshift=-0, yshift=0] (Pt+1) {};
+
+\node at (elite.west) [anchor=east, text width=55, text centered] (most) {Most fit};
+\node at (aux.west) [anchor=east, text width=55, text centered] (least) {Least fit};
+\node at($(most)!0.5!(least)$) [single arrow, draw=black, fill=white, thick, shape border rotate=180, rotate=90, fill={rgb,255:red,178; green,171; blue,210}] (sort) {Crowding Non-Dominated Sort};
+
+\node at ($(aux2)!0.5!(middle)$) [circle, fill=black, text=white, text centered, xshift=25, label={[align=flush center, xshift=-25, opacity=0.00]west:Crossover \\ + \\ Mutation}, opacity=0.00] (crossover) {\textbf{X}};
+
+\draw (elite) edge[-Stealth, thick, black, opacity=0.00] node[above] {Copy best solutions} (top);
+\draw (elite.east) edge[-Stealth, thick, black, out=300, in=150, opacity=0.00] node[midway, align=flush left, xshift=55, yshift=07, opacity=0.00] {Select $\pi^{e}$ \\ parents from \\ elite set} (crossover);
+\draw (aux.east) edge[-Stealth, thick, black, out=60, in=210, opacity=0.00] node[midway, align=flush left, xshift=55, yshift=-07, opacity=0.00] {Select $\pi - \pi^{e}$ \\ parents from \\ population} (crossover);
+\draw (crossover.east) edge[-Stealth, thick, black, opacity=0.00] (middle.west);
+\end{tikzpicture}
+}
+\end{figure}
+}
+\only<4>{
+\begin{figure}[ht!]
+\resizebox{0.58 \textwidth}{!}{
+\begin{tikzpicture}
+\node [fill={rgb,255:red,94; green,60; blue,153}, text=white, text centered, outer sep=0, text width=88, minimum height=55, label={[yshift=5]north:$P_{t}$}] (elite) {\textbf{ELITE}};
+\node at (elite.south) [anchor=north, fill={rgb,255:red,230; green,97; blue,1}, text=white, text width=88, text centered, minimum height=143, outer sep=0] (aux2) {};
+\node at (elite.south) [anchor=north, fill={rgb,255:red,230; green,97; blue,1}, text=white, text width=88, text centered, minimum height=198, outer sep=0] (nonelite) {\textbf{NON-ELITE}};
+
+\node at (elite.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, text=white, text centered, outer sep=0, text width=88, minimum height=55, xshift=139, label={[yshift=5]north:$P_{t + 1}$}] (top) {};
+\node at (top.south) [anchor=north, draw=black, text=white, text centered, outer sep=0, text width=88, minimum height=198] (offspring) {};
+\node at (top.south) [anchor=north, fill=white, text=white, text centered, outer sep=0, text width=88, minimum height=143, opacity=0.00] (middle) {\textbf{OFFSPRING}};
+\node at (middle.south) [anchor=north, fill=white, text=black, text centered, outer sep=0, text width=88, minimum height=55, opacity=0.00] (bot) {};
+
+\node at (bot.west) [anchor=east, fill={rgb,255:red,230; green,97; blue,1}, text=white, text centered, outer sep=0, text width=88, minimum height=55, xshift=-139] (aux) {};
+
+\node at (middle.west) [anchor=west, fill=white, draw=black, text centered, outer sep=0, text width=88, minimum height=253, xshift=-0, yshift=0] (Pt+1) {};
+
+\node at (elite.west) [anchor=east, text width=55, text centered] (most) {Most fit};
+\node at (aux.west) [anchor=east, text width=55, text centered] (least) {Least fit};
+\node at($(most)!0.5!(least)$) [single arrow, draw=black, fill=white, thick, shape border rotate=180, rotate=90, fill={rgb,255:red,178; green,171; blue,210}] (sort) {Crowding Non-Dominated Sort};
+
+\node at ($(aux2)!0.5!(middle)$) [circle, fill=black, text=white, text centered, xshift=25, label={[align=flush center, xshift=-25, opacity=0.00]west:Crossover \\ + \\ Mutation}, opacity=0.00] (crossover) {\textbf{X}};
+
+\draw (elite) edge[-Stealth, thick, black, opacity=0.00] node[above] {Copy best solutions} (top);
+\draw (elite.east) edge[-Stealth, thick, black, out=300, in=150, opacity=0.00] node[midway, align=flush left, xshift=55, yshift=07, opacity=0.00] {Select $\pi^{e}$ \\ parents from \\ elite set} (crossover);
+\draw (aux.east) edge[-Stealth, thick, black, out=60, in=210, opacity=0.00] node[midway, align=flush left, xshift=55, yshift=-07, opacity=0.00] {Select $\pi - \pi^{e}$ \\ parents from \\ population} (crossover);
+\draw (crossover.east) edge[-Stealth, thick, black, opacity=0.00] (middle.west);
+\end{tikzpicture}
+}
+\end{figure}
+}
+\only<5>{
+\begin{figure}[ht!]
+\resizebox{0.58 \textwidth}{!}{
+\begin{tikzpicture}
+\node [fill={rgb,255:red,94; green,60; blue,153}, text=white, text centered, outer sep=0, text width=88, minimum height=55, label={[yshift=5]north:$P_{t}$}] (elite) {\textbf{ELITE}};
+\node at (elite.south) [anchor=north, fill={rgb,255:red,230; green,97; blue,1}, text=white, text width=88, text centered, minimum height=143, outer sep=0] (aux2) {};
+\node at (elite.south) [anchor=north, fill={rgb,255:red,230; green,97; blue,1}, text=white, text width=88, text centered, minimum height=198, outer sep=0] (nonelite) {\textbf{NON-ELITE}};
+
+\node at (elite.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, text=white, text centered, outer sep=0, text width=88, minimum height=55, xshift=139, label={[yshift=5]north:$P_{t + 1}$}] (top) {};
+\node at (top.south) [anchor=north, draw=black, text=white, text centered, outer sep=0, text width=88, minimum height=198] (offspring) {};
+\node at (top.south) [anchor=north, fill=white, text=white, text centered, outer sep=0, text width=88, minimum height=143, opacity=0.00] (middle) {\textbf{OFFSPRING}};
+\node at (middle.south) [anchor=north, fill=white, text=black, text centered, outer sep=0, text width=88, minimum height=55, opacity=0.00] (bot) {};
+
+\node at (bot.west) [anchor=east, fill={rgb,255:red,230; green,97; blue,1}, text=white, text centered, outer sep=0, text width=88, minimum height=55, xshift=-139] (aux) {};
+
+\node at (elite.west) [anchor=east, text width=55, text centered] (most) {Most fit};
+\node at (aux.west) [anchor=east, text width=55, text centered] (least) {Least fit};
+\node at($(most)!0.5!(least)$) [single arrow, draw=black, fill=white, thick, shape border rotate=180, rotate=90, fill={rgb,255:red,178; green,171; blue,210}] (sort) {Crowding Non-Dominated Sort};
+
+\node at ($(aux2)!0.5!(middle)$) [circle, fill=black, text=white, text centered, xshift=25, label={[align=flush center, xshift=-25, opacity=0.00]west:Crossover \\ + \\ Mutation}, opacity=0.00] (crossover) {\textbf{X}};
+
+\draw (elite) edge[-Stealth, thick, black] node[above] {Copy best solutions} (top);
+\draw (elite.east) edge[-Stealth, thick, black, out=300, in=150, opacity=0.00] node[midway, align=flush left, xshift=55, yshift=07, opacity=0.00] {Select $\pi^{e}$ \\ parents from \\ elite set} (crossover);
+\draw (aux.east) edge[-Stealth, thick, black, out=60, in=210, opacity=0.00] node[midway, align=flush left, xshift=55, yshift=-07, opacity=0.00] {Select $\pi - \pi^{e}$ \\ parents from \\ population} (crossover);
+\draw (crossover.east) edge[-Stealth, thick, black, opacity=0.00] (middle.west);
+\end{tikzpicture}
+}
+\end{figure}
+}
+\only<6>{
+\begin{figure}[ht!]
+\resizebox{0.58 \textwidth}{!}{
+\begin{tikzpicture}
+\node [fill={rgb,255:red,94; green,60; blue,153}, text=white, text centered, outer sep=0, text width=88, minimum height=55, label={[yshift=5]north:$P_{t}$}] (elite) {\textbf{ELITE}};
+\node at (elite.south) [anchor=north, fill={rgb,255:red,230; green,97; blue,1}, text=white, text width=88, text centered, minimum height=143, outer sep=0] (aux2) {};
+\node at (elite.south) [anchor=north, fill={rgb,255:red,230; green,97; blue,1}, text=white, text width=88, text centered, minimum height=198, outer sep=0] (nonelite) {\textbf{NON-ELITE}};
+
+\node at (elite.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, text=white, text centered, outer sep=0, text width=88, minimum height=55, xshift=139, label={[yshift=5]north:$P_{t + 1}$}] (top) {};
+\node at (top.south) [anchor=north, draw=black, text=white, text centered, outer sep=0, text width=88, minimum height=198] (offspring) {};
+\node at (top.south) [anchor=north, fill=white, text=white, text centered, outer sep=0, text width=88, minimum height=143, opacity=0.00] (middle) {\textbf{OFFSPRING}};
+\node at (middle.south) [anchor=north, fill=white, text=black, text centered, outer sep=0, text width=88, minimum height=55, opacity=0.00] (bot) {};
+
+\node at (bot.west) [anchor=east, fill={rgb,255:red,230; green,97; blue,1}, text=white, text centered, outer sep=0, text width=88, minimum height=55, xshift=-139] (aux) {};
+
+\node at (elite.west) [anchor=east, text width=55, text centered] (most) {Most fit};
+\node at (aux.west) [anchor=east, text width=55, text centered] (least) {Least fit};
+\node at($(most)!0.5!(least)$) [single arrow, draw=black, fill=white, thick, shape border rotate=180, rotate=90, fill={rgb,255:red,178; green,171; blue,210}] (sort) {Crowding Non-Dominated Sort};
+
+\node at ($(aux2)!0.5!(middle)$) [circle, fill=black, text=white, text centered, xshift=25, label={[align=flush center, xshift=-25]west:Crossover \\ + \\ Mutation}] (crossover) {\textbf{X}};
+
+\draw (elite) edge[-Stealth, thick, black] node[above] {Copy best solutions} (top);
+\draw (elite.east) edge[-Stealth, thick, black, out=300, in=150, opacity=0.00] node[midway, align=flush left, xshift=55, yshift=07, opacity=0.00] {Select $\pi^{e}$ \\ parents from \\ elite set} (crossover);
+\draw (aux.east) edge[-Stealth, thick, black, out=60, in=210, opacity=0.00] node[midway, align=flush left, xshift=55, yshift=-07, opacity=0.00] {Select $\pi - \pi^{e}$ \\ parents from \\ population} (crossover);
+\draw (crossover.east) edge[-Stealth, thick, black, opacity=0.00] (middle.west);
+\end{tikzpicture}
+}
+\end{figure}
+}
+\only<7>{
+\begin{figure}[ht!]
+\resizebox{0.58 \textwidth}{!}{
+\begin{tikzpicture}
+\node [fill={rgb,255:red,94; green,60; blue,153}, text=white, text centered, outer sep=0, text width=88, minimum height=55, label={[yshift=5]north:$P_{t}$}] (elite) {\textbf{ELITE}};
+\node at (elite.south) [anchor=north, fill={rgb,255:red,230; green,97; blue,1}, text=white, text width=88, text centered, minimum height=143, outer sep=0] (aux2) {};
+\node at (elite.south) [anchor=north, fill={rgb,255:red,230; green,97; blue,1}, text=white, text width=88, text centered, minimum height=198, outer sep=0] (nonelite) {\textbf{NON-ELITE}};
+
+\node at (elite.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, text=white, text centered, outer sep=0, text width=88, minimum height=55, xshift=139, label={[yshift=5]north:$P_{t + 1}$}] (top) {};
+\node at (top.south) [anchor=north, draw=black, text=white, text centered, outer sep=0, text width=88, minimum height=198] (offspring) {};
+\node at (top.south) [anchor=north, fill=white, text=white, text centered, outer sep=0, text width=88, minimum height=143, opacity=0.00] (middle) {\textbf{OFFSPRING}};
+\node at (middle.south) [anchor=north, fill=white, text=black, text centered, outer sep=0, text width=88, minimum height=55, opacity=0.00] (bot) {};
+
+\node at (bot.west) [anchor=east, fill={rgb,255:red,230; green,97; blue,1}, text=white, text centered, outer sep=0, text width=88, minimum height=55, xshift=-139] (aux) {};
+
+\node at (elite.west) [anchor=east, text width=55, text centered] (most) {Most fit};
+\node at (aux.west) [anchor=east, text width=55, text centered] (least) {Least fit};
+\node at($(most)!0.5!(least)$) [single arrow, draw=black, fill=white, thick, shape border rotate=180, rotate=90, fill={rgb,255:red,178; green,171; blue,210}] (sort) {Crowding Non-Dominated Sort};
+
+\node at ($(aux2)!0.5!(middle)$) [circle, fill=black, text=white, text centered, xshift=25, label={[align=flush center, xshift=-25]west:Crossover \\ + \\ Mutation}] (crossover) {\textbf{X}};
+
+\draw (elite) edge[-Stealth, thick, black] node[above] {Copy best solutions} (top);
+\draw (elite.east) edge[-Stealth, thick, black, out=300, in=150] node[midway, align=flush left, xshift=55, yshift=07] {Select $\pi^{e}$ \\ parents from \\ elite set} (crossover);
+\draw (aux.east) edge[-Stealth, thick, black, out=60, in=210, opacity=0.00] node[midway, align=flush left, xshift=55, yshift=-07, opacity=0.00] {Select $\pi - \pi^{e}$ \\ parents from \\ population} (crossover);
+\draw (crossover.east) edge[-Stealth, thick, black, opacity=0.00] (middle.west);
+\end{tikzpicture}
+}
+\end{figure}
+}
+\only<8>{
+\begin{figure}[ht!]
+\resizebox{0.58 \textwidth}{!}{
+\begin{tikzpicture}
+\node [fill={rgb,255:red,94; green,60; blue,153}, text=white, text centered, outer sep=0, text width=88, minimum height=55, label={[yshift=5]north:$P_{t}$}] (elite) {\textbf{ELITE}};
+\node at (elite.south) [anchor=north, fill={rgb,255:red,230; green,97; blue,1}, text=white, text width=88, text centered, minimum height=143, outer sep=0] (aux2) {};
+\node at (elite.south) [anchor=north, fill={rgb,255:red,230; green,97; blue,1}, text=white, text width=88, text centered, minimum height=198, outer sep=0] (nonelite) {\textbf{NON-ELITE}};
+
+\node at (elite.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, text=white, text centered, outer sep=0, text width=88, minimum height=55, xshift=139, label={[yshift=5]north:$P_{t + 1}$}] (top) {};
+\node at (top.south) [anchor=north, draw=black, text=white, text centered, outer sep=0, text width=88, minimum height=198] (offspring) {};
+\node at (top.south) [anchor=north, fill=white, text=white, text centered, outer sep=0, text width=88, minimum height=143, opacity=0.00] (middle) {\textbf{OFFSPRING}};
+\node at (middle.south) [anchor=north, fill=white, text=black, text centered, outer sep=0, text width=88, minimum height=55, opacity=0.00] (bot) {};
+
+\node at (bot.west) [anchor=east, fill={rgb,255:red,230; green,97; blue,1}, text=white, text centered, outer sep=0, text width=88, minimum height=55, xshift=-139] (aux) {};
+
+\node at (elite.west) [anchor=east, text width=55, text centered] (most) {Most fit};
+\node at (aux.west) [anchor=east, text width=55, text centered] (least) {Least fit};
+\node at($(most)!0.5!(least)$) [single arrow, draw=black, fill=white, thick, shape border rotate=180, rotate=90, fill={rgb,255:red,178; green,171; blue,210}] (sort) {Crowding Non-Dominated Sort};
+
+\node at ($(aux2)!0.5!(middle)$) [circle, fill=black, text=white, text centered, xshift=25, label={[align=flush center, xshift=-25]west:Crossover \\ + \\ Mutation}] (crossover) {\textbf{X}};
+
+\draw (elite) edge[-Stealth, thick, black] node[above] {Copy best solutions} (top);
+\draw (elite.east) edge[-Stealth, thick, black, out=300, in=150] node[midway, align=flush left, xshift=55, yshift=07] {Select $\pi^{e}$ \\ parents from \\ elite set} (crossover);
+\draw (aux.east) edge[-Stealth, thick, black, out=60, in=210] node[midway, align=flush left, xshift=55, yshift=-07] {Select $\pi - \pi^{e}$ \\ parents from \\ population} (crossover);
+\draw (crossover.east) edge[-Stealth, thick, black, opacity=0.00] (middle.west);
+\end{tikzpicture}
+}
+\end{figure}
+}
+\only<9>{
+\begin{figure}[ht!]
+\resizebox{0.58 \textwidth}{!}{
+\begin{tikzpicture}
+\node [fill={rgb,255:red,94; green,60; blue,153}, text=white, text centered, outer sep=0, text width=88, minimum height=55, label={[yshift=5]north:$P_{t}$}] (elite) {\textbf{ELITE}};
+\node at (elite.south) [anchor=north, fill={rgb,255:red,230; green,97; blue,1}, text=white, text width=88, text centered, minimum height=143, outer sep=0] (aux2) {};
+\node at (elite.south) [anchor=north, fill={rgb,255:red,230; green,97; blue,1}, text=white, text width=88, text centered, minimum height=198, outer sep=0] (nonelite) {\textbf{NON-ELITE}};
+
+\node at (elite.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, text=white, text centered, outer sep=0, text width=88, minimum height=55, xshift=139, label={[yshift=5]north:$P_{t + 1}$}] (top) {};
+\node at (top.south) [anchor=north, fill={rgb,255:red,230; green,97; blue,1}, text=white, text centered, outer sep=0, text width=88, minimum height=198] (offspring) {};
+\node at (top.south) [anchor=north, fill={rgb,255:red,230; green,97; blue,1}, text=white, text centered, outer sep=0, text width=88, minimum height=143] (middle) {\textbf{OFFSPRING}};
+\node at (middle.south) [anchor=north, fill={rgb,255:red,230; green,97; blue,1}, text=black, text centered, outer sep=0, text width=88, minimum height=55] (bot) {};
+
+\node at (bot.west) [anchor=east, fill={rgb,255:red,230; green,97; blue,1}, text=white, text centered, outer sep=0, text width=88, minimum height=55, xshift=-139] (aux) {};
+
+\node at (elite.west) [anchor=east, text width=55, text centered] (most) {Most fit};
+\node at (aux.west) [anchor=east, text width=55, text centered] (least) {Least fit};
+\node at($(most)!0.5!(least)$) [single arrow, draw=black, fill=white, thick, shape border rotate=180, rotate=90, fill={rgb,255:red,178; green,171; blue,210}] (sort) {Crowding Non-Dominated Sort};
+
+\node at ($(aux2)!0.5!(middle)$) [circle, fill=black, text=white, text centered, xshift=25, label={[align=flush center, xshift=-25]west:Crossover \\ + \\ Mutation}] (crossover) {\textbf{X}};
+
+\draw (elite) edge[-Stealth, thick, black] node[above] {Copy best solutions} (top);
+\draw (elite.east) edge[-Stealth, thick, black, out=300, in=150] node[midway, align=flush left, xshift=55, yshift=07] {Select $\pi^{e}$ \\ parents from \\ elite set} (crossover);
+\draw (aux.east) edge[-Stealth, thick, black, out=60, in=210] node[midway, align=flush left, xshift=55, yshift=-07] {Select $\pi - \pi^{e}$ \\ parents from \\ population} (crossover);
+\draw (crossover.east) edge[-Stealth, thick, black] (middle.west);
 \end{tikzpicture}
 }
 \end{figure}
