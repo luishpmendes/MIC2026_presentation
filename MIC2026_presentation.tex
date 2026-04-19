@@ -857,6 +857,139 @@ genetic operators (crossover and mutation).
 %----------------------------------------------------------------------------------------
 \begin{frame}
 \frametitle{Non-dominated Sorting Biased Random-Key Genetic Algorithm}
+\framesubtitle{Solution representation for MOPCI}
+
+A chromosome is a vector of random keys:
+\[
+\mathbf{k} = (k_{v})_{v \in V}, \qquad k_{v} \in [0, 1).
+\]
+
+Let $AP$ be the sorted list of allowed PCIs, with $m = |AP|$.
+
+\bigskip
+
+\textbf{Deterministic decoding (initial assignment):}
+\[
+x_{v} \;=\; AP\!\left[\left\lfloor k_{v} \cdot m \right\rfloor\right].
+\]
+
+\begin{itemize}
+\item This decoding is fast, but it can yield \textbf{infeasible} assignments.
+\item Feasibility is enforced by an embedded repair + local improvement phase.
+\end{itemize}
+
+% Speaker note: Emphasize “continuous search, discrete feasibility”.
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Non-dominated Sorting Biased Random-Key Genetic Algorithm}
+\framesubtitle{Decoder step 1: fast feasibility repair}
+
+\begin{columns}[c,onlytextwidth]
+\column{0.53\textwidth}
+We quantify hard-constraint violations via three counters:
+\vspace{-0.4em}
+\[
+\begin{aligned}
+v_{\mathrm{col}}(\mathbf{x})  &= \sum_{(u, v) \in E}\mathbb{I}(x_{u} = x_{v}),\\
+v_{\mathrm{tn}}(\mathbf{x})   &= \sum_{(u, v) \in T}\mathbb{I}\big(x_{u} \equiv x_{v}\ (\mathrm{mod}\ k)\big),\\
+v_{\mathrm{conf}}(\mathbf{x}) &= \sum_{(u, v) \in S}\mathbb{I}(x_{u} = x_{v}).
+\end{aligned}
+\]
+\vspace{-0.6em}
+A solution is feasible iff $v_{\mathrm{col}} = v_{\mathrm{tn}} = v_{\mathrm{conf}} = 0$.
+
+\column{0.47\textwidth}
+\textbf{Greedy best-effort repair:}
+\begin{itemize}
+\item Build the set of \emph{violated} cells $U \subseteq V$.
+\item Pick $v \in U$ with the most incident violations.
+\item Test all $p \in AP$ and choose $x_{v} \leftarrow p$ that minimizes $v_{\mathrm{col}} + v_{\mathrm{tn}} + v_{\mathrm{conf}}$.
+\item Repeat while improving the total violation count.
+\end{itemize}
+\end{columns}
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Non-dominated Sorting Biased Random-Key Genetic Algorithm}
+\framesubtitle{Decoder step 1b: penalize residual infeasibility}
+
+If repair cannot remove all violations, we penalize the first objective:
+\[
+\tilde{f_{1}}(\mathbf{x}) = f_{1}(\mathbf{x}) + M\cdot\big(v_{\mathrm{col}}(\mathbf{x}) + v_{\mathrm{tn}}(\mathbf{x}) + v_{\mathrm{conf}}(\mathbf{x})\big),
+\]
+with a large constant $M$ (set as $M = |N| + 1$ in the paper).
+
+\bigskip
+
+Returned fitness is:
+\[
+\big(\tilde{f_{1}}(\mathbf{x}),\ f_{2}(\mathbf{x}),\ f_{3}(\mathbf{x})\big).
+\]
+
+\begin{itemize}
+\item Any remaining hard-constraint violation makes $\tilde{f_{1}}$ worse than the worst feasible $f_{1}$ value.
+\item This prevents infeasible solutions from dominating feasible ones.
+\end{itemize}
+
+% Speaker note: The “penalize only f1” design is nontrivial—explain quickly why it works.
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Non-dominated Sorting Biased Random-Key Genetic Algorithm}
+\framesubtitle{Decoder step 2: lexicographically guided local search}
+
+Once feasible, we run local search over \textbf{feasible single-cell moves}:
+\[
+x_{v} \leftarrow p, \quad p \in AP \setminus \{x_{v}\}\ \text{and move preserves feasibility.}
+\]
+
+\textbf{Move acceptance (inside the decoder):} \\
+first-improvement under a lexicographic order
+\[
+(a_{1}, a_{2}, a_{3}) \prec (b_{1}, b_{2}, b_{3})\ \Leftrightarrow\ 
+\begin{cases}
+a_{1} < b_{1},\ \text{or}\\
+a_{1} = b_{1}\ \wedge\ a_{2} < b_{2},\ \text{or}\\
+a_{1} = b_{1}\ \wedge\ a_{2} = b_{2}\ \wedge\ a_{3} < b_{3}.
+\end{cases}
+\]
+
+\begin{itemize}
+\item Local search prioritizes operational objectives in the order $(f_{1}, f_{2}, f_{3})$.
+\item Example (from the paper): increasing $f_{3}$ is accepted only if it improves $f_{2}$ or $f_{1}$.
+\end{itemize}
+
+% Speaker note: Clarify: global selection is Pareto-based; lexicographic is only an intensification/tie-breaker inside the decoder.
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Non-dominated Sorting Biased Random-Key Genetic Algorithm}
+\framesubtitle{Decoder step 3: genotype feedback}
+
+After local search improves $\mathbf{x}$, we \textbf{re-encode} the solution back into the chromosome.
+
+\medskip
+If $x_{v} = AP[j]$ for $j \in \{0, \dots, |AP| - 1\}$, set:
+\[
+k_{v} \leftarrow \frac{j + 0.5}{|AP|}\quad\Rightarrow\quad \left\lfloor k_{v} \cdot |AP|\right\rfloor = j.
+\]
+
+\begin{itemize}
+\item The decoder becomes a \textbf{memetic operator}: improvements are not lost.
+\item Evolutionary operators can now recombine and propagate locally improved building blocks.
+\end{itemize}
+
+% Speaker note: This is the key “BRKGA-friendly” way to do local search.
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Non-dominated Sorting Biased Random-Key Genetic Algorithm}
 \framesubtitle{Evolution}
 
 \only<1>{
@@ -2748,135 +2881,6 @@ node distance=1.0cm
 \vspace{-0.4em}
 \small
 \textit{Key idea: a problem-agnostic evolutionary engine + a problem-specific decoder that enforces feasibility and intensifies the search.}
-\end{frame}
-
-%----------------------------------------------------------------------------------------
-\begin{frame}
-\frametitle{Solution representation}
-
-A chromosome is a vector of random keys:
-\[
-\mathbf{k} = (k_{v})_{v \in V}, \qquad k_{v} \sim \mathcal{U}[0, 1].
-\]
-
-Let $AP$ be the sorted list of allowed PCIs, with $m = |AP|$.
-
-\bigskip
-
-\textbf{Deterministic decoding (initial assignment):}
-\[
-x_{v} \;=\; AP\!\left[\left\lfloor k_v\cdot m \right\rfloor\right].
-\]
-
-\begin{itemize}
-\item This decoding is fast, but it can yield \textbf{infeasible} assignments.
-\item Feasibility is enforced by an embedded repair + local improvement phase.
-\end{itemize}
-
-% Speaker note: Emphasize “continuous search, discrete feasibility”.
-\end{frame}
-
-%----------------------------------------------------------------------------------------
-\begin{frame}
-\frametitle{Decoder step 1: fast feasibility repair}
-
-\begin{columns}[T,onlytextwidth]
-\column{0.54\textwidth}
-\small
-We quantify hard-constraint violations via three counters:
-\vspace{-0.4em}
-\[
-\begin{aligned}
-v_{\mathrm{col}}(\mathbf{x})  &= \sum_{(u, v) \in E}\mathbb{I}(x_{u} = x_{v}),\\
-v_{\mathrm{tn}}(\mathbf{x})   &= \sum_{(u, v) \in T}\mathbb{I}\big(x_{u} \equiv x_{v}\ (\mathrm{mod}\ k)\big),\\
-v_{\mathrm{conf}}(\mathbf{x}) &= \sum_{(u, v) \in S}\mathbb{I}(x_{u} = x_{v}).
-\end{aligned}
-\]
-\vspace{-0.6em}
-A solution is feasible iff $v_{\mathrm{col}} = v_{\mathrm{tn}} = v_{\mathrm{conf}} = 0$.
-
-\column{0.46\textwidth}
-\small
-\textbf{Greedy best-effort repair (high level):}
-\begin{itemize}
-\item Build the set of \emph{violated} cells $U \subseteq V$.
-\item Pick $v \in U$ with the most incident violations (tie: higher degree).
-\item Test all $p \in AP$ and choose $x_v \leftarrow p$ that minimizes $v_{\mathrm{col}} + v_{\mathrm{tn}} + v_{\mathrm{conf}}$.
-\item Repeat while improving the total violation count.
-\end{itemize}
-\end{columns}
-\end{frame}
-
-%----------------------------------------------------------------------------------------
-\begin{frame}
-\frametitle{Decoder step 1b: penalize residual infeasibility (so elites remain feasible)}
-
-If repair cannot remove all violations, we penalize the first objective:
-\[
-\tilde{f_{1}}(\mathbf{x}) = f_{1}(\mathbf{x}) + M\cdot\big(v_{\mathrm{col}}(\mathbf{x}) + v_{\mathrm{tn}}(\mathbf{x}) + v_{\mathrm{conf}}(\mathbf{x})\big),
-\]
-with a large constant $M$ (set as $M = |N| + 1$ in the paper).
-
-\bigskip
-
-Returned fitness is:
-\[
-\big(\tilde{f_{1}}(\mathbf{x}),\ f_{2}(\mathbf{x}),\ f_{3}(\mathbf{x})\big).
-\]
-
-\begin{itemize}
-\item Any remaining hard-constraint violation makes $\tilde{f_{1}}$ worse than the worst feasible $f_{1}$ value.
-\item This prevents infeasible solutions from dominating feasible ones.
-\end{itemize}
-
-% Speaker note: The “penalize only f1” design is nontrivial—explain quickly why it works.
-\end{frame}
-
-%----------------------------------------------------------------------------------------
-\begin{frame}
-\frametitle{Decoder step 2: lexicographically guided local search}
-
-Once feasible, we run local search over \textbf{feasible single-cell moves}:
-\[
-x_{v} \leftarrow p, \quad p \in AP \setminus \{x_{v}\}\ \text{and move preserves feasibility.}
-\]
-
-\textbf{Move acceptance (inside the decoder):} first-improvement under a lexicographic order
-\[
-(a_{1}, a_{2}, a_{3}) \prec (b_{1}, b_{2}, b_{3})\ \Leftrightarrow\ 
-\begin{cases}
-a_{1} < b_{1},\ \text{or}\\
-a_{1} = b_{1}\ \wedge\ a_{2} < b_{2},\ \text{or}\\
-a_{1} = b_{1}\ \wedge\ a_{2} = b_{2}\ \wedge\ a_{3} < b_{3}.
-\end{cases}
-\]
-
-\begin{itemize}
-\item Local search prioritizes operational objectives in the order $(f_{1}, f_{2}, f_{3})$.
-\item Example (from the paper): increasing $f_{3}$ is accepted only if it improves $f_{2}$ or $f_{1}$.
-\end{itemize}
-
-% Speaker note: Clarify: global selection is Pareto-based; lexicographic is only an intensification/tie-breaker inside the decoder.
-\end{frame}
-
-%----------------------------------------------------------------------------------------
-\begin{frame}
-\frametitle{Decoder step 3: genotype feedback (inherit local-search improvements)}
-
-After local search improves $\mathbf{x}$, we \textbf{re-encode} the solution back into the chromosome.
-
-\medskip
-If $x_{v} = AP[j]$ for $j \in \{0, \dots, |AP| - 1\}$, set:
-\[
-k_{v} \leftarrow \frac{j + 0.5}{|AP|}\quad\Rightarrow\quad \left\lfloor k_{v} \cdot |AP|\right\rfloor = j.
-\]
-
-\begin{itemize}
-\item The decoder becomes a \textbf{memetic operator}: improvements are not lost.
-\item Evolutionary operators can now recombine and propagate locally improved building blocks.
-\end{itemize}
-
-% Speaker note: This is the key “BRKGA-friendly” way to do local search.
 \end{frame}
 
 %----------------------------------------------------------------------------------------
