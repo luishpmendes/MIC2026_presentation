@@ -1690,6 +1690,985 @@ node [pos=00.75, yshift=-09.00, xshift=09.00]{$i + 1$};
 
 %----------------------------------------------------------------------------------------
 \begin{frame}
+\frametitle{Non-dominated Sorting Biased Random-Key Genetic Algorithm}
+\framesubtitle{Multi-Parent Biased Crossover}
+
+\only<2>{
+\begin{figure}
+\scalebox{0.75}{
+\begin{tikzpicture}
+\node [fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=120] (first) {\Large Parent $1$};
+\node at (first.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first1) {\Large $0.16$};
+\node at (first1.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first2) {\Large $0.53$};
+\node at (first2.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first3) {\Large $0.85$};
+\node at (first3.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first4) {\Large $0.76$};
+\node at (first4.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first5) {\Large $0.99$};
+\node at (first5.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first6) {\Large $0.06$};
+\node at (first6.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first7) {\Large $0.38$};
+\node at (first7.east) [anchor=west, fill=white, minimum height=30, text=black, align=right, text width=30, xshift=1] (first8) {\large \# $03$};
+
+\node at (first.south) [anchor=north, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=120, yshift=-4] (second) {\Large Parent $2$};
+\node at (second.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second1) {\Large $0.12$};
+\node at (second1.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second2) {\Large $0.63$};
+\node at (second2.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second3) {\Large $0.21$};
+\node at (second3.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second4) {\Large $0.69$};
+\node at (second4.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second5) {\Large $0.08$};
+\node at (second5.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second6) {\Large $0.01$};
+\node at (second6.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second7) {\Large $0.90$};
+\node at (second7.east) [anchor=west, fill=white, minimum height=30, text=black, align=right, text width=30, xshift=1] (second8) {\large \# $05$};
+
+\node at (second.south) [anchor=north, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=120, yshift=-4, opacity=0.00] (third) {\Large Parent $3$};
+\node at (third.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1, opacity=0.00] (third1) {\Large $0.91$};
+\node at (third1.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1, opacity=0.00] (third2) {\Large $0.68$};
+\node at (third2.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1, opacity=0.00] (third3) {\Large $0.52$};
+\node at (third3.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1, opacity=0.00] (third4) {\Large $0.02$};
+\node at (third4.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1, opacity=0.00] (third5) {\Large $0.18$};
+\node at (third5.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1, opacity=0.00] (third6) {\Large $0.34$};
+\node at (third6.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1, opacity=0.00] (third7) {\Large $0.22$};
+\node at (third7.east) [anchor=west, fill=white, minimum height=30, text=black, align=right, text width=30, xshift=1, opacity=0.00] (third8) {\large \# $13$};
+
+\node at (third.south) [anchor=north, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=120, yshift=-8, opacity=0.00] (random) {\Large Random number};
+\node at (random.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1, opacity=0.00] (random1) {\Large $0.21$};
+\node at (random1.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1, opacity=0.00] (random2) {\Large $0.94$};
+\node at (random2.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1, opacity=0.00] (random3) {\Large $0.52$};
+\node at (random3.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1, opacity=0.00] (random4) {\Large $0.02$};
+\node at (random4.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1, opacity=0.00] (random5) {\Large $0.75$};
+\node at (random5.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1, opacity=0.00] (random6) {\Large $0.17$};
+\node at (random6.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1, opacity=0.00] (random7) {\Large $0.14$};
+
+\node at (random.south) [anchor=north, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=120, yshift=-8, opacity=0.00] (offspring) {\Large Offspring};
+\node at (offspring.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1, opacity=0.00] (offspring1) {\Large $0.16$};
+\node at (offspring1.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1, opacity=0.00] (offspring2) {\Large $0.68$};
+\node at (offspring2.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1, opacity=0.00] (offspring3) {\Large $0.21$};
+\node at (offspring3.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1, opacity=0.00] (offspring4) {\Large $0.76$};
+\node at (offspring4.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1, opacity=0.00] (offspring5) {\Large $0.08$};
+\node at (offspring5.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1, opacity=0.00] (offspring6) {\Large $0.06$};
+\node at (offspring6.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1, opacity=0.00] (offspring7) {\Large $0.38$};
+
+\node at (random.west) [anchor=east, circle, dashed, draw=black, inner sep=0, minimum size=70, opacity=1, ultra thin, xshift=-43, opacity=0.00] (crossover) {};
+
+\draw[fill={rgb,255:red,94; green,60; blue,153}, opacity=0.00] (crossover.center) -- (crossover.center)+(0.72*1,0.72*0) arc (0:159.65:0.72) -- (crossover.center);
+
+\node[rotate=((0.00+159.65)/2.00)-90.00, text=white, opacity=0.00] at ($(crossover.center)+(0.43*0.18,0.43*0.98)$) {\normalsize $1$};
+
+\draw[fill={rgb,255:red,230; green,97; blue,1}, opacity=0.00] (crossover.center) -- (crossover.center)+(-0.72*0.94,0.72*0.35) arc (159.65:283.31:0.72) -- (crossover.center);
+
+\node[rotate=((159.65+283.31)/2.00)-90.00, text=white, opacity=0.00] at ($(crossover.center)+(-0.43*0.66,-0.43*0.75)$) {\normalsize $2$};
+
+\draw[fill={rgb,255:red,253; green,184; blue,99}, opacity=0.00] (crossover.center) -- (crossover.center)+(0.72*0.23,-0.72*0.97) arc (283.31:360.00:0.72) -- (crossover.center);
+
+\node[rotate=((283.31+360.00)/2.00)-90.00, text=black, opacity=0.00] at ($(crossover.center)+(+0.43*0.78,-0.43*0.62)$) {\normalsize $3$};
+
+\node[rotate=(-90.00), text=black, opacity=0.00] at ($(crossover.center)+(+0.90*1.00,+0.90*0.00)$) {\small $0.00$};
+
+\node[rotate=(159.65-90.00), text=black, opacity=0.00] at ($(crossover.center)+(-0.90*0.94,0.90*0.35)$) {\small $0.44$};
+
+\node[rotate=(283.31-90.00), text=black, opacity=0.00] at ($(crossover.center)+(+0.90*0.23,-0.90*0.97)$) {\small $0.79$};
+
+\draw (first.west) edge[-Stealth, solid, thick, black, out=240, in=80, opacity=0.00] (crossover);
+\draw (second.west) edge[-Stealth, solid, thick, black, out=225, in=60, opacity=0.00] (crossover);
+\draw (third.west) edge[-Stealth, solid, thick, black, out=210, in=40, opacity=0.00] (crossover);
+\draw (random.west) edge[-Stealth, dashdotted, thick, black, out=180, in=0, opacity=0.00] (crossover);
+\draw (crossover) edge[-Stealth, solid, very thick, black, out=285, in=165, opacity=0.00] (offspring.west);
+\end{tikzpicture}
+}
+\end{figure}
+}
+\only<3>{
+\begin{figure}
+\scalebox{0.75}{
+\begin{tikzpicture}
+\node [fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=120] (first) {\Large Parent $1$};
+\node at (first.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first1) {\Large $0.16$};
+\node at (first1.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first2) {\Large $0.53$};
+\node at (first2.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first3) {\Large $0.85$};
+\node at (first3.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first4) {\Large $0.76$};
+\node at (first4.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first5) {\Large $0.99$};
+\node at (first5.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first6) {\Large $0.06$};
+\node at (first6.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first7) {\Large $0.38$};
+\node at (first7.east) [anchor=west, fill=white, minimum height=30, text=black, align=right, text width=30, xshift=1] (first8) {\large \# $03$};
+
+\node at (first.south) [anchor=north, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=120, yshift=-4] (second) {\Large Parent $2$};
+\node at (second.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second1) {\Large $0.12$};
+\node at (second1.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second2) {\Large $0.63$};
+\node at (second2.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second3) {\Large $0.21$};
+\node at (second3.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second4) {\Large $0.69$};
+\node at (second4.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second5) {\Large $0.08$};
+\node at (second5.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second6) {\Large $0.01$};
+\node at (second6.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second7) {\Large $0.90$};
+\node at (second7.east) [anchor=west, fill=white, minimum height=30, text=black, align=right, text width=30, xshift=1] (second8) {\large \# $05$};
+
+\node at (second.south) [anchor=north, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=120, yshift=-4] (third) {\Large Parent $3$};
+\node at (third.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third1) {\Large $0.91$};
+\node at (third1.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third2) {\Large $0.68$};
+\node at (third2.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third3) {\Large $0.52$};
+\node at (third3.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third4) {\Large $0.02$};
+\node at (third4.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third5) {\Large $0.18$};
+\node at (third5.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third6) {\Large $0.34$};
+\node at (third6.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third7) {\Large $0.22$};
+\node at (third7.east) [anchor=west, fill=white, minimum height=30, text=black, align=right, text width=30, xshift=1] (third8) {\large \# $13$};
+
+\node at (third.south) [anchor=north, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=120, yshift=-8, opacity=0.00] (random) {\Large Random number};
+\node at (random.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1, opacity=0.00] (random1) {\Large $0.21$};
+\node at (random1.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1, opacity=0.00] (random2) {\Large $0.94$};
+\node at (random2.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1, opacity=0.00] (random3) {\Large $0.52$};
+\node at (random3.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1, opacity=0.00] (random4) {\Large $0.02$};
+\node at (random4.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1, opacity=0.00] (random5) {\Large $0.75$};
+\node at (random5.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1, opacity=0.00] (random6) {\Large $0.17$};
+\node at (random6.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1, opacity=0.00] (random7) {\Large $0.14$};
+
+\node at (random.south) [anchor=north, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=120, yshift=-8, opacity=0.00] (offspring) {\Large Offspring};
+\node at (offspring.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1, opacity=0.00] (offspring1) {\Large $0.16$};
+\node at (offspring1.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1, opacity=0.00] (offspring2) {\Large $0.68$};
+\node at (offspring2.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1, opacity=0.00] (offspring3) {\Large $0.21$};
+\node at (offspring3.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1, opacity=0.00] (offspring4) {\Large $0.76$};
+\node at (offspring4.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1, opacity=0.00] (offspring5) {\Large $0.08$};
+\node at (offspring5.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1, opacity=0.00] (offspring6) {\Large $0.06$};
+\node at (offspring6.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1, opacity=0.00] (offspring7) {\Large $0.38$};
+
+\node at (random.west) [anchor=east, circle, dashed, draw=black, inner sep=0, minimum size=70, opacity=1, ultra thin, xshift=-43, opacity=0.00] (crossover) {};
+
+\draw[fill={rgb,255:red,94; green,60; blue,153}, opacity=0.00] (crossover.center) -- (crossover.center)+(0.72*1,0.72*0) arc (0:159.65:0.72) -- (crossover.center);
+
+\node[rotate=((0.00+159.65)/2.00)-90.00, text=white, opacity=0.00] at ($(crossover.center)+(0.43*0.18,0.43*0.98)$) {\normalsize $1$};
+
+\draw[fill={rgb,255:red,230; green,97; blue,1}, opacity=0.00] (crossover.center) -- (crossover.center)+(-0.72*0.94,0.72*0.35) arc (159.65:283.31:0.72) -- (crossover.center);
+
+\node[rotate=((159.65+283.31)/2.00)-90.00, text=white, opacity=0.00] at ($(crossover.center)+(-0.43*0.66,-0.43*0.75)$) {\normalsize $2$};
+
+\draw[fill={rgb,255:red,253; green,184; blue,99}, opacity=0.00] (crossover.center) -- (crossover.center)+(0.72*0.23,-0.72*0.97) arc (283.31:360.00:0.72) -- (crossover.center);
+
+\node[rotate=((283.31+360.00)/2.00)-90.00, text=black, opacity=0.00] at ($(crossover.center)+(+0.43*0.78,-0.43*0.62)$) {\normalsize $3$};
+
+\node[rotate=(-90.00), text=black, opacity=0.00] at ($(crossover.center)+(+0.90*1.00,+0.90*0.00)$) {\small $0.00$};
+
+\node[rotate=(159.65-90.00), text=black, opacity=0.00] at ($(crossover.center)+(-0.90*0.94,0.90*0.35)$) {\small $0.44$};
+
+\node[rotate=(283.31-90.00), text=black, opacity=0.00] at ($(crossover.center)+(+0.90*0.23,-0.90*0.97)$) {\small $0.79$};
+
+\draw (first.west) edge[-Stealth, solid, thick, black, out=240, in=80, opacity=0.00] (crossover);
+\draw (second.west) edge[-Stealth, solid, thick, black, out=225, in=60, opacity=0.00] (crossover);
+\draw (third.west) edge[-Stealth, solid, thick, black, out=210, in=40, opacity=0.00] (crossover);
+\draw (random.west) edge[-Stealth, dashdotted, thick, black, out=180, in=0, opacity=0.00] (crossover);
+\draw (crossover) edge[-Stealth, solid, very thick, black, out=285, in=165, opacity=0.00] (offspring.west);
+\end{tikzpicture}
+}
+\end{figure}
+}
+\only<4>{
+\begin{figure}
+\scalebox{0.75}{
+\begin{tikzpicture}
+\node [fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=120] (first) {\Large Parent $1$};
+\node at (first.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first1) {\Large $0.16$};
+\node at (first1.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first2) {\Large $0.53$};
+\node at (first2.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first3) {\Large $0.85$};
+\node at (first3.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first4) {\Large $0.76$};
+\node at (first4.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first5) {\Large $0.99$};
+\node at (first5.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first6) {\Large $0.06$};
+\node at (first6.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first7) {\Large $0.38$};
+\node at (first7.east) [anchor=west, fill=white, minimum height=30, text=black, align=right, text width=30, xshift=1] (first8) {\large \# $03$};
+
+\node at (first.south) [anchor=north, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=120, yshift=-4] (second) {\Large Parent $2$};
+\node at (second.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second1) {\Large $0.12$};
+\node at (second1.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second2) {\Large $0.63$};
+\node at (second2.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second3) {\Large $0.21$};
+\node at (second3.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second4) {\Large $0.69$};
+\node at (second4.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second5) {\Large $0.08$};
+\node at (second5.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second6) {\Large $0.01$};
+\node at (second6.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second7) {\Large $0.90$};
+\node at (second7.east) [anchor=west, fill=white, minimum height=30, text=black, align=right, text width=30, xshift=1] (second8) {\large \# $05$};
+
+\node at (second.south) [anchor=north, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=120, yshift=-4] (third) {\Large Parent $3$};
+\node at (third.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third1) {\Large $0.91$};
+\node at (third1.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third2) {\Large $0.68$};
+\node at (third2.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third3) {\Large $0.52$};
+\node at (third3.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third4) {\Large $0.02$};
+\node at (third4.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third5) {\Large $0.18$};
+\node at (third5.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third6) {\Large $0.34$};
+\node at (third6.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third7) {\Large $0.22$};
+\node at (third7.east) [anchor=west, fill=white, minimum height=30, text=black, align=right, text width=30, xshift=1] (third8) {\large \# $13$};
+
+\node at (third.south) [anchor=north, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=120, yshift=-8, opacity=0.00] (random) {\Large Random number};
+\node at (random.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1, opacity=0.00] (random1) {\Large $0.21$};
+\node at (random1.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1, opacity=0.00] (random2) {\Large $0.94$};
+\node at (random2.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1, opacity=0.00] (random3) {\Large $0.52$};
+\node at (random3.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1, opacity=0.00] (random4) {\Large $0.02$};
+\node at (random4.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1, opacity=0.00] (random5) {\Large $0.75$};
+\node at (random5.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1, opacity=0.00] (random6) {\Large $0.17$};
+\node at (random6.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1, opacity=0.00] (random7) {\Large $0.14$};
+
+\node at (random.south) [anchor=north, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=120, yshift=-8, opacity=0.00] (offspring) {\Large Offspring};
+\node at (offspring.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1, opacity=0.00] (offspring1) {\Large $0.16$};
+\node at (offspring1.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1, opacity=0.00] (offspring2) {\Large $0.68$};
+\node at (offspring2.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1, opacity=0.00] (offspring3) {\Large $0.21$};
+\node at (offspring3.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1, opacity=0.00] (offspring4) {\Large $0.76$};
+\node at (offspring4.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1, opacity=0.00] (offspring5) {\Large $0.08$};
+\node at (offspring5.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1, opacity=0.00] (offspring6) {\Large $0.06$};
+\node at (offspring6.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1, opacity=0.00] (offspring7) {\Large $0.38$};
+
+\node at (random.west) [anchor=east, circle, dashed, draw=black, inner sep=0, minimum size=70, opacity=1, ultra thin, xshift=-43] (crossover) {};
+
+\draw[fill={rgb,255:red,94; green,60; blue,153}] (crossover.center) -- (crossover.center)+(0.72*1,0.72*0) arc (0:159.65:0.72) -- (crossover.center);
+
+\node[rotate=((0.00+159.65)/2.00)-90.00, text=white] at ($(crossover.center)+(0.43*0.18,0.43*0.98)$) {\normalsize $1$};
+
+\draw[fill={rgb,255:red,230; green,97; blue,1}] (crossover.center) -- (crossover.center)+(-0.72*0.94,0.72*0.35) arc (159.65:283.31:0.72) -- (crossover.center);
+
+\node[rotate=((159.65+283.31)/2.00)-90.00, text=white] at ($(crossover.center)+(-0.43*0.66,-0.43*0.75)$) {\normalsize $2$};
+
+\draw[fill={rgb,255:red,253; green,184; blue,99}] (crossover.center) -- (crossover.center)+(0.72*0.23,-0.72*0.97) arc (283.31:360.00:0.72) -- (crossover.center);
+
+\node[rotate=((283.31+360.00)/2.00)-90.00, text=black] at ($(crossover.center)+(+0.43*0.78,-0.43*0.62)$) {\normalsize $3$};
+
+\node[rotate=(-90.00), text=black] at ($(crossover.center)+(+0.90*1.00,+0.90*0.00)$) {\small $0.00$};
+
+\node[rotate=(159.65-90.00), text=black] at ($(crossover.center)+(-0.90*0.94,0.90*0.35)$) {\small $0.44$};
+
+\node[rotate=(283.31-90.00), text=black] at ($(crossover.center)+(+0.90*0.23,-0.90*0.97)$) {\small $0.79$};
+
+\draw (first.west) edge[-Stealth, solid, thick, black, out=240, in=80] (crossover);
+\draw (second.west) edge[-Stealth, solid, thick, black, out=225, in=60] (crossover);
+\draw (third.west) edge[-Stealth, solid, thick, black, out=210, in=40] (crossover);
+\draw (random.west) edge[-Stealth, dashdotted, thick, black, out=180, in=0, opacity=0.00] (crossover);
+\draw (crossover) edge[-Stealth, solid, very thick, black, out=285, in=165, opacity=0.00] (offspring.west);
+\end{tikzpicture}
+}
+\end{figure}
+}
+\only<5>{
+\begin{figure}
+\scalebox{0.75}{
+\begin{tikzpicture}
+\node [fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=120] (first) {\Large Parent $1$};
+\node at (first.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first1) {\Large $0.16$};
+\node at (first1.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first2) {\Large $0.53$};
+\node at (first2.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first3) {\Large $0.85$};
+\node at (first3.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first4) {\Large $0.76$};
+\node at (first4.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first5) {\Large $0.99$};
+\node at (first5.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first6) {\Large $0.06$};
+\node at (first6.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first7) {\Large $0.38$};
+\node at (first7.east) [anchor=west, fill=white, minimum height=30, text=black, align=right, text width=30, xshift=1] (first8) {\large \# $03$};
+
+\node at (first.south) [anchor=north, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=120, yshift=-4] (second) {\Large Parent $2$};
+\node at (second.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second1) {\Large $0.12$};
+\node at (second1.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second2) {\Large $0.63$};
+\node at (second2.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second3) {\Large $0.21$};
+\node at (second3.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second4) {\Large $0.69$};
+\node at (second4.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second5) {\Large $0.08$};
+\node at (second5.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second6) {\Large $0.01$};
+\node at (second6.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second7) {\Large $0.90$};
+\node at (second7.east) [anchor=west, fill=white, minimum height=30, text=black, align=right, text width=30, xshift=1] (second8) {\large \# $05$};
+
+\node at (second.south) [anchor=north, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=120, yshift=-4] (third) {\Large Parent $3$};
+\node at (third.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third1) {\Large $0.91$};
+\node at (third1.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third2) {\Large $0.68$};
+\node at (third2.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third3) {\Large $0.52$};
+\node at (third3.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third4) {\Large $0.02$};
+\node at (third4.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third5) {\Large $0.18$};
+\node at (third5.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third6) {\Large $0.34$};
+\node at (third6.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third7) {\Large $0.22$};
+\node at (third7.east) [anchor=west, fill=white, minimum height=30, text=black, align=right, text width=30, xshift=1] (third8) {\large \# $13$};
+
+\node at (third.south) [anchor=north, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=120, yshift=-8] (random) {\Large Random number};
+\node at (random.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1, opacity=0.00] (random1) {\Large $0.21$};
+\node at (random1.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1, opacity=0.00] (random2) {\Large $0.94$};
+\node at (random2.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1, opacity=0.00] (random3) {\Large $0.52$};
+\node at (random3.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1, opacity=0.00] (random4) {\Large $0.02$};
+\node at (random4.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1, opacity=0.00] (random5) {\Large $0.75$};
+\node at (random5.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1, opacity=0.00] (random6) {\Large $0.17$};
+\node at (random6.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1, opacity=0.00] (random7) {\Large $0.14$};
+
+\node at (random.south) [anchor=north, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=120, yshift=-8, opacity=0.00] (offspring) {\Large Offspring};
+\node at (offspring.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1, opacity=0.00] (offspring1) {\Large $0.16$};
+\node at (offspring1.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1, opacity=0.00] (offspring2) {\Large $0.68$};
+\node at (offspring2.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1, opacity=0.00] (offspring3) {\Large $0.21$};
+\node at (offspring3.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1, opacity=0.00] (offspring4) {\Large $0.76$};
+\node at (offspring4.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1, opacity=0.00] (offspring5) {\Large $0.08$};
+\node at (offspring5.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1, opacity=0.00] (offspring6) {\Large $0.06$};
+\node at (offspring6.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1, opacity=0.00] (offspring7) {\Large $0.38$};
+
+\node at (random.west) [anchor=east, circle, dashed, draw=black, inner sep=0, minimum size=70, opacity=1, ultra thin, xshift=-43] (crossover) {};
+
+\draw[fill={rgb,255:red,94; green,60; blue,153}] (crossover.center) -- (crossover.center)+(0.72*1,0.72*0) arc (0:159.65:0.72) -- (crossover.center);
+
+\node[rotate=((0.00+159.65)/2.00)-90.00, text=white] at ($(crossover.center)+(0.43*0.18,0.43*0.98)$) {\normalsize $1$};
+
+\draw[fill={rgb,255:red,230; green,97; blue,1}] (crossover.center) -- (crossover.center)+(-0.72*0.94,0.72*0.35) arc (159.65:283.31:0.72) -- (crossover.center);
+
+\node[rotate=((159.65+283.31)/2.00)-90.00, text=white] at ($(crossover.center)+(-0.43*0.66,-0.43*0.75)$) {\normalsize $2$};
+
+\draw[fill={rgb,255:red,253; green,184; blue,99}] (crossover.center) -- (crossover.center)+(0.72*0.23,-0.72*0.97) arc (283.31:360.00:0.72) -- (crossover.center);
+
+\node[rotate=((283.31+360.00)/2.00)-90.00, text=black] at ($(crossover.center)+(+0.43*0.78,-0.43*0.62)$) {\normalsize $3$};
+
+\node[rotate=(-90.00), text=black] at ($(crossover.center)+(+0.90*1.00,+0.90*0.00)$) {\small $0.00$};
+
+\node[rotate=(159.65-90.00), text=black] at ($(crossover.center)+(-0.90*0.94,0.90*0.35)$) {\small $0.44$};
+
+\node[rotate=(283.31-90.00), text=black] at ($(crossover.center)+(+0.90*0.23,-0.90*0.97)$) {\small $0.79$};
+
+\draw (first.west) edge[-Stealth, solid, thick, black, out=240, in=80] (crossover);
+\draw (second.west) edge[-Stealth, solid, thick, black, out=225, in=60] (crossover);
+\draw (third.west) edge[-Stealth, solid, thick, black, out=210, in=40] (crossover);
+\draw (random.west) edge[-Stealth, dashdotted, thick, black, out=180, in=0] (crossover);
+\draw (crossover) edge[-Stealth, solid, very thick, black, out=285, in=165, opacity=0.00] (offspring.west);
+\end{tikzpicture}
+}
+\end{figure}
+}
+\only<6>{
+\begin{figure}
+\scalebox{0.75}{
+\begin{tikzpicture}
+\node [fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=120] (first) {\Large Parent $1$};
+\node at (first.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first1) {\Large $0.16$};
+\node at (first1.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first2) {\Large $0.53$};
+\node at (first2.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first3) {\Large $0.85$};
+\node at (first3.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first4) {\Large $0.76$};
+\node at (first4.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first5) {\Large $0.99$};
+\node at (first5.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first6) {\Large $0.06$};
+\node at (first6.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first7) {\Large $0.38$};
+\node at (first7.east) [anchor=west, fill=white, minimum height=30, text=black, align=right, text width=30, xshift=1] (first8) {\large \# $03$};
+
+\node at (first.south) [anchor=north, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=120, yshift=-4] (second) {\Large Parent $2$};
+\node at (second.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second1) {\Large $0.12$};
+\node at (second1.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second2) {\Large $0.63$};
+\node at (second2.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second3) {\Large $0.21$};
+\node at (second3.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second4) {\Large $0.69$};
+\node at (second4.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second5) {\Large $0.08$};
+\node at (second5.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second6) {\Large $0.01$};
+\node at (second6.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second7) {\Large $0.90$};
+\node at (second7.east) [anchor=west, fill=white, minimum height=30, text=black, align=right, text width=30, xshift=1] (second8) {\large \# $05$};
+
+\node at (second.south) [anchor=north, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=120, yshift=-4] (third) {\Large Parent $3$};
+\node at (third.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third1) {\Large $0.91$};
+\node at (third1.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third2) {\Large $0.68$};
+\node at (third2.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third3) {\Large $0.52$};
+\node at (third3.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third4) {\Large $0.02$};
+\node at (third4.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third5) {\Large $0.18$};
+\node at (third5.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third6) {\Large $0.34$};
+\node at (third6.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third7) {\Large $0.22$};
+\node at (third7.east) [anchor=west, fill=white, minimum height=30, text=black, align=right, text width=30, xshift=1] (third8) {\large \# $13$};
+
+\node at (third.south) [anchor=north, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=120, yshift=-8] (random) {\Large Random number};
+\node at (random.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1, opacity=0.00] (random1) {\Large $0.21$};
+\node at (random1.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1, opacity=0.00] (random2) {\Large $0.94$};
+\node at (random2.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1, opacity=0.00] (random3) {\Large $0.52$};
+\node at (random3.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1, opacity=0.00] (random4) {\Large $0.02$};
+\node at (random4.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1, opacity=0.00] (random5) {\Large $0.75$};
+\node at (random5.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1, opacity=0.00] (random6) {\Large $0.17$};
+\node at (random6.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1, opacity=0.00] (random7) {\Large $0.14$};
+
+\node at (random.south) [anchor=north, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=120, yshift=-8] (offspring) {\Large Offspring};
+\node at (offspring.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1, opacity=0.00] (offspring1) {\Large $0.16$};
+\node at (offspring1.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1, opacity=0.00] (offspring2) {\Large $0.68$};
+\node at (offspring2.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1, opacity=0.00] (offspring3) {\Large $0.21$};
+\node at (offspring3.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1, opacity=0.00] (offspring4) {\Large $0.76$};
+\node at (offspring4.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1, opacity=0.00] (offspring5) {\Large $0.08$};
+\node at (offspring5.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1, opacity=0.00] (offspring6) {\Large $0.06$};
+\node at (offspring6.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1, opacity=0.00] (offspring7) {\Large $0.38$};
+
+\node at (random.west) [anchor=east, circle, dashed, draw=black, inner sep=0, minimum size=70, opacity=1, ultra thin, xshift=-43] (crossover) {};
+
+\draw[fill={rgb,255:red,94; green,60; blue,153}] (crossover.center) -- (crossover.center)+(0.72*1,0.72*0) arc (0:159.65:0.72) -- (crossover.center);
+
+\node[rotate=((0.00+159.65)/2.00)-90.00, text=white] at ($(crossover.center)+(0.43*0.18,0.43*0.98)$) {\normalsize $1$};
+
+\draw[fill={rgb,255:red,230; green,97; blue,1}] (crossover.center) -- (crossover.center)+(-0.72*0.94,0.72*0.35) arc (159.65:283.31:0.72) -- (crossover.center);
+
+\node[rotate=((159.65+283.31)/2.00)-90.00, text=white] at ($(crossover.center)+(-0.43*0.66,-0.43*0.75)$) {\normalsize $2$};
+
+\draw[fill={rgb,255:red,253; green,184; blue,99}] (crossover.center) -- (crossover.center)+(0.72*0.23,-0.72*0.97) arc (283.31:360.00:0.72) -- (crossover.center);
+
+\node[rotate=((283.31+360.00)/2.00)-90.00, text=black] at ($(crossover.center)+(+0.43*0.78,-0.43*0.62)$) {\normalsize $3$};
+
+\node[rotate=(-90.00), text=black] at ($(crossover.center)+(+0.90*1.00,+0.90*0.00)$) {\small $0.00$};
+
+\node[rotate=(159.65-90.00), text=black] at ($(crossover.center)+(-0.90*0.94,0.90*0.35)$) {\small $0.44$};
+
+\node[rotate=(283.31-90.00), text=black] at ($(crossover.center)+(+0.90*0.23,-0.90*0.97)$) {\small $0.79$};
+
+\draw (first.west) edge[-Stealth, solid, thick, black, out=240, in=80] (crossover);
+\draw (second.west) edge[-Stealth, solid, thick, black, out=225, in=60] (crossover);
+\draw (third.west) edge[-Stealth, solid, thick, black, out=210, in=40] (crossover);
+\draw (random.west) edge[-Stealth, dashdotted, thick, black, out=180, in=0] (crossover);
+\draw (crossover) edge[-Stealth, solid, very thick, black, out=285, in=165] (offspring.west);
+\end{tikzpicture}
+}
+\end{figure}
+}
+\only<7>{
+\begin{figure}
+\scalebox{0.75}{
+\begin{tikzpicture}
+\node [fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=120] (first) {\Large Parent $1$};
+\node at (first.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first1) {\Large $0.16$};
+\node at (first1.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first2) {\Large $0.53$};
+\node at (first2.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first3) {\Large $0.85$};
+\node at (first3.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first4) {\Large $0.76$};
+\node at (first4.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first5) {\Large $0.99$};
+\node at (first5.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first6) {\Large $0.06$};
+\node at (first6.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first7) {\Large $0.38$};
+\node at (first7.east) [anchor=west, fill=white, minimum height=30, text=black, align=right, text width=30, xshift=1] (first8) {\large \# $03$};
+
+\node at (first.south) [anchor=north, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=120, yshift=-4] (second) {\Large Parent $2$};
+\node at (second.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second1) {\Large $0.12$};
+\node at (second1.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second2) {\Large $0.63$};
+\node at (second2.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second3) {\Large $0.21$};
+\node at (second3.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second4) {\Large $0.69$};
+\node at (second4.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second5) {\Large $0.08$};
+\node at (second5.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second6) {\Large $0.01$};
+\node at (second6.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second7) {\Large $0.90$};
+\node at (second7.east) [anchor=west, fill=white, minimum height=30, text=black, align=right, text width=30, xshift=1] (second8) {\large \# $05$};
+
+\node at (second.south) [anchor=north, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=120, yshift=-4] (third) {\Large Parent $3$};
+\node at (third.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third1) {\Large $0.91$};
+\node at (third1.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third2) {\Large $0.68$};
+\node at (third2.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third3) {\Large $0.52$};
+\node at (third3.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third4) {\Large $0.02$};
+\node at (third4.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third5) {\Large $0.18$};
+\node at (third5.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third6) {\Large $0.34$};
+\node at (third6.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third7) {\Large $0.22$};
+\node at (third7.east) [anchor=west, fill=white, minimum height=30, text=black, align=right, text width=30, xshift=1] (third8) {\large \# $13$};
+
+\node at (third.south) [anchor=north, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=120, yshift=-8] (random) {\Large Random number};
+\node at (random.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1] (random1) {\Large $0.21$};
+\node at (random1.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1, opacity=0.00] (random2) {\Large $0.94$};
+\node at (random2.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1, opacity=0.00] (random3) {\Large $0.52$};
+\node at (random3.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1, opacity=0.00] (random4) {\Large $0.02$};
+\node at (random4.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1, opacity=0.00] (random5) {\Large $0.75$};
+\node at (random5.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1, opacity=0.00] (random6) {\Large $0.17$};
+\node at (random6.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1, opacity=0.00] (random7) {\Large $0.14$};
+
+\node at (random.south) [anchor=north, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=120, yshift=-8] (offspring) {\Large Offspring};
+\node at (offspring.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (offspring1) {\Large $0.16$};
+\node at (offspring1.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1, opacity=0.00] (offspring2) {\Large $0.68$};
+\node at (offspring2.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1, opacity=0.00] (offspring3) {\Large $0.21$};
+\node at (offspring3.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1, opacity=0.00] (offspring4) {\Large $0.76$};
+\node at (offspring4.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1, opacity=0.00] (offspring5) {\Large $0.08$};
+\node at (offspring5.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1, opacity=0.00] (offspring6) {\Large $0.06$};
+\node at (offspring6.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1, opacity=0.00] (offspring7) {\Large $0.38$};
+
+\node at (random.west) [anchor=east, circle, dashed, draw=black, inner sep=0, minimum size=70, opacity=1, ultra thin, xshift=-43] (crossover) {};
+
+\draw[fill={rgb,255:red,94; green,60; blue,153}] (crossover.center) -- (crossover.center)+(0.72*1,0.72*0) arc (0:159.65:0.72) -- (crossover.center);
+
+\node[rotate=((0.00+159.65)/2.00)-90.00, text=white] at ($(crossover.center)+(0.43*0.18,0.43*0.98)$) {\normalsize $1$};
+
+\draw[fill={rgb,255:red,230; green,97; blue,1}] (crossover.center) -- (crossover.center)+(-0.72*0.94,0.72*0.35) arc (159.65:283.31:0.72) -- (crossover.center);
+
+\node[rotate=((159.65+283.31)/2.00)-90.00, text=white] at ($(crossover.center)+(-0.43*0.66,-0.43*0.75)$) {\normalsize $2$};
+
+\draw[fill={rgb,255:red,253; green,184; blue,99}] (crossover.center) -- (crossover.center)+(0.72*0.23,-0.72*0.97) arc (283.31:360.00:0.72) -- (crossover.center);
+
+\node[rotate=((283.31+360.00)/2.00)-90.00, text=black] at ($(crossover.center)+(+0.43*0.78,-0.43*0.62)$) {\normalsize $3$};
+
+\node[rotate=(-90.00), text=black] at ($(crossover.center)+(+0.90*1.00,+0.90*0.00)$) {\small $0.00$};
+
+\node[rotate=(159.65-90.00), text=black] at ($(crossover.center)+(-0.90*0.94,0.90*0.35)$) {\small $0.44$};
+
+\node[rotate=(283.31-90.00), text=black] at ($(crossover.center)+(+0.90*0.23,-0.90*0.97)$) {\small $0.79$};
+
+\draw (first.west) edge[-Stealth, solid, thick, black, out=240, in=80] (crossover);
+\draw (second.west) edge[-Stealth, solid, thick, black, out=225, in=60] (crossover);
+\draw (third.west) edge[-Stealth, solid, thick, black, out=210, in=40] (crossover);
+\draw (random.west) edge[-Stealth, dashdotted, thick, black, out=180, in=0] (crossover);
+\draw (crossover) edge[-Stealth, solid, very thick, black, out=285, in=165] (offspring.west);
+\end{tikzpicture}
+}
+\end{figure}
+}
+\only<8>{
+\begin{figure}
+\scalebox{0.75}{
+\begin{tikzpicture}
+\node [fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=120] (first) {\Large Parent $1$};
+\node at (first.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first1) {\Large $0.16$};
+\node at (first1.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first2) {\Large $0.53$};
+\node at (first2.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first3) {\Large $0.85$};
+\node at (first3.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first4) {\Large $0.76$};
+\node at (first4.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first5) {\Large $0.99$};
+\node at (first5.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first6) {\Large $0.06$};
+\node at (first6.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first7) {\Large $0.38$};
+\node at (first7.east) [anchor=west, fill=white, minimum height=30, text=black, align=right, text width=30, xshift=1] (first8) {\large \# $03$};
+
+\node at (first.south) [anchor=north, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=120, yshift=-4] (second) {\Large Parent $2$};
+\node at (second.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second1) {\Large $0.12$};
+\node at (second1.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second2) {\Large $0.63$};
+\node at (second2.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second3) {\Large $0.21$};
+\node at (second3.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second4) {\Large $0.69$};
+\node at (second4.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second5) {\Large $0.08$};
+\node at (second5.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second6) {\Large $0.01$};
+\node at (second6.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second7) {\Large $0.90$};
+\node at (second7.east) [anchor=west, fill=white, minimum height=30, text=black, align=right, text width=30, xshift=1] (second8) {\large \# $05$};
+
+\node at (second.south) [anchor=north, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=120, yshift=-4] (third) {\Large Parent $3$};
+\node at (third.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third1) {\Large $0.91$};
+\node at (third1.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third2) {\Large $0.68$};
+\node at (third2.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third3) {\Large $0.52$};
+\node at (third3.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third4) {\Large $0.02$};
+\node at (third4.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third5) {\Large $0.18$};
+\node at (third5.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third6) {\Large $0.34$};
+\node at (third6.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third7) {\Large $0.22$};
+\node at (third7.east) [anchor=west, fill=white, minimum height=30, text=black, align=right, text width=30, xshift=1] (third8) {\large \# $13$};
+
+\node at (third.south) [anchor=north, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=120, yshift=-8] (random) {\Large Random number};
+\node at (random.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1] (random1) {\Large $0.21$};
+\node at (random1.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1] (random2) {\Large $0.94$};
+\node at (random2.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1, opacity=0.00] (random3) {\Large $0.52$};
+\node at (random3.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1, opacity=0.00] (random4) {\Large $0.02$};
+\node at (random4.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1, opacity=0.00] (random5) {\Large $0.75$};
+\node at (random5.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1, opacity=0.00] (random6) {\Large $0.17$};
+\node at (random6.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1, opacity=0.00] (random7) {\Large $0.14$};
+
+\node at (random.south) [anchor=north, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=120, yshift=-8] (offspring) {\Large Offspring};
+\node at (offspring.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (offspring1) {\Large $0.16$};
+\node at (offspring1.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (offspring2) {\Large $0.68$};
+\node at (offspring2.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1, opacity=0.00] (offspring3) {\Large $0.21$};
+\node at (offspring3.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1, opacity=0.00] (offspring4) {\Large $0.76$};
+\node at (offspring4.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1, opacity=0.00] (offspring5) {\Large $0.08$};
+\node at (offspring5.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1, opacity=0.00] (offspring6) {\Large $0.06$};
+\node at (offspring6.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1, opacity=0.00] (offspring7) {\Large $0.38$};
+
+\node at (random.west) [anchor=east, circle, dashed, draw=black, inner sep=0, minimum size=70, opacity=1, ultra thin, xshift=-43] (crossover) {};
+
+\draw[fill={rgb,255:red,94; green,60; blue,153}] (crossover.center) -- (crossover.center)+(0.72*1,0.72*0) arc (0:159.65:0.72) -- (crossover.center);
+
+\node[rotate=((0.00+159.65)/2.00)-90.00, text=white] at ($(crossover.center)+(0.43*0.18,0.43*0.98)$) {\normalsize $1$};
+
+\draw[fill={rgb,255:red,230; green,97; blue,1}] (crossover.center) -- (crossover.center)+(-0.72*0.94,0.72*0.35) arc (159.65:283.31:0.72) -- (crossover.center);
+
+\node[rotate=((159.65+283.31)/2.00)-90.00, text=white] at ($(crossover.center)+(-0.43*0.66,-0.43*0.75)$) {\normalsize $2$};
+
+\draw[fill={rgb,255:red,253; green,184; blue,99}] (crossover.center) -- (crossover.center)+(0.72*0.23,-0.72*0.97) arc (283.31:360.00:0.72) -- (crossover.center);
+
+\node[rotate=((283.31+360.00)/2.00)-90.00, text=black] at ($(crossover.center)+(+0.43*0.78,-0.43*0.62)$) {\normalsize $3$};
+
+\node[rotate=(-90.00), text=black] at ($(crossover.center)+(+0.90*1.00,+0.90*0.00)$) {\small $0.00$};
+
+\node[rotate=(159.65-90.00), text=black] at ($(crossover.center)+(-0.90*0.94,0.90*0.35)$) {\small $0.44$};
+
+\node[rotate=(283.31-90.00), text=black] at ($(crossover.center)+(+0.90*0.23,-0.90*0.97)$) {\small $0.79$};
+
+\draw (first.west) edge[-Stealth, solid, thick, black, out=240, in=80] (crossover);
+\draw (second.west) edge[-Stealth, solid, thick, black, out=225, in=60] (crossover);
+\draw (third.west) edge[-Stealth, solid, thick, black, out=210, in=40] (crossover);
+\draw (random.west) edge[-Stealth, dashdotted, thick, black, out=180, in=0] (crossover);
+\draw (crossover) edge[-Stealth, solid, very thick, black, out=285, in=165] (offspring.west);
+\end{tikzpicture}
+}
+\end{figure}
+}
+\only<9>{
+\begin{figure}
+\scalebox{0.75}{
+\begin{tikzpicture}
+\node [fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=120] (first) {\Large Parent $1$};
+\node at (first.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first1) {\Large $0.16$};
+\node at (first1.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first2) {\Large $0.53$};
+\node at (first2.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first3) {\Large $0.85$};
+\node at (first3.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first4) {\Large $0.76$};
+\node at (first4.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first5) {\Large $0.99$};
+\node at (first5.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first6) {\Large $0.06$};
+\node at (first6.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first7) {\Large $0.38$};
+\node at (first7.east) [anchor=west, fill=white, minimum height=30, text=black, align=right, text width=30, xshift=1] (first8) {\large \# $03$};
+
+\node at (first.south) [anchor=north, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=120, yshift=-4] (second) {\Large Parent $2$};
+\node at (second.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second1) {\Large $0.12$};
+\node at (second1.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second2) {\Large $0.63$};
+\node at (second2.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second3) {\Large $0.21$};
+\node at (second3.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second4) {\Large $0.69$};
+\node at (second4.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second5) {\Large $0.08$};
+\node at (second5.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second6) {\Large $0.01$};
+\node at (second6.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second7) {\Large $0.90$};
+\node at (second7.east) [anchor=west, fill=white, minimum height=30, text=black, align=right, text width=30, xshift=1] (second8) {\large \# $05$};
+
+\node at (second.south) [anchor=north, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=120, yshift=-4] (third) {\Large Parent $3$};
+\node at (third.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third1) {\Large $0.91$};
+\node at (third1.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third2) {\Large $0.68$};
+\node at (third2.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third3) {\Large $0.52$};
+\node at (third3.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third4) {\Large $0.02$};
+\node at (third4.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third5) {\Large $0.18$};
+\node at (third5.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third6) {\Large $0.34$};
+\node at (third6.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third7) {\Large $0.22$};
+\node at (third7.east) [anchor=west, fill=white, minimum height=30, text=black, align=right, text width=30, xshift=1] (third8) {\large \# $13$};
+
+\node at (third.south) [anchor=north, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=120, yshift=-8] (random) {\Large Random number};
+\node at (random.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1] (random1) {\Large $0.21$};
+\node at (random1.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1] (random2) {\Large $0.94$};
+\node at (random2.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1] (random3) {\Large $0.52$};
+\node at (random3.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1, opacity=0.00] (random4) {\Large $0.02$};
+\node at (random4.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1, opacity=0.00] (random5) {\Large $0.75$};
+\node at (random5.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1, opacity=0.00] (random6) {\Large $0.17$};
+\node at (random6.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1, opacity=0.00] (random7) {\Large $0.14$};
+
+\node at (random.south) [anchor=north, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=120, yshift=-8] (offspring) {\Large Offspring};
+\node at (offspring.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (offspring1) {\Large $0.16$};
+\node at (offspring1.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (offspring2) {\Large $0.68$};
+\node at (offspring2.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (offspring3) {\Large $0.21$};
+\node at (offspring3.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1, opacity=0.00] (offspring4) {\Large $0.76$};
+\node at (offspring4.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1, opacity=0.00] (offspring5) {\Large $0.08$};
+\node at (offspring5.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1, opacity=0.00] (offspring6) {\Large $0.06$};
+\node at (offspring6.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1, opacity=0.00] (offspring7) {\Large $0.38$};
+
+\node at (random.west) [anchor=east, circle, dashed, draw=black, inner sep=0, minimum size=70, opacity=1, ultra thin, xshift=-43] (crossover) {};
+
+\draw[fill={rgb,255:red,94; green,60; blue,153}] (crossover.center) -- (crossover.center)+(0.72*1,0.72*0) arc (0:159.65:0.72) -- (crossover.center);
+
+\node[rotate=((0.00+159.65)/2.00)-90.00, text=white] at ($(crossover.center)+(0.43*0.18,0.43*0.98)$) {\normalsize $1$};
+
+\draw[fill={rgb,255:red,230; green,97; blue,1}] (crossover.center) -- (crossover.center)+(-0.72*0.94,0.72*0.35) arc (159.65:283.31:0.72) -- (crossover.center);
+
+\node[rotate=((159.65+283.31)/2.00)-90.00, text=white] at ($(crossover.center)+(-0.43*0.66,-0.43*0.75)$) {\normalsize $2$};
+
+\draw[fill={rgb,255:red,253; green,184; blue,99}] (crossover.center) -- (crossover.center)+(0.72*0.23,-0.72*0.97) arc (283.31:360.00:0.72) -- (crossover.center);
+
+\node[rotate=((283.31+360.00)/2.00)-90.00, text=black] at ($(crossover.center)+(+0.43*0.78,-0.43*0.62)$) {\normalsize $3$};
+
+\node[rotate=(-90.00), text=black] at ($(crossover.center)+(+0.90*1.00,+0.90*0.00)$) {\small $0.00$};
+
+\node[rotate=(159.65-90.00), text=black] at ($(crossover.center)+(-0.90*0.94,0.90*0.35)$) {\small $0.44$};
+
+\node[rotate=(283.31-90.00), text=black] at ($(crossover.center)+(+0.90*0.23,-0.90*0.97)$) {\small $0.79$};
+
+\draw (first.west) edge[-Stealth, solid, thick, black, out=240, in=80] (crossover);
+\draw (second.west) edge[-Stealth, solid, thick, black, out=225, in=60] (crossover);
+\draw (third.west) edge[-Stealth, solid, thick, black, out=210, in=40] (crossover);
+\draw (random.west) edge[-Stealth, dashdotted, thick, black, out=180, in=0] (crossover);
+\draw (crossover) edge[-Stealth, solid, very thick, black, out=285, in=165] (offspring.west);
+\end{tikzpicture}
+}
+\end{figure}
+}
+\only<10>{
+\begin{figure}
+\scalebox{0.75}{
+\begin{tikzpicture}
+\node [fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=120] (first) {\Large Parent $1$};
+\node at (first.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first1) {\Large $0.16$};
+\node at (first1.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first2) {\Large $0.53$};
+\node at (first2.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first3) {\Large $0.85$};
+\node at (first3.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first4) {\Large $0.76$};
+\node at (first4.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first5) {\Large $0.99$};
+\node at (first5.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first6) {\Large $0.06$};
+\node at (first6.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first7) {\Large $0.38$};
+\node at (first7.east) [anchor=west, fill=white, minimum height=30, text=black, align=right, text width=30, xshift=1] (first8) {\large \# $03$};
+
+\node at (first.south) [anchor=north, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=120, yshift=-4] (second) {\Large Parent $2$};
+\node at (second.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second1) {\Large $0.12$};
+\node at (second1.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second2) {\Large $0.63$};
+\node at (second2.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second3) {\Large $0.21$};
+\node at (second3.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second4) {\Large $0.69$};
+\node at (second4.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second5) {\Large $0.08$};
+\node at (second5.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second6) {\Large $0.01$};
+\node at (second6.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second7) {\Large $0.90$};
+\node at (second7.east) [anchor=west, fill=white, minimum height=30, text=black, align=right, text width=30, xshift=1] (second8) {\large \# $05$};
+
+\node at (second.south) [anchor=north, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=120, yshift=-4] (third) {\Large Parent $3$};
+\node at (third.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third1) {\Large $0.91$};
+\node at (third1.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third2) {\Large $0.68$};
+\node at (third2.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third3) {\Large $0.52$};
+\node at (third3.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third4) {\Large $0.02$};
+\node at (third4.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third5) {\Large $0.18$};
+\node at (third5.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third6) {\Large $0.34$};
+\node at (third6.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third7) {\Large $0.22$};
+\node at (third7.east) [anchor=west, fill=white, minimum height=30, text=black, align=right, text width=30, xshift=1] (third8) {\large \# $13$};
+
+\node at (third.south) [anchor=north, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=120, yshift=-8] (random) {\Large Random number};
+\node at (random.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1] (random1) {\Large $0.21$};
+\node at (random1.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1] (random2) {\Large $0.94$};
+\node at (random2.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1] (random3) {\Large $0.52$};
+\node at (random3.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1] (random4) {\Large $0.02$};
+\node at (random4.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1, opacity=0.00] (random5) {\Large $0.75$};
+\node at (random5.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1, opacity=0.00] (random6) {\Large $0.17$};
+\node at (random6.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1, opacity=0.00] (random7) {\Large $0.14$};
+
+\node at (random.south) [anchor=north, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=120, yshift=-8] (offspring) {\Large Offspring};
+\node at (offspring.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (offspring1) {\Large $0.16$};
+\node at (offspring1.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (offspring2) {\Large $0.68$};
+\node at (offspring2.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (offspring3) {\Large $0.21$};
+\node at (offspring3.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (offspring4) {\Large $0.76$};
+\node at (offspring4.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1, opacity=0.00] (offspring5) {\Large $0.08$};
+\node at (offspring5.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1, opacity=0.00] (offspring6) {\Large $0.06$};
+\node at (offspring6.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1, opacity=0.00] (offspring7) {\Large $0.38$};
+
+\node at (random.west) [anchor=east, circle, dashed, draw=black, inner sep=0, minimum size=70, opacity=1, ultra thin, xshift=-43] (crossover) {};
+
+\draw[fill={rgb,255:red,94; green,60; blue,153}] (crossover.center) -- (crossover.center)+(0.72*1,0.72*0) arc (0:159.65:0.72) -- (crossover.center);
+
+\node[rotate=((0.00+159.65)/2.00)-90.00, text=white] at ($(crossover.center)+(0.43*0.18,0.43*0.98)$) {\normalsize $1$};
+
+\draw[fill={rgb,255:red,230; green,97; blue,1}] (crossover.center) -- (crossover.center)+(-0.72*0.94,0.72*0.35) arc (159.65:283.31:0.72) -- (crossover.center);
+
+\node[rotate=((159.65+283.31)/2.00)-90.00, text=white] at ($(crossover.center)+(-0.43*0.66,-0.43*0.75)$) {\normalsize $2$};
+
+\draw[fill={rgb,255:red,253; green,184; blue,99}] (crossover.center) -- (crossover.center)+(0.72*0.23,-0.72*0.97) arc (283.31:360.00:0.72) -- (crossover.center);
+
+\node[rotate=((283.31+360.00)/2.00)-90.00, text=black] at ($(crossover.center)+(+0.43*0.78,-0.43*0.62)$) {\normalsize $3$};
+
+\node[rotate=(-90.00), text=black] at ($(crossover.center)+(+0.90*1.00,+0.90*0.00)$) {\small $0.00$};
+
+\node[rotate=(159.65-90.00), text=black] at ($(crossover.center)+(-0.90*0.94,0.90*0.35)$) {\small $0.44$};
+
+\node[rotate=(283.31-90.00), text=black] at ($(crossover.center)+(+0.90*0.23,-0.90*0.97)$) {\small $0.79$};
+
+\draw (first.west) edge[-Stealth, solid, thick, black, out=240, in=80] (crossover);
+\draw (second.west) edge[-Stealth, solid, thick, black, out=225, in=60] (crossover);
+\draw (third.west) edge[-Stealth, solid, thick, black, out=210, in=40] (crossover);
+\draw (random.west) edge[-Stealth, dashdotted, thick, black, out=180, in=0] (crossover);
+\draw (crossover) edge[-Stealth, solid, very thick, black, out=285, in=165] (offspring.west);
+\end{tikzpicture}
+}
+\end{figure}
+}
+\only<11>{
+\begin{figure}
+\scalebox{0.75}{
+\begin{tikzpicture}
+\node [fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=120] (first) {\Large Parent $1$};
+\node at (first.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first1) {\Large $0.16$};
+\node at (first1.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first2) {\Large $0.53$};
+\node at (first2.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first3) {\Large $0.85$};
+\node at (first3.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first4) {\Large $0.76$};
+\node at (first4.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first5) {\Large $0.99$};
+\node at (first5.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first6) {\Large $0.06$};
+\node at (first6.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first7) {\Large $0.38$};
+\node at (first7.east) [anchor=west, fill=white, minimum height=30, text=black, align=right, text width=30, xshift=1] (first8) {\large \# $03$};
+
+\node at (first.south) [anchor=north, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=120, yshift=-4] (second) {\Large Parent $2$};
+\node at (second.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second1) {\Large $0.12$};
+\node at (second1.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second2) {\Large $0.63$};
+\node at (second2.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second3) {\Large $0.21$};
+\node at (second3.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second4) {\Large $0.69$};
+\node at (second4.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second5) {\Large $0.08$};
+\node at (second5.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second6) {\Large $0.01$};
+\node at (second6.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second7) {\Large $0.90$};
+\node at (second7.east) [anchor=west, fill=white, minimum height=30, text=black, align=right, text width=30, xshift=1] (second8) {\large \# $05$};
+
+\node at (second.south) [anchor=north, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=120, yshift=-4] (third) {\Large Parent $3$};
+\node at (third.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third1) {\Large $0.91$};
+\node at (third1.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third2) {\Large $0.68$};
+\node at (third2.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third3) {\Large $0.52$};
+\node at (third3.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third4) {\Large $0.02$};
+\node at (third4.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third5) {\Large $0.18$};
+\node at (third5.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third6) {\Large $0.34$};
+\node at (third6.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third7) {\Large $0.22$};
+\node at (third7.east) [anchor=west, fill=white, minimum height=30, text=black, align=right, text width=30, xshift=1] (third8) {\large \# $13$};
+
+\node at (third.south) [anchor=north, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=120, yshift=-8] (random) {\Large Random number};
+\node at (random.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1] (random1) {\Large $0.21$};
+\node at (random1.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1] (random2) {\Large $0.94$};
+\node at (random2.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1] (random3) {\Large $0.52$};
+\node at (random3.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1] (random4) {\Large $0.02$};
+\node at (random4.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1] (random5) {\Large $0.75$};
+\node at (random5.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1, opacity=0.00] (random6) {\Large $0.17$};
+\node at (random6.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1, opacity=0.00] (random7) {\Large $0.14$};
+
+\node at (random.south) [anchor=north, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=120, yshift=-8] (offspring) {\Large Offspring};
+\node at (offspring.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (offspring1) {\Large $0.16$};
+\node at (offspring1.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (offspring2) {\Large $0.68$};
+\node at (offspring2.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (offspring3) {\Large $0.21$};
+\node at (offspring3.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (offspring4) {\Large $0.76$};
+\node at (offspring4.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (offspring5) {\Large $0.08$};
+\node at (offspring5.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1, opacity=0.00] (offspring6) {\Large $0.06$};
+\node at (offspring6.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1, opacity=0.00] (offspring7) {\Large $0.38$};
+
+\node at (random.west) [anchor=east, circle, dashed, draw=black, inner sep=0, minimum size=70, opacity=1, ultra thin, xshift=-43] (crossover) {};
+
+\draw[fill={rgb,255:red,94; green,60; blue,153}] (crossover.center) -- (crossover.center)+(0.72*1,0.72*0) arc (0:159.65:0.72) -- (crossover.center);
+
+\node[rotate=((0.00+159.65)/2.00)-90.00, text=white] at ($(crossover.center)+(0.43*0.18,0.43*0.98)$) {\normalsize $1$};
+
+\draw[fill={rgb,255:red,230; green,97; blue,1}] (crossover.center) -- (crossover.center)+(-0.72*0.94,0.72*0.35) arc (159.65:283.31:0.72) -- (crossover.center);
+
+\node[rotate=((159.65+283.31)/2.00)-90.00, text=white] at ($(crossover.center)+(-0.43*0.66,-0.43*0.75)$) {\normalsize $2$};
+
+\draw[fill={rgb,255:red,253; green,184; blue,99}] (crossover.center) -- (crossover.center)+(0.72*0.23,-0.72*0.97) arc (283.31:360.00:0.72) -- (crossover.center);
+
+\node[rotate=((283.31+360.00)/2.00)-90.00, text=black] at ($(crossover.center)+(+0.43*0.78,-0.43*0.62)$) {\normalsize $3$};
+
+\node[rotate=(-90.00), text=black] at ($(crossover.center)+(+0.90*1.00,+0.90*0.00)$) {\small $0.00$};
+
+\node[rotate=(159.65-90.00), text=black] at ($(crossover.center)+(-0.90*0.94,0.90*0.35)$) {\small $0.44$};
+
+\node[rotate=(283.31-90.00), text=black] at ($(crossover.center)+(+0.90*0.23,-0.90*0.97)$) {\small $0.79$};
+
+\draw (first.west) edge[-Stealth, solid, thick, black, out=240, in=80] (crossover);
+\draw (second.west) edge[-Stealth, solid, thick, black, out=225, in=60] (crossover);
+\draw (third.west) edge[-Stealth, solid, thick, black, out=210, in=40] (crossover);
+\draw (random.west) edge[-Stealth, dashdotted, thick, black, out=180, in=0] (crossover);
+\draw (crossover) edge[-Stealth, solid, very thick, black, out=285, in=165] (offspring.west);
+\end{tikzpicture}
+}
+\end{figure}
+}
+\only<12>{
+\begin{figure}
+\scalebox{0.75}{
+\begin{tikzpicture}
+\node [fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=120] (first) {\Large Parent $1$};
+\node at (first.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first1) {\Large $0.16$};
+\node at (first1.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first2) {\Large $0.53$};
+\node at (first2.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first3) {\Large $0.85$};
+\node at (first3.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first4) {\Large $0.76$};
+\node at (first4.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first5) {\Large $0.99$};
+\node at (first5.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first6) {\Large $0.06$};
+\node at (first6.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first7) {\Large $0.38$};
+\node at (first7.east) [anchor=west, fill=white, minimum height=30, text=black, align=right, text width=30, xshift=1] (first8) {\large \# $03$};
+
+\node at (first.south) [anchor=north, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=120, yshift=-4] (second) {\Large Parent $2$};
+\node at (second.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second1) {\Large $0.12$};
+\node at (second1.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second2) {\Large $0.63$};
+\node at (second2.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second3) {\Large $0.21$};
+\node at (second3.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second4) {\Large $0.69$};
+\node at (second4.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second5) {\Large $0.08$};
+\node at (second5.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second6) {\Large $0.01$};
+\node at (second6.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second7) {\Large $0.90$};
+\node at (second7.east) [anchor=west, fill=white, minimum height=30, text=black, align=right, text width=30, xshift=1] (second8) {\large \# $05$};
+
+\node at (second.south) [anchor=north, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=120, yshift=-4] (third) {\Large Parent $3$};
+\node at (third.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third1) {\Large $0.91$};
+\node at (third1.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third2) {\Large $0.68$};
+\node at (third2.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third3) {\Large $0.52$};
+\node at (third3.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third4) {\Large $0.02$};
+\node at (third4.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third5) {\Large $0.18$};
+\node at (third5.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third6) {\Large $0.34$};
+\node at (third6.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third7) {\Large $0.22$};
+\node at (third7.east) [anchor=west, fill=white, minimum height=30, text=black, align=right, text width=30, xshift=1] (third8) {\large \# $13$};
+
+\node at (third.south) [anchor=north, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=120, yshift=-8] (random) {\Large Random number};
+\node at (random.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1] (random1) {\Large $0.21$};
+\node at (random1.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1] (random2) {\Large $0.94$};
+\node at (random2.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1] (random3) {\Large $0.52$};
+\node at (random3.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1] (random4) {\Large $0.02$};
+\node at (random4.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1] (random5) {\Large $0.75$};
+\node at (random5.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1] (random6) {\Large $0.17$};
+\node at (random6.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1, opacity=0.00] (random7) {\Large $0.14$};
+
+\node at (random.south) [anchor=north, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=120, yshift=-8] (offspring) {\Large Offspring};
+\node at (offspring.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (offspring1) {\Large $0.16$};
+\node at (offspring1.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (offspring2) {\Large $0.68$};
+\node at (offspring2.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (offspring3) {\Large $0.21$};
+\node at (offspring3.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (offspring4) {\Large $0.76$};
+\node at (offspring4.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (offspring5) {\Large $0.08$};
+\node at (offspring5.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (offspring6) {\Large $0.06$};
+\node at (offspring6.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1, opacity=0.00] (offspring7) {\Large $0.38$};
+
+\node at (random.west) [anchor=east, circle, dashed, draw=black, inner sep=0, minimum size=70, opacity=1, ultra thin, xshift=-43] (crossover) {};
+
+\draw[fill={rgb,255:red,94; green,60; blue,153}] (crossover.center) -- (crossover.center)+(0.72*1,0.72*0) arc (0:159.65:0.72) -- (crossover.center);
+
+\node[rotate=((0.00+159.65)/2.00)-90.00, text=white] at ($(crossover.center)+(0.43*0.18,0.43*0.98)$) {\normalsize $1$};
+
+\draw[fill={rgb,255:red,230; green,97; blue,1}] (crossover.center) -- (crossover.center)+(-0.72*0.94,0.72*0.35) arc (159.65:283.31:0.72) -- (crossover.center);
+
+\node[rotate=((159.65+283.31)/2.00)-90.00, text=white] at ($(crossover.center)+(-0.43*0.66,-0.43*0.75)$) {\normalsize $2$};
+
+\draw[fill={rgb,255:red,253; green,184; blue,99}] (crossover.center) -- (crossover.center)+(0.72*0.23,-0.72*0.97) arc (283.31:360.00:0.72) -- (crossover.center);
+
+\node[rotate=((283.31+360.00)/2.00)-90.00, text=black] at ($(crossover.center)+(+0.43*0.78,-0.43*0.62)$) {\normalsize $3$};
+
+\node[rotate=(-90.00), text=black] at ($(crossover.center)+(+0.90*1.00,+0.90*0.00)$) {\small $0.00$};
+
+\node[rotate=(159.65-90.00), text=black] at ($(crossover.center)+(-0.90*0.94,0.90*0.35)$) {\small $0.44$};
+
+\node[rotate=(283.31-90.00), text=black] at ($(crossover.center)+(+0.90*0.23,-0.90*0.97)$) {\small $0.79$};
+
+\draw (first.west) edge[-Stealth, solid, thick, black, out=240, in=80] (crossover);
+\draw (second.west) edge[-Stealth, solid, thick, black, out=225, in=60] (crossover);
+\draw (third.west) edge[-Stealth, solid, thick, black, out=210, in=40] (crossover);
+\draw (random.west) edge[-Stealth, dashdotted, thick, black, out=180, in=0] (crossover);
+\draw (crossover) edge[-Stealth, solid, very thick, black, out=285, in=165] (offspring.west);
+\end{tikzpicture}
+}
+\end{figure}
+}
+\only<13>{
+\begin{figure}
+\scalebox{0.75}{
+\begin{tikzpicture}
+\node [fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=120] (first) {\Large Parent $1$};
+\node at (first.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first1) {\Large $0.16$};
+\node at (first1.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first2) {\Large $0.53$};
+\node at (first2.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first3) {\Large $0.85$};
+\node at (first3.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first4) {\Large $0.76$};
+\node at (first4.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first5) {\Large $0.99$};
+\node at (first5.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first6) {\Large $0.06$};
+\node at (first6.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (first7) {\Large $0.38$};
+\node at (first7.east) [anchor=west, fill=white, minimum height=30, text=black, align=right, text width=30, xshift=1] (first8) {\large \# $03$};
+
+\node at (first.south) [anchor=north, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=120, yshift=-4] (second) {\Large Parent $2$};
+\node at (second.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second1) {\Large $0.12$};
+\node at (second1.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second2) {\Large $0.63$};
+\node at (second2.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second3) {\Large $0.21$};
+\node at (second3.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second4) {\Large $0.69$};
+\node at (second4.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second5) {\Large $0.08$};
+\node at (second5.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second6) {\Large $0.01$};
+\node at (second6.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (second7) {\Large $0.90$};
+\node at (second7.east) [anchor=west, fill=white, minimum height=30, text=black, align=right, text width=30, xshift=1] (second8) {\large \# $05$};
+
+\node at (second.south) [anchor=north, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=120, yshift=-4] (third) {\Large Parent $3$};
+\node at (third.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third1) {\Large $0.91$};
+\node at (third1.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third2) {\Large $0.68$};
+\node at (third2.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third3) {\Large $0.52$};
+\node at (third3.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third4) {\Large $0.02$};
+\node at (third4.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third5) {\Large $0.18$};
+\node at (third5.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third6) {\Large $0.34$};
+\node at (third6.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (third7) {\Large $0.22$};
+\node at (third7.east) [anchor=west, fill=white, minimum height=30, text=black, align=right, text width=30, xshift=1] (third8) {\large \# $13$};
+
+\node at (third.south) [anchor=north, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=120, yshift=-8] (random) {\Large Random number};
+\node at (random.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1] (random1) {\Large $0.21$};
+\node at (random1.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1] (random2) {\Large $0.94$};
+\node at (random2.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1] (random3) {\Large $0.52$};
+\node at (random3.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1] (random4) {\Large $0.02$};
+\node at (random4.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1] (random5) {\Large $0.75$};
+\node at (random5.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1] (random6) {\Large $0.17$};
+\node at (random6.east) [anchor=west, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=30, xshift=1] (random7) {\Large $0.14$};
+
+\node at (random.south) [anchor=north, fill={rgb,255:red,178; green,171; blue,210}, minimum height=30, text=black, text centered, text width=120, yshift=-8] (offspring) {\Large Offspring};
+\node at (offspring.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (offspring1) {\Large $0.16$};
+\node at (offspring1.east) [anchor=west, fill={rgb,255:red,253; green,184; blue,99}, minimum height=30, text=black, text centered, text width=30, xshift=1] (offspring2) {\Large $0.68$};
+\node at (offspring2.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (offspring3) {\Large $0.21$};
+\node at (offspring3.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (offspring4) {\Large $0.76$};
+\node at (offspring4.east) [anchor=west, fill={rgb,255:red,230; green,97; blue,1}, minimum height=30, text=white, text centered, text width=30, xshift=1] (offspring5) {\Large $0.08$};
+\node at (offspring5.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (offspring6) {\Large $0.06$};
+\node at (offspring6.east) [anchor=west, fill={rgb,255:red,94; green,60; blue,153}, minimum height=30, text=white, text centered, text width=30, xshift=1] (offspring7) {\Large $0.38$};
+
+\node at (random.west) [anchor=east, circle, dashed, draw=black, inner sep=0, minimum size=70, opacity=1, ultra thin, xshift=-43] (crossover) {};
+
+\draw[fill={rgb,255:red,94; green,60; blue,153}] (crossover.center) -- (crossover.center)+(0.72*1,0.72*0) arc (0:159.65:0.72) -- (crossover.center);
+
+\node[rotate=((0.00+159.65)/2.00)-90.00, text=white] at ($(crossover.center)+(0.43*0.18,0.43*0.98)$) {\normalsize $1$};
+
+\draw[fill={rgb,255:red,230; green,97; blue,1}] (crossover.center) -- (crossover.center)+(-0.72*0.94,0.72*0.35) arc (159.65:283.31:0.72) -- (crossover.center);
+
+\node[rotate=((159.65+283.31)/2.00)-90.00, text=white] at ($(crossover.center)+(-0.43*0.66,-0.43*0.75)$) {\normalsize $2$};
+
+\draw[fill={rgb,255:red,253; green,184; blue,99}] (crossover.center) -- (crossover.center)+(0.72*0.23,-0.72*0.97) arc (283.31:360.00:0.72) -- (crossover.center);
+
+\node[rotate=((283.31+360.00)/2.00)-90.00, text=black] at ($(crossover.center)+(+0.43*0.78,-0.43*0.62)$) {\normalsize $3$};
+
+\node[rotate=(-90.00), text=black] at ($(crossover.center)+(+0.90*1.00,+0.90*0.00)$) {\small $0.00$};
+
+\node[rotate=(159.65-90.00), text=black] at ($(crossover.center)+(-0.90*0.94,0.90*0.35)$) {\small $0.44$};
+
+\node[rotate=(283.31-90.00), text=black] at ($(crossover.center)+(+0.90*0.23,-0.90*0.97)$) {\small $0.79$};
+
+\draw (first.west) edge[-Stealth, solid, thick, black, out=240, in=80] (crossover);
+\draw (second.west) edge[-Stealth, solid, thick, black, out=225, in=60] (crossover);
+\draw (third.west) edge[-Stealth, solid, thick, black, out=210, in=40] (crossover);
+\draw (random.west) edge[-Stealth, dashdotted, thick, black, out=180, in=0] (crossover);
+\draw (crossover) edge[-Stealth, solid, very thick, black, out=285, in=165] (offspring.west);
+\end{tikzpicture}
+}
+\end{figure}
+}
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
 \frametitle{\textsc{NS-BRKGA} at a glance: random keys + memetic decoder}
 
 \begin{center}
