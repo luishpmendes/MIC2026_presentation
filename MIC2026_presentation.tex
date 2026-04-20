@@ -2999,8 +2999,615 @@ Two complementary quality indicators were employed:
 %----------------------------------------------------------------------------------------
 \begin{frame}
 \frametitle{Performance Indicators}
-\framesubtitle{Hypervolume Ratio}
+\framesubtitle{Hypervolume Ratio~($\HVR$)}
+\only<1>{
+\begin{figure}
+\begin{tikzpicture}
+\begin{axis}[
+axis lines = left,
+xlabel = $f_{1}(\textrm{minimize})$,
+ylabel = $f_{2}(\textrm{minimize})$,
+xmin = 00.00,
+xmax = 10.00,
+ymin = 00.00,
+ymax = 10.00,
+xtick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+]
+\end{axis}
+\end{tikzpicture}
+\end{figure}
+}
+\only<2>{
+\begin{figure}
+\scalebox{0.88}{
+\begin{tikzpicture}
+\begin{axis}[
+axis lines = left,
+xlabel = $f_{1}(\textrm{minimize})$,
+ylabel = $f_{2}(\textrm{minimize})$,
+xmin = 00.00,
+xmax = 10.00,
+ymin = 00.00,
+ymax = 10.00,
+xtick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+]
+\addplot[myblue2, dashed, no marks] coordinates {
+(02.00, 10.00)
+(02.00, 07.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(04.00, 07.00)
+(02.00, 07.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(04.00, 07.00)
+(04.00, 04.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(06.00, 04.00)
+(04.00, 04.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(06.00, 04.00)
+(06.00, 03.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(07.00, 03.00)
+(06.00, 03.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(07.00, 03.00)
+(07.00, 02.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(10.00, 02.00)
+(07.00, 02.00)
+};
 
+\addplot[myblue2, mark=*, only marks] coordinates {
+(02.00, 07.00)
+(04.00, 04.00)
+(06.00, 03.00)
+(07.00, 02.00)
+};
+
+\node[myblue2] at (axis cs:04.88, 03.63) {$S^{\star}$};
+\end{axis}
+\end{tikzpicture}
+}
+\end{figure}
+}
+\only<3>{
+\begin{figure}
+\scalebox{0.88}{
+\begin{tikzpicture}
+\begin{axis}[
+axis lines = left,
+xlabel = $f_{1}(\textrm{minimize})$,
+ylabel = $f_{2}(\textrm{minimize})$,
+xmin = 00.00,
+xmax = 10.00,
+ymin = 00.00,
+ymax = 10.00,
+xtick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+]
+\addplot[myblue2, dashed, no marks] coordinates {
+(02.00, 10.00)
+(02.00, 07.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(04.00, 07.00)
+(02.00, 07.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(04.00, 07.00)
+(04.00, 04.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(06.00, 04.00)
+(04.00, 04.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(06.00, 04.00)
+(06.00, 03.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(07.00, 03.00)
+(06.00, 03.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(07.00, 03.00)
+(07.00, 02.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(10.00, 02.00)
+(07.00, 02.00)
+};
+
+\addplot[mygreen2, dotted, no marks] coordinates {
+(00.00, 09.00)
+(09.00, 09.00)
+};
+\addplot[mygreen2, dotted, no marks] coordinates {
+(09.00, 00.00)
+(09.00, 09.00)
+};
+
+\addplot[myblue2, mark=*, only marks] coordinates {
+(02.00, 07.00)
+(04.00, 04.00)
+(06.00, 03.00)
+(07.00, 02.00)
+};
+
+\addplot[mygreen2, mark=star, only marks] coordinates {
+(09.00, 09.00)
+};
+
+\node[myblue2] at (axis cs:04.88, 03.63) {$S^{\star}$};
+
+\node[mygreen2] at (axis cs:09.45, 09.63) {$\mathbf{y^{ref}}$};
+\end{axis}
+\end{tikzpicture}
+}
+\end{figure}
+}
+\only<4>{
+\begin{figure}
+\scalebox{0.88}{
+\begin{tikzpicture}
+\begin{axis}[
+axis lines = left,
+xlabel = $f_{1}(\textrm{minimize})$,
+ylabel = $f_{2}(\textrm{minimize})$,
+xmin = 00.00,
+xmax = 10.00,
+ymin = 00.00,
+ymax = 10.00,
+xtick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+]
+\addplot[name path=top1, no marks, opacity=0.00] coordinates {
+(02.00, 09.00)
+(09.00, 09.00)
+(09.00, 02.00)
+};
+\addplot[name path=bot1, no marks, opacity=0.00] coordinates {
+(02.00, 09.00)
+(02.00, 07.00)
+(04.00, 07.00)
+(04.00, 04.00)
+(06.00, 04.00)
+(06.00, 03.00)
+(07.00, 03.00)
+(07.00, 02.00)
+(09.00, 02.00)
+};
+
+\addplot [gray, opacity=0.50] fill between [of=top1 and bot1];
+
+\addplot[myblue2, dashed, no marks] coordinates {
+(02.00, 10.00)
+(02.00, 07.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(04.00, 07.00)
+(02.00, 07.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(04.00, 07.00)
+(04.00, 04.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(06.00, 04.00)
+(04.00, 04.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(06.00, 04.00)
+(06.00, 03.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(07.00, 03.00)
+(06.00, 03.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(07.00, 03.00)
+(07.00, 02.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(10.00, 02.00)
+(07.00, 02.00)
+};
+
+\addplot[mygreen2, dotted, no marks] coordinates {
+(00.00, 09.00)
+(09.00, 09.00)
+};
+\addplot[mygreen2, dotted, no marks] coordinates {
+(09.00, 00.00)
+(09.00, 09.00)
+};
+
+\addplot[myblue2, mark=*, only marks] coordinates {
+(02.00, 07.00)
+(04.00, 04.00)
+(06.00, 03.00)
+(07.00, 02.00)
+};
+
+\addplot[mygreen2, mark=star, only marks] coordinates {
+(09.00, 09.00)
+};
+
+\node[myblue2] at (axis cs:04.88, 03.63) {$S^{\star}$};
+
+\node[mygreen2] at (axis cs:09.45, 09.63) {$\mathbf{y^{ref}}$};
+
+\node at (axis cs:06.50, 06.50) {Hypervolume};
+\end{axis}
+\end{tikzpicture}
+}
+\end{figure}
+}
+\only<5>{
+\begin{figure}
+\scalebox{0.88}{
+\begin{tikzpicture}
+\begin{axis}[
+axis lines = left,
+xlabel = $f_{1}(\textrm{minimize})$,
+ylabel = $f_{2}(\textrm{minimize})$,
+xmin = 00.00,
+xmax = 10.00,
+ymin = 00.00,
+ymax = 10.00,
+xtick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+]
+\addplot[name path=top1, no marks, opacity=0.00] coordinates {
+(02.00, 09.00)
+(09.00, 09.00)
+(09.00, 02.00)
+};
+\addplot[name path=bot1, no marks, opacity=0.00] coordinates {
+(02.00, 09.00)
+(02.00, 07.00)
+(04.00, 07.00)
+(04.00, 04.00)
+(06.00, 04.00)
+(06.00, 03.00)
+(07.00, 03.00)
+(07.00, 02.00)
+(09.00, 02.00)
+};
+
+\addplot [gray, opacity=0.50] fill between [of=top1 and bot1];
+
+\addplot[myblue2, dashed, no marks] coordinates {
+(02.00, 10.00)
+(02.00, 07.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(04.00, 07.00)
+(02.00, 07.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(04.00, 07.00)
+(04.00, 04.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(06.00, 04.00)
+(04.00, 04.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(06.00, 04.00)
+(06.00, 03.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(07.00, 03.00)
+(06.00, 03.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(07.00, 03.00)
+(07.00, 02.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(10.00, 02.00)
+(07.00, 02.00)
+};
+
+\addplot[mygreen2, dotted, no marks] coordinates {
+(00.00, 09.00)
+(09.00, 09.00)
+};
+\addplot[mygreen2, dotted, no marks] coordinates {
+(09.00, 00.00)
+(09.00, 09.00)
+};
+
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(01.00, 10.00)
+(01.00, 08.00)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(01.50, 08.00)
+(01.00, 08.00)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(01.50, 08.00)
+(01.50, 05.88)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(02.19, 05.88)
+(01.50, 05.88)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(02.19, 05.88)
+(02.19, 04.28)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(03.08, 04.28)
+(02.19, 04.28)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(03.08, 04.28)
+(03.08, 03.08)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(04.28, 03.08)
+(03.08, 03.08)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(04.28, 03.08)
+(04.28, 02.19)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(05.88, 02.19)
+(04.28, 02.19)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(05.88, 02.19)
+(05.88, 01.50)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(08.00, 01.50)
+(05.88, 01.50)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(08.00, 01.50)
+(08.00, 01.00)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(10.00, 01.00)
+(08.00, 01.00)
+};
+
+\addplot[myblue2, mark=*, only marks] coordinates {
+(02.00, 07.00)
+(04.00, 04.00)
+(06.00, 03.00)
+(07.00, 02.00)
+};
+
+\addplot[mygreen2, mark=star, only marks] coordinates {
+(09.00, 09.00)
+};
+
+\addplot[myorange2, mark=10-pointed star, only marks] coordinates {
+(01.00, 08.00)
+(01.50, 05.88)
+(02.19, 04.28)
+(03.08, 03.08)
+(04.28, 02.19)
+(05.88, 01.50)
+(08.00, 01.00)
+};
+
+\node[myblue2] at (axis cs:04.88, 03.63) {$S^{\star}$};
+
+\node[mygreen2] at (axis cs:09.45, 09.63) {$\mathbf{y^{ref}}$};
+
+\node[myorange2] at (axis cs:02.50, 02.50) {$F^{ref}$};
+
+\node at (axis cs:06.50, 06.50) {Hypervolume};
+\end{axis}
+\end{tikzpicture}
+}
+\end{figure}
+}
+\only<6>{
+\begin{figure}
+\scalebox{0.88}{
+\begin{tikzpicture}
+\begin{axis}[
+axis lines = left,
+xlabel = $f_{1}(\textrm{minimize})$,
+ylabel = $f_{2}(\textrm{minimize})$,
+xmin = 00.00,
+xmax = 10.00,
+ymin = 00.00,
+ymax = 10.00,
+xtick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+]
+\addplot[name path=top1, no marks, opacity=0.00] coordinates {
+(02.00, 09.00)
+(09.00, 09.00)
+(09.00, 02.00)
+};
+\addplot[name path=top2, no marks, opacity=0.00] coordinates {
+(01.00, 09.00)
+(09.00, 09.00)
+(09.00, 01.00)
+};
+\addplot[name path=bot1, no marks, opacity=0.00] coordinates {
+(02.00, 09.00)
+(02.00, 07.00)
+(04.00, 07.00)
+(04.00, 04.00)
+(06.00, 04.00)
+(06.00, 03.00)
+(07.00, 03.00)
+(07.00, 02.00)
+(09.00, 02.00)
+};
+\addplot[name path=bot2, no marks, opacity=0.00] coordinates {
+(01.00, 09.00)
+(01.00, 08.00)
+(01.50, 08.00)
+(01.50, 05.88)
+(02.19, 05.88)
+(02.19, 04.28)
+(03.08, 04.28)
+(03.08, 03.08)
+(04.28, 03.08)
+(04.28, 02.19)
+(05.88, 02.19)
+(05.88, 01.50)
+(08.00, 01.50)
+(08.00, 01.00)
+(09.00, 01.00)
+};
+
+\addplot [gray, opacity=0.33] fill between [of=top1 and bot1];
+\addplot [gray, opacity=0.33] fill between [of=top2 and bot2];
+
+\addplot[myblue2, dashed, no marks] coordinates {
+(02.00, 10.00)
+(02.00, 07.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(04.00, 07.00)
+(02.00, 07.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(04.00, 07.00)
+(04.00, 04.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(06.00, 04.00)
+(04.00, 04.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(06.00, 04.00)
+(06.00, 03.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(07.00, 03.00)
+(06.00, 03.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(07.00, 03.00)
+(07.00, 02.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(10.00, 02.00)
+(07.00, 02.00)
+};
+
+\addplot[mygreen2, dotted, no marks] coordinates {
+(00.00, 09.00)
+(09.00, 09.00)
+};
+\addplot[mygreen2, dotted, no marks] coordinates {
+(09.00, 00.00)
+(09.00, 09.00)
+};
+
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(01.00, 10.00)
+(01.00, 08.00)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(01.50, 08.00)
+(01.00, 08.00)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(01.50, 08.00)
+(01.50, 05.88)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(02.19, 05.88)
+(01.50, 05.88)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(02.19, 05.88)
+(02.19, 04.28)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(03.08, 04.28)
+(02.19, 04.28)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(03.08, 04.28)
+(03.08, 03.08)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(04.28, 03.08)
+(03.08, 03.08)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(04.28, 03.08)
+(04.28, 02.19)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(05.88, 02.19)
+(04.28, 02.19)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(05.88, 02.19)
+(05.88, 01.50)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(08.00, 01.50)
+(05.88, 01.50)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(08.00, 01.50)
+(08.00, 01.00)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(10.00, 01.00)
+(08.00, 01.00)
+};
+
+\addplot[myblue2, mark=*, only marks] coordinates {
+(02.00, 07.00)
+(04.00, 04.00)
+(06.00, 03.00)
+(07.00, 02.00)
+};
+
+\addplot[mygreen2, mark=star, only marks] coordinates {
+(09.00, 09.00)
+};
+
+\addplot[myorange2, mark=10-pointed star, only marks] coordinates {
+(01.00, 08.00)
+(01.50, 05.88)
+(02.19, 04.28)
+(03.08, 03.08)
+(04.28, 02.19)
+(05.88, 01.50)
+(08.00, 01.00)
+};
+
+\node[myblue2] at (axis cs:04.88, 03.63) {$S^{\star}$};
+
+\node[mygreen2] at (axis cs:09.45, 09.63) {$\mathbf{y^{ref}}$};
+
+\node[myorange2] at (axis cs:02.50, 02.50) {$F^{ref}$};
+
+\node at (axis cs:06.50, 06.50) {Hypervolume};
+\node at (axis cs:06.50, 05.75) {Ratio};
+\end{axis}
+\end{tikzpicture}
+}
+\end{figure}
+}
 \end{frame}
 
 %========================================================================================
@@ -3165,7 +3772,7 @@ Algorithm          &                    \multicolumn{3}{c}{$\NIGDplus$ ($\downar
 %----------------------------------------------------------------------------------------
 \begin{frame}[plain]
 \begin{center}
-{\Huge That's all, folks!}
+{\Huge That's all, Folks!}
 \end{center}
 \end{frame}
 
