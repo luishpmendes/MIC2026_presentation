@@ -29,6 +29,7 @@
 \usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule for better rules in tables
 \usepackage{palatino}
 \usepackage[default]{opensans}
+\usepackage{graphicx}
 
 % For algorithm/pseudocode blocks (used in prior decks)
 \usepackage{algorithm}
@@ -43,19 +44,19 @@
 \pgfplotsset{compat=1.18}
 
 % PuOr
-\definecolor{mydarkorange1}{RGB}{230, 97, 1}
-\definecolor{mylightorange1}{RGB}{253, 184, 99}
-\definecolor{mylightblue1}{RGB}{178, 171, 210}
-\definecolor{mydarkblue1}{RGB}{94, 60, 153}
+\definecolor{mydarkorange1}{RGB}{230, 97, 1} % #E66101
+\definecolor{mylightorange1}{RGB}{253, 184, 99} % #FDB863
+\definecolor{mylightblue1}{RGB}{178, 171, 210} % #B2ABD2
+\definecolor{mydarkblue1}{RGB}{94, 60, 153} % #5E3C99
 
 % Dark2
-\definecolor{mygreen2}{RGB}{27, 158, 119}
-\definecolor{myorange2}{RGB}{217, 95, 2}
-\definecolor{myblue2}{RGB}{117, 112, 179}
+\definecolor{mygreen2}{RGB}{27, 158, 119} % #1B9E77
+\definecolor{myorange2}{RGB}{217, 95, 2} % #D95F02
+\definecolor{myblue2}{RGB}{117, 112, 179} % #7570B3
 
 % Custom
-\definecolor{myorange3}{RGB}{229, 118, 26}
-\definecolor{myblue3}{RGB}{127, 114, 180}
+\definecolor{myorange3}{RGB}{229, 118, 26} % #E5761A
+\definecolor{myblue3}{RGB}{127, 114, 180} % #7F72B4
 
 %----------------------------------------------------------------------------------------
 %	SELECT LAYOUT THEME
@@ -2829,20 +2830,30 @@ expected perturbation of $\mathcal{O}(\frac{1}{\eta_{m}})$ in a gene.
 
 ~\\
 
-Generates a new allele as follows: $$c^{\prime}[i] = c[i] + \delta\text{,}$$ where $\delta$ is a perturbation value calculated \\
+Generates a new allele as follows: $$k^{\prime}_{v} = k_{v} + \delta\text{,}$$ where $\delta$ is a perturbation value calculated \\
 from a random number $u \in [0, 1)$, as follows:
 
-$$\delta = \left\{
+\[
+\resizebox{0.99\linewidth}{!}{$
+\delta = \left\{
 \begin{array}{ll}
-(2u + (1 - 2 u) (1 - c[i])^{\eta_{m} + 1})^{\frac{1}{\eta_{m} + 1}} - 1 & \text{if } u < \frac{1}{2}\text{,} \\
-1 - (2 (1 - u) + 2 (u - \frac{1}{2}) (c[i])^{\eta_{m} + 1})^{\frac{1}{\eta_{m} + 1}} & \text{otherwise,}
+(2u + (1 - 2 u) (1 - k_{v})^{\eta_{m} + 1})^{\frac{1}{\eta_{m} + 1}} - 1 & \text{if } u < \frac{1}{2}\text{,} \\
+1 - (2 (1 - u) + 2 (u - \frac{1}{2}) (k_{v})^{\eta_{m} + 1})^{\frac{1}{\eta_{m} + 1}} & \text{otherwise.}
 \end{array}
-\right.$$
+\right.
+$}
+\]
 
 \column{0.38\textwidth}
 \begin{figure}
-\includegraphics[width=0.95\textwidth]{figs/polynomial_mutation.pdf}
+\includegraphics[width=0.99\linewidth]{figs/polynomial_mutation.pdf}
 \end{figure}
+\resizebox{0.99\linewidth}{!}{$
+\begin{aligned}
+k_{v}    &= &0.38 &\Rightarrow & k^{\prime}_{v}                 &\approx 0.38 \pm 0.03 \\
+\eta_{m} &= &50.00   &\Rightarrow & \left|k^{\prime}_{v} - k_{v}\right| &\approx 0.02 \pm 0.02
+\end{aligned}
+$}
 \end{columns}
 \end{frame}
 
@@ -2857,6 +2868,10 @@ $$\delta = \left\{
     ~\\
 
     \item Migration.
+
+    ~\\
+
+    \item Implicit Path-Relinking.
 
     ~\\
 
