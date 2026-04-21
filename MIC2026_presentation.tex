@@ -196,7 +196,9 @@ AT\&T Labs Research\\
 % Presentation date or conference/meeting name, the optional parameter can contain a shortened version to appear on the bottom of every slide, while the required parameter value is output to the title slide
 \date[MIC 2026]{16th Metaheuristics International Conference (MIC 2026)}
 
+\newcommand{\IGDplus}{\mathit{IGD^{+}}}
 \newcommand{\NIGDplus}{\mathit{NIGD^{+}}}
+\newcommand{\HV}{\mathit{HV}}
 \newcommand{\HVR}{\mathit{HVR}}
 
 %----------------------------------------------------------------------------------------
@@ -2981,19 +2983,277 @@ Two complementary quality indicators were employed:
 ~\\
 
 \begin{enumerate}
-\item \textbf{Normalized Modified Inverted Generational Distance} ($\NIGDplus$),
+\item \textbf{Normalized Modified Inverted Generational Distance}~($\NIGDplus$),
 
 ~\\
 
-\item \textbf{Hypervolume Ratio} ($\HVR$).
+\item \textbf{Hypervolume Ratio}~($\HVR$).
 \end{enumerate}
 \end{frame}
 
 %----------------------------------------------------------------------------------------
 \begin{frame}
 \frametitle{Performance Indicators}
-\framesubtitle{Normalized Modified Inverted Generational Distance}
+\framesubtitle{Normalized Modified Inverted Generational Distance~($\NIGDplus$)}
+\only<1>{
+\begin{figure}
+\scalebox{0.88}{
+\begin{tikzpicture}
+\begin{axis}[
+axis lines = left,
+xlabel = $f_{1}(\textrm{minimize})$,
+ylabel = $f_{2}(\textrm{minimize})$,
+xmin = 00.00,
+xmax = 10.00,
+ymin = 00.00,
+ymax = 10.00,
+xtick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+]
 
+\end{axis}
+\end{tikzpicture}
+}
+\end{figure}
+}
+\only<2>{
+\begin{figure}
+\scalebox{0.88}{
+\begin{tikzpicture}
+\begin{axis}[
+axis lines = left,
+xlabel = $f_{1}(\textrm{minimize})$,
+ylabel = $f_{2}(\textrm{minimize})$,
+xmin = 00.00,
+xmax = 10.00,
+ymin = 00.00,
+ymax = 10.00,
+xtick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+]
+\addplot[myblue2, mark=*, only marks] coordinates {
+(02.00, 07.00)
+(04.00, 04.00)
+(06.00, 03.00)
+(07.00, 02.00)
+};
+
+\node[myblue2] at (axis cs:04.88, 03.63) {$S^{\star}$};
+\end{axis}
+\end{tikzpicture}
+}
+\end{figure}
+}
+\only<3>{
+\begin{figure}
+\scalebox{0.88}{
+\begin{tikzpicture}
+\begin{axis}[
+axis lines = left,
+xlabel = $f_{1}(\textrm{minimize})$,
+ylabel = $f_{2}(\textrm{minimize})$,
+xmin = 00.00,
+xmax = 10.00,
+ymin = 00.00,
+ymax = 10.00,
+xtick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+]
+\addplot[myblue2, mark=*, only marks] coordinates {
+(02.00, 07.00)
+(04.00, 04.00)
+(06.00, 03.00)
+(07.00, 02.00)
+};
+
+\addplot[myorange2, mark=10-pointed star, only marks] coordinates {
+(01.00, 08.00)
+(01.50, 05.88)
+(02.19, 04.28)
+(03.08, 03.08)
+(04.28, 02.19)
+(05.88, 01.50)
+(08.00, 01.00)
+};
+
+\node[myblue2] at (axis cs:04.88, 03.63) {$S^{\star}$};
+
+\node[myorange2] at (axis cs:02.50, 02.50) {$F^{ref}$};
+\end{axis}
+\end{tikzpicture}
+}
+\end{figure}
+}
+\only<4>{
+\begin{figure}
+\scalebox{0.88}{
+\begin{tikzpicture}
+\begin{axis}[
+axis lines = left,
+xlabel = $f_{1}(\textrm{minimize})$,
+ylabel = $f_{2}(\textrm{minimize})$,
+xmin = 00.00,
+xmax = 10.00,
+ymin = 00.00,
+ymax = 10.00,
+xtick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+]
+\addplot[myblue2, mark=*, only marks] coordinates {
+(02.00, 07.00)
+(04.00, 04.00)
+(06.00, 03.00)
+(07.00, 02.00)
+};
+
+\addplot[myorange2, mark=10-pointed star, only marks] coordinates {
+(01.00, 08.00)
+(01.50, 05.88)
+(02.19, 04.28)
+(03.08, 03.08)
+(04.28, 02.19)
+(05.88, 01.50)
+(08.00, 01.00)
+};
+
+\node[myblue2] at (axis cs:04.88, 03.63) {$S^{\star}$};
+
+\node[myorange2] at (axis cs:02.50, 02.50) {$F^{ref}$};
+
+\draw[-, dashed](02.00, 07.00)--(01.00, 08.00);
+\draw[-, dashed](02.00, 07.00)--(01.50, 05.88);
+\draw[-, dashed](04.00, 04.00)--(02.19, 04.28);
+\draw[-, dashed](04.00, 04.00)--(03.08, 03.08);
+\draw[-, dashed](04.00, 04.00)--(04.28, 02.19);
+\draw[-, dashed](07.00, 02.00)--(05.88, 01.50);
+\draw[-, dashed](07.00, 02.00)--(08.00, 01.00);
+
+\node at (axis cs:06.50, 06.50) {$\IGDplus$};
+\end{axis}
+\end{tikzpicture}
+}
+\end{figure}
+}
+\only<5>{
+\begin{figure}
+\scalebox{0.88}{
+\begin{tikzpicture}
+\begin{axis}[
+axis lines = left,
+xlabel = $f_{1}(\textrm{minimize})$,
+ylabel = $f_{2}(\textrm{minimize})$,
+xmin = 00.00,
+xmax = 10.00,
+ymin = 00.00,
+ymax = 10.00,
+xtick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+]
+\addplot[myblue2, mark=*, only marks] coordinates {
+(02.00, 07.00)
+(04.00, 04.00)
+(06.00, 03.00)
+(07.00, 02.00)
+};
+
+\addplot[mygreen2, mark=star, only marks] coordinates {
+(09.00, 09.00)
+};
+
+\addplot[myorange2, mark=10-pointed star, only marks] coordinates {
+(01.00, 08.00)
+(01.50, 05.88)
+(02.19, 04.28)
+(03.08, 03.08)
+(04.28, 02.19)
+(05.88, 01.50)
+(08.00, 01.00)
+};
+
+\node[myblue2] at (axis cs:04.88, 03.63) {$S^{\star}$};
+
+\node[mygreen2] at (axis cs:09.45, 09.63) {$\mathbf{y^{ref}}$};
+
+\node[myorange2] at (axis cs:02.50, 02.50) {$F^{ref}$};
+
+\draw[-, dashed](02.00, 07.00)--(01.00, 08.00);
+\draw[-, dashed](02.00, 07.00)--(01.50, 05.88);
+\draw[-, dashed](04.00, 04.00)--(02.19, 04.28);
+\draw[-, dashed](04.00, 04.00)--(03.08, 03.08);
+\draw[-, dashed](04.00, 04.00)--(04.28, 02.19);
+\draw[-, dashed](07.00, 02.00)--(05.88, 01.50);
+\draw[-, dashed](07.00, 02.00)--(08.00, 01.00);
+
+\node at (axis cs:06.50, 06.50) {$\IGDplus$};
+\end{axis}
+\end{tikzpicture}
+}
+\end{figure}
+}
+\only<6>{
+\begin{figure}
+\scalebox{0.88}{
+\begin{tikzpicture}
+\begin{axis}[
+axis lines = left,
+xlabel = $f_{1}(\textrm{minimize})$,
+ylabel = $f_{2}(\textrm{minimize})$,
+xmin = 00.00,
+xmax = 10.00,
+ymin = 00.00,
+ymax = 10.00,
+xtick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+]
+\addplot[myblue2, mark=*, only marks] coordinates {
+(02.00, 07.00)
+(04.00, 04.00)
+(06.00, 03.00)
+(07.00, 02.00)
+};
+
+\addplot[mygreen2, mark=star, only marks] coordinates {
+(09.00, 09.00)
+};
+
+\addplot[myorange2, mark=10-pointed star, only marks] coordinates {
+(01.00, 08.00)
+(01.50, 05.88)
+(02.19, 04.28)
+(03.08, 03.08)
+(04.28, 02.19)
+(05.88, 01.50)
+(08.00, 01.00)
+};
+
+\node[myblue2] at (axis cs:04.88, 03.63) {$S^{\star}$};
+
+\node[mygreen2] at (axis cs:09.45, 09.63) {$\mathbf{y^{ref}}$};
+
+\node[myorange2] at (axis cs:02.50, 02.50) {$F^{ref}$};
+
+\draw[-, dashed](02.00, 07.00)--(01.00, 08.00);
+\draw[-, dashed](02.00, 07.00)--(01.50, 05.88);
+\draw[-, dashed](04.00, 04.00)--(02.19, 04.28);
+\draw[-, dashed](04.00, 04.00)--(03.08, 03.08);
+\draw[-, dashed](04.00, 04.00)--(04.28, 02.19);
+\draw[-, dashed](07.00, 02.00)--(05.88, 01.50);
+\draw[-, dashed](07.00, 02.00)--(08.00, 01.00);
+
+\draw[-, dotted](09.00, 09.00)--(01.00, 08.00);
+\draw[-, dotted](09.00, 09.00)--(01.50, 05.88);
+\draw[-, dotted](09.00, 09.00)--(02.19, 04.28);
+\draw[-, dotted](09.00, 09.00)--(03.08, 03.08);
+\draw[-, dotted](09.00, 09.00)--(04.28, 02.19);
+\draw[-, dotted](09.00, 09.00)--(05.88, 01.50);
+\draw[-, dotted](09.00, 09.00)--(08.00, 01.00);
+
+\node at (axis cs:06.50, 06.50) {$\NIGDplus$};
+\end{axis}
+\end{tikzpicture}
+}
+\end{figure}
+}
 \end{frame}
 
 %----------------------------------------------------------------------------------------
@@ -3248,7 +3508,7 @@ ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
 
 \node[mygreen2] at (axis cs:09.45, 09.63) {$\mathbf{y^{ref}}$};
 
-\node at (axis cs:06.50, 06.50) {Hypervolume};
+\node at (axis cs:06.50, 06.50) {$\HV$};
 \end{axis}
 \end{tikzpicture}
 }
@@ -3414,7 +3674,7 @@ ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
 
 \node[myorange2] at (axis cs:02.50, 02.50) {$F^{ref}$};
 
-\node at (axis cs:06.50, 06.50) {Hypervolume};
+\node at (axis cs:06.50, 06.50) {$\HV$};
 \end{axis}
 \end{tikzpicture}
 }
@@ -3603,8 +3863,7 @@ ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
 
 \node[myorange2] at (axis cs:02.50, 02.50) {$F^{ref}$};
 
-\node at (axis cs:06.50, 06.50) {Hypervolume};
-\node at (axis cs:06.50, 05.75) {Ratio};
+\node at (axis cs:06.50, 06.50) {$\HVR$};
 \end{axis}
 \end{tikzpicture}
 }
