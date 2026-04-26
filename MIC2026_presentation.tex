@@ -3896,6 +3896,7 @@ ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
 %----------------------------------------------------------------------------------------
 \begin{frame}
 \frametitle{Results for a single instance}
+\framesubtitle{pci\_048\_n0135\_orig\_best}
 \begin{figure}
 \centering
 \includegraphics[width=0.42\textwidth]{figs/pci_048_n0135_orig_best.pdf}
@@ -3919,6 +3920,16 @@ ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
 \end{itemize}
 
 % Speaker note: Use this slide to make the main message unambiguous: “best overall, and with low variability”.
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Overall Performance Comparison}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.42\textwidth]{figs/scatter.pdf}
+\end{figure}
 \end{frame}
 
 %----------------------------------------------------------------------------------------
@@ -3968,11 +3979,29 @@ Algorithm          &                    \multicolumn{3}{c}{$\NIGDplus$ ($\downar
 
 \vspace{-0.2em}
 \begin{itemize}
-\item \textsc{NS-BRKGA} is competitive on \texttt{full}/\texttt{orig} and decisively best on \texttt{squz}.
+\item \textsc{NS-BRKGA} is the top performer on all instance types.
 \item On \texttt{squz}: mean $\HVR \approx 0.97$ and mean $\NIGDplus \approx 0.002$.
 \end{itemize}
 
 % Speaker note: Highlight the “small and fragmented feasible region” narrative: this supports why repair + feedback matters.
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Robustness Across Instance Types}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.30\textwidth]{figs/igd_plus_full.pdf}
+\includegraphics[width=0.30\textwidth]{figs/igd_plus_orig.pdf}
+\includegraphics[width=0.30\textwidth]{figs/igd_plus_squz.pdf}
+\end{figure}
+\begin{figure}
+\centering
+\includegraphics[width=0.30\textwidth]{figs/hypervolume_full.pdf}
+\includegraphics[width=0.30\textwidth]{figs/hypervolume_orig.pdf}
+\includegraphics[width=0.30\textwidth]{figs/hypervolume_squz.pdf}
+\end{figure}
 \end{frame}
 
 %----------------------------------------------------------------------------------------
