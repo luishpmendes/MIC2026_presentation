@@ -464,7 +464,7 @@ to find a proper packing.
 \begin{enumerate}
 \item We propose a \textbf{Non-dominated Sorting \textsc{BRKGA} (\textsc{NS-BRKGA})} to solve the \textbf{multi-objective} PCI assignment problem with conflicting objectives.
 
-\item We design a \textbf{random-key encoding + specialized decoder} that combines:
+\item We applied a \textbf{random-key encoding + specialized decoder} that combines:
 \begin{itemize}
 \item fast best-effort \textbf{constraint repair},
 \item \textbf{lexicographically guided} local search, and
@@ -928,7 +928,7 @@ If repair cannot remove all violations, we penalize the first objective:
 \[
 \tilde{f_{1}}(\mathbf{x}) = f_{1}(\mathbf{x}) + M\cdot\big(v_{\mathrm{col}}(\mathbf{x}) + v_{\mathrm{tn}}(\mathbf{x}) + v_{\mathrm{conf}}(\mathbf{x})\big),
 \]
-with a large constant $M$ (set as $M = |N| + 1$ in the paper).
+with a large constant $M$ (set as $M = |N| + 1$).
 
 \bigskip
 
@@ -968,7 +968,7 @@ a_{1} = b_{1}\ \wedge\ a_{2} = b_{2}\ \wedge\ a_{3} < b_{3}.
 
 \begin{itemize}
 \item Local search prioritizes operational objectives in the order $(f_{1}, f_{2}, f_{3})$.
-\item Example (from the paper): increasing $f_{3}$ is accepted only if it improves $f_{2}$ or $f_{1}$.
+\item Example: increasing $f_{3}$ is accepted only if it improves $f_{2}$ or $f_{1}$.
 \end{itemize}
 
 % Speaker note: Clarify: global selection is Pareto-based; lexicographic is only an intensification/tie-breaker inside the decoder.
