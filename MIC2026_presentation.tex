@@ -166,7 +166,7 @@
 %\setbeamertemplate{footline} % Uncomment this line to remove the footer line in all slides
 %\setbeamertemplate{footline}[page number] % Uncomment this line to replace the footer line in all slides with a simple slide count
 
-\setbeamertemplate{navigation symbols}{} % Uncomment this line to remove the navigation symbols from the bottom of all slides
+% \setbeamertemplate{navigation symbols}{} % Uncomment this line to remove the navigation symbols from the bottom of all slides
 
 \setbeamertemplate{page number in head/foot}[framenumber]
 
@@ -339,13 +339,13 @@ very common to find cliques of size $5+$.
 \textbf{Confusion} occurs when a cell has \\
 two neighbors with the same PCI. \\
 When a UE asks for handover, the base station does \\
-not know to which cell itshould hand the UE over.
+not know to which cell it should hand the UE over.
 
 ~\\
 
-In other words, if \textbf{second-level neighbors \\
-(neighbor of neighbors)} have the same PCI \\
-that the current cell, confusion may occur.
+In other words, if \textbf{second-level \\
+neighbors (neighbor of neighbors)}
+\\share a PCI, confusion may occur.
 
 ~\\
 
@@ -585,55 +585,55 @@ Goal: approximate the \textbf{Pareto front} for $(f_{1}, f_{2}, f_{3})$ over fea
 \end{frame}
 
 %----------------------------------------------------------------------------------------
-\begin{frame}
-\frametitle{Non-dominated Sorting Biased Random-Key Genetic Algorithm}
-\framesubtitle{Genetic Algorithm~(\textsc{GA})}
+% \begin{frame}
+% \frametitle{Non-dominated Sorting Biased Random-Key Genetic Algorithm}
+% \framesubtitle{Genetic Algorithm~(\textsc{GA})}
 
-Paradigm that mimics natural evolution.
+% Paradigm that mimics natural evolution.
 
-~\\
+% ~\\
 
-Analogy between a set of solutions and a population of individuals.
+% Analogy between a set of solutions and a population of individuals.
 
-~\\
+% ~\\
 
-Each individual is coded as a chromosome (string of genes).
+% Each individual is coded as a chromosome (string of genes).
 
-\begin{figure}
-\centering
-\includegraphics[width=0.70\linewidth]{figs/evolution.png}
-\end{figure}
-\end{frame}
+% \begin{figure}
+% \centering
+% \includegraphics[width=0.70\linewidth]{figs/evolution.png}
+% \end{figure}
+% \end{frame}
 
 %----------------------------------------------------------------------------------------
-\begin{frame}
-\frametitle{Non-dominated Sorting Biased Random-Key Genetic Algorithm}
-\framesubtitle{Genetic Algorithm~(\textsc{GA})}
+% \begin{frame}
+% \frametitle{Non-dominated Sorting Biased Random-Key Genetic Algorithm}
+% \framesubtitle{Genetic Algorithm~(\textsc{GA})}
 
-\begin{columns}[c,onlytextwidth]
-\column{0.62\textwidth}
-Each individual has a fitness value \\
-related to the solution quality.
+% \begin{columns}[c,onlytextwidth]
+% \column{0.62\textwidth}
+% Each individual has a fitness value \\
+% related to the solution quality.
 
-~\\
+% ~\\
 
-The population evolves over several generations.
+% The population evolves over several generations.
 
-~\\
+% ~\\
 
-A new population is created using \\
-genetic operators (crossover and mutation).
+% A new population is created using \\
+% genetic operators (crossover and mutation).
 
-~\\
+% ~\\
 
-``Survival of the fittest''
+% ``Survival of the fittest''
 
-\column{0.38\textwidth}
-\begin{figure}
-\includegraphics[width=0.70\textwidth]{figs/darwin.png}
-\end{figure}
-\end{columns}
-\end{frame}
+% \column{0.38\textwidth}
+% \begin{figure}
+% \includegraphics[width=0.70\textwidth]{figs/darwin.png}
+% \end{figure}
+% \end{columns}
+% \end{frame}
 
 %----------------------------------------------------------------------------------------
 \begin{frame}
@@ -2902,37 +2902,37 @@ $}
 \begin{frame}
 \frametitle{Experimental Setup}
 
-We performed $5$ independent runs of each algorithm on each test problem on a computer with a CPU of 3.30GHz and 32GB of RAM with a time limit of $15$ minutes.
+We performed $5$ independent runs of each algorithm on each instance on a computer with a CPU of 3.30GHz and 32GB of RAM with a time limit of $15$ minutes.
 \end{frame}
 
 %----------------------------------------------------------------------------------------
-\begin{frame}
-\frametitle{Experimental Setup}
-\framesubtitle{\textsc{NS-BRKGA} parameter settings}
+% \begin{frame}
+% \frametitle{Experimental Setup}
+% \framesubtitle{\textsc{NS-BRKGA} parameter settings}
 
-\begin{table}[!htbp]
-\centering
-\begin{tabular}{ll}
-\toprule
-\textbf{Parameter}                              & \textbf{Value}                                                    \\
-\midrule
-Population size $|P|$ (per subpopulation)       & $300$                                                             \\
-Parent count $\pi$ (elitist $\pi_e$)            & $3$ (with $\pi_e = 2$ elites)                                     \\
-Elite fraction $p^{e}_{\min}$ -- $p^{e}_{\max}$ & $0.10$ -- $0.30$                                                  \\
-Bias function $\Phi(r)$                         & $1/\sqrt{r}$                                                      \\
-Mutation probability $p_{m}$ (index $\eta_{m}$) & $0.01$ ($\eta_{m} = 50$)                                          \\
-Number of subpopulations $p$                    & $3$                                                               \\
-Migration interval (gen), size $k$              & $200$ gen, $k = 30$ solutions                                     \\
-IPR interval (gen)                              & $500$ gen                                                         \\
-Shaking trigger (stagnant gen)                  & $200$ gen ($p_{\text{shake}} = 0.33$, $\eta_{\text{shake}} = 20$) \\
-Reset trigger (stagnant gen)                    & $500$ gen ($p_{\text{reset}} = 0.20$)                             \\
-\bottomrule
-\end{tabular}
-\label{tab:nsbrkga_params}
-\end{table}
+% \begin{table}[!htbp]
+% \centering
+% \begin{tabular}{ll}
+% \toprule
+% \textbf{Parameter}                              & \textbf{Value}                                                    \\
+% \midrule
+% Population size $|P|$ (per subpopulation)       & $300$                                                             \\
+% Parent count $\pi$ (elitist $\pi_e$)            & $3$ (with $\pi_e = 2$ elites)                                     \\
+% Elite fraction $p^{e}_{\min}$ -- $p^{e}_{\max}$ & $0.10$ -- $0.30$                                                  \\
+% Bias function $\Phi(r)$                         & $1/\sqrt{r}$                                                      \\
+% Mutation probability $p_{m}$ (index $\eta_{m}$) & $0.01$ ($\eta_{m} = 50$)                                          \\
+% Number of subpopulations $p$                    & $3$                                                               \\
+% Migration interval (gen), size $k$              & $200$ gen, $k = 30$ solutions                                     \\
+% IPR interval (gen)                              & $500$ gen                                                         \\
+% Shaking trigger (stagnant gen)                  & $200$ gen ($p_{\text{shake}} = 0.33$, $\eta_{\text{shake}} = 20$) \\
+% Reset trigger (stagnant gen)                    & $500$ gen ($p_{\text{reset}} = 0.20$)                             \\
+% \bottomrule
+% \end{tabular}
+% \label{tab:nsbrkga_params}
+% \end{table}
 
-% Speaker note: Optional slide. If time is tight, skip. Use it only if asked about parameters.
-\end{frame}
+% % Speaker note: Optional slide. If time is tight, skip. Use it only if asked about parameters.
+% \end{frame}
 
 %----------------------------------------------------------------------------------------
 \begin{frame}
@@ -3914,15 +3914,15 @@ ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
 
 \begin{figure}
 \centering
-\includegraphics[width=0.42\textwidth]{figs/igd_plus.pdf}
-\includegraphics[width=0.42\textwidth]{figs/hypervolume.pdf}
+\includegraphics[width=0.48\textwidth]{figs/igd_plus.pdf}
+\includegraphics[width=0.48\textwidth]{figs/hypervolume.pdf}
 \end{figure}
 
-\vspace{-0.3em}
-\begin{itemize}
-\item \textsc{NS-BRKGA} attains the best mean ranks on \textbf{both} $\NIGDplus$ and $\HVR$.
-\item Reported means: $\NIGDplus \approx 0.001$ and $\HVR \approx 0.93$ (\textsc{NSGA-II}: $0.009$ and $0.58$).
-\end{itemize}
+% \vspace{-0.3em}
+% \begin{itemize}
+% \item \textsc{NS-BRKGA} attains the best mean ranks on \textbf{both} $\NIGDplus$ and $\HVR$.
+% \item Reported means: $\NIGDplus \approx 0.001$ and $\HVR \approx 0.93$ (\textsc{NSGA-II}: $0.009$ and $0.58$).
+% \end{itemize}
 
 % Speaker note: Use this slide to make the main message unambiguous: “best overall, and with low variability”.
 \end{frame}
@@ -3943,15 +3943,15 @@ ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
 
 \begin{figure}
 \centering
-\includegraphics[width=0.42\textwidth]{figs/igd_plus_mean_per_size.pdf}
-\includegraphics[width=0.42\textwidth]{figs/hypervolume_mean_per_size.pdf}
+\includegraphics[width=0.48\textwidth]{figs/igd_plus_mean_per_size.pdf}
+\includegraphics[width=0.48\textwidth]{figs/hypervolume_mean_per_size.pdf}
 \end{figure}
 
-\vspace{-0.3em}
-\begin{itemize}
-\item As $|V|$ grows, baseline methods degrade, while \textsc{NS-BRKGA} remains stable.
-\item On the largest instances ($|V| = 4125$), \textsc{NS-BRKGA} maintains mean $\HVR \approx 0.87 \pm 0.08$ (\textsc{NSGA-II} $\approx 0.6 \pm 0.1$).
-\end{itemize}
+% \vspace{-0.3em}
+% \begin{itemize}
+% \item As $|V|$ grows, baseline methods degrade, while \textsc{NS-BRKGA} remains stable.
+% \item On the largest instances ($|V| = 4125$), \textsc{NS-BRKGA} maintains mean $\HVR \approx 0.87 \pm 0.08$ (\textsc{NSGA-II} $\approx 0.6 \pm 0.1$).
+% \end{itemize}
 
 % Speaker note: Interpret the curves: NS-BRKGA’s advantage widens at scale.
 \end{frame}
@@ -3964,7 +3964,7 @@ ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
 % \caption{Mean $\NIGDplus$ ($\downarrow$) and $\HVR$ ($\uparrow$) by instance type.}
 \label{table:robustness}
 \centering
-\resizebox{\textwidth}{!}{
+\resizebox{0.99\textwidth}{!}{
 \begin{tabular}{lcccccc}
 \toprule
 Algorithm          &                    \multicolumn{3}{c}{$\NIGDplus$ ($\downarrow$)}                    &                    \multicolumn{3}{c}{$\HVR$ ($\uparrow$)}                     \\
@@ -3982,11 +3982,11 @@ Algorithm          &                    \multicolumn{3}{c}{$\NIGDplus$ ($\downar
 }
 \end{table}
 
-\vspace{-0.2em}
-\begin{itemize}
-\item \textsc{NS-BRKGA} is the top performer on all instance types.
-\item On \texttt{squz}: mean $\HVR \approx 0.97$ and mean $\NIGDplus \approx 0.002$.
-\end{itemize}
+% \vspace{-0.2em}
+% \begin{itemize}
+% \item \textsc{NS-BRKGA} is the top performer on all instance types.
+% \item On \texttt{squz}: mean $\HVR \approx 0.97$ and mean $\NIGDplus \approx 0.002$.
+% \end{itemize}
 
 % Speaker note: Highlight the “small and fragmented feasible region” narrative: this supports why repair + feedback matters.
 \end{frame}
@@ -3997,15 +3997,15 @@ Algorithm          &                    \multicolumn{3}{c}{$\NIGDplus$ ($\downar
 
 \begin{figure}
 \centering
-\includegraphics[width=0.30\textwidth]{figs/igd_plus_full.pdf}
-\includegraphics[width=0.30\textwidth]{figs/igd_plus_orig.pdf}
-\includegraphics[width=0.30\textwidth]{figs/igd_plus_squz.pdf}
+\includegraphics[width=0.31\textwidth]{figs/igd_plus_full.pdf}
+\includegraphics[width=0.31\textwidth]{figs/igd_plus_orig.pdf}
+\includegraphics[width=0.31\textwidth]{figs/igd_plus_squz.pdf}
 \end{figure}
 \begin{figure}
 \centering
-\includegraphics[width=0.30\textwidth]{figs/hypervolume_full.pdf}
-\includegraphics[width=0.30\textwidth]{figs/hypervolume_orig.pdf}
-\includegraphics[width=0.30\textwidth]{figs/hypervolume_squz.pdf}
+\includegraphics[width=0.31\textwidth]{figs/hypervolume_full.pdf}
+\includegraphics[width=0.31\textwidth]{figs/hypervolume_orig.pdf}
+\includegraphics[width=0.31\textwidth]{figs/hypervolume_squz.pdf}
 \end{figure}
 \end{frame}
 
@@ -4015,15 +4015,15 @@ Algorithm          &                    \multicolumn{3}{c}{$\NIGDplus$ ($\downar
 
 \begin{figure}
 \centering
-\includegraphics[width=0.42\textwidth]{figs/igd_plus_mean_snapshots.pdf}
-\includegraphics[width=0.42\textwidth]{figs/hypervolume_mean_snapshots.pdf}
+\includegraphics[width=0.48\textwidth]{figs/igd_plus_mean_snapshots.pdf}
+\includegraphics[width=0.48\textwidth]{figs/hypervolume_mean_snapshots.pdf}
 \end{figure}
 
-\vspace{-0.3em}
-\begin{itemize}
-\item \textsc{NS-BRKGA} reaches high-quality fronts \textbf{very early} (within $\sim 30$s: $\HVR \approx 0.7 \pm 0.2$).
-\item Baselines often do not match this quality even after the full $15$-minute budget.
-\end{itemize}
+% \vspace{-0.3em}
+% \begin{itemize}
+% \item \textsc{NS-BRKGA} reaches high-quality fronts \textbf{very early} (within $\sim 30$s: $\HVR \approx 0.7 \pm 0.2$).
+% \item Baselines often do not match this quality even after the full $15$-minute budget.
+% \end{itemize}
 
 % Speaker note: This is a helpful slide for audiences who believe “memetic algorithms are slow”. Here, intensification pays off fast.
 \end{frame}
