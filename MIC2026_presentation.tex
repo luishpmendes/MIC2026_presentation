@@ -1280,6 +1280,1205 @@ k_{v} \leftarrow \frac{j + 0.5}{|AP|}\quad\Rightarrow\quad \left\lfloor k_{v} \c
 %----------------------------------------------------------------------------------------
 \begin{frame}
 \frametitle{Non-dominated Sorting Biased Random-Key Genetic Algorithm}
+\framesubtitle{Features}
+
+\begin{columns}[c,onlytextwidth]
+\column{0.50\textwidth}
+\begin{itemize}
+    \item Biased Multi-Parent Crossover.
+
+    ~\\
+
+    \item Polynomial Mutation.
+
+    ~\\
+
+    \item Genotypic Diversity at Elite Selection.
+
+    ~\\
+
+    \item Migration on Multiple Populations.
+\end{itemize}
+\column{0.50\textwidth}
+\begin{itemize}
+    \item Implicit Path-Relinking.
+
+    ~\\
+
+    \item Shaking.
+
+    ~\\
+
+    \item Partial reset.
+\end{itemize}
+\end{columns}
+\end{frame}
+
+%========================================================================================
+\section{Computational Experiments}
+
+\begin{frame}[plain]
+\begin{center}
+{\Huge Computational\\Experiments}
+\end{center}
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Experimental Setup}
+
+\begin{itemize}
+\item $291$ instances.
+
+~\\
+
+\item $5$ independent runs.
+
+~\\
+
+\item $15$ min per run.
+
+~\\
+
+\item Same reference fronts and indicators.
+
+~\\
+
+\item Same implementation language / PaGMO2 baselines.
+\end{itemize}
+
+~\\
+
+Computer setup: CPU of 3.30GHz and 32GB of RAM.
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Benchmark Instances}
+
+\begin{itemize}
+\item $291$ real-world MOPCI instances (sizes from $30$ to $4125$ cells)\footnote{Available at \href{https://github.com/ceandrade/pci\_assignment\_problem\_instances}{https://github.com/ceandrade/pci\_assignment\_problem\_instances}}.
+
+~\\
+
+\item Instance types (PCI groups):
+
+~\\
+
+\begin{itemize}
+\item \texttt{full}: $AP = \{0, \dots, 1007\}$ (least constrained),
+
+~\\
+
+\item \texttt{orig}: $AP = \{\min(\mathbf{O}), \dots, \max(\mathbf{O})\}$,
+
+~\\
+
+\item \texttt{squz}: minimal contiguous $AP$ that still admits feasibility (most constrained).
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Baseline Algorithms}
+
+
+The proposed \textsc{NS-BRKGA} is benchmarked against the following algorithms\footnote{Implementations at: \href{https://esa.github.io/pagmo2/}{https://esa.github.io/pagmo2/}}:
+
+~\\
+
+\begin{itemize}
+\item \textbf{\textsc{NSGA-II}}: The Elitist Non-dominated Sorting Genetic Algorithm.
+
+~\\
+
+\item \textbf{\textsc{NSPSO}}: The Non-dominated Sorting Particle Swarm Optimizer.
+
+~\\
+
+\item \textbf{\textsc{MOEA/D-DE}}: The Multi-Objective Evolutionary Algorithm by Decomposition with Differential Evolution.
+
+~\\
+
+\item \textbf{\textsc{MHACO}}: The Multi-objective Hypervolume-based Ant Colony Optimizer.
+
+~\\
+
+\item \textbf{\textsc{IHS}}: The Improved Harmony Search.
+\end{itemize}
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Performance Indicators}
+
+
+Two complementary quality indicators were employed:
+
+~\\
+
+\begin{enumerate}
+\item \textbf{Normalized Modified Inverted Generational Distance}~($\NIGDplus$),
+
+~\\
+
+\item \textbf{Hypervolume Ratio}~($\HVR$).
+\end{enumerate}
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Performance Indicators}
+\framesubtitle{Normalized Modified Inverted Generational Distance~($\NIGDplus$)}
+\only<1>{
+\begin{figure}
+\scalebox{0.88}{
+\begin{tikzpicture}
+\begin{axis}[
+axis lines = left,
+xlabel = $f_{1}(\textrm{minimize})$,
+ylabel = $f_{2}(\textrm{minimize})$,
+xmin = 00.00,
+xmax = 10.00,
+ymin = 00.00,
+ymax = 10.00,
+xtick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+]
+
+\end{axis}
+\end{tikzpicture}
+}
+\end{figure}
+}
+\only<2>{
+\begin{figure}
+\scalebox{0.88}{
+\begin{tikzpicture}
+\begin{axis}[
+axis lines = left,
+xlabel = $f_{1}(\textrm{minimize})$,
+ylabel = $f_{2}(\textrm{minimize})$,
+xmin = 00.00,
+xmax = 10.00,
+ymin = 00.00,
+ymax = 10.00,
+xtick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+]
+\addplot[myblue2, mark=*, only marks] coordinates {
+(02.00, 07.00)
+(04.00, 04.00)
+(06.00, 03.00)
+(07.00, 02.00)
+};
+
+\node[myblue2] at (axis cs:04.88, 03.63) {$S^{\star}$};
+\end{axis}
+\end{tikzpicture}
+}
+\end{figure}
+}
+\only<3>{
+\begin{figure}
+\scalebox{0.88}{
+\begin{tikzpicture}
+\begin{axis}[
+axis lines = left,
+xlabel = $f_{1}(\textrm{minimize})$,
+ylabel = $f_{2}(\textrm{minimize})$,
+xmin = 00.00,
+xmax = 10.00,
+ymin = 00.00,
+ymax = 10.00,
+xtick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+]
+\addplot[myblue2, mark=*, only marks] coordinates {
+(02.00, 07.00)
+(04.00, 04.00)
+(06.00, 03.00)
+(07.00, 02.00)
+};
+
+\addplot[myorange2, mark=10-pointed star, only marks] coordinates {
+(01.00, 08.00)
+(01.50, 05.88)
+(02.19, 04.28)
+(03.08, 03.08)
+(04.28, 02.19)
+(05.88, 01.50)
+(08.00, 01.00)
+};
+
+\node[myblue2] at (axis cs:04.88, 03.63) {$S^{\star}$};
+
+\node[myorange2] at (axis cs:02.50, 02.50) {$Y^{ref}$};
+\end{axis}
+\end{tikzpicture}
+}
+\end{figure}
+}
+\only<4>{
+\begin{figure}
+\scalebox{0.88}{
+\begin{tikzpicture}
+\begin{axis}[
+axis lines = left,
+xlabel = $f_{1}(\textrm{minimize})$,
+ylabel = $f_{2}(\textrm{minimize})$,
+xmin = 00.00,
+xmax = 10.00,
+ymin = 00.00,
+ymax = 10.00,
+xtick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+]
+\addplot[myblue2, mark=*, only marks] coordinates {
+(02.00, 07.00)
+(04.00, 04.00)
+(06.00, 03.00)
+(07.00, 02.00)
+};
+
+\addplot[myorange2, mark=10-pointed star, only marks] coordinates {
+(01.00, 08.00)
+(01.50, 05.88)
+(02.19, 04.28)
+(03.08, 03.08)
+(04.28, 02.19)
+(05.88, 01.50)
+(08.00, 01.00)
+};
+
+\node[myblue2] at (axis cs:04.88, 03.63) {$S^{\star}$};
+
+\node[myorange2] at (axis cs:02.50, 02.50) {$Y^{ref}$};
+
+\draw[-, dashed](02.00, 07.00)--(01.00, 08.00);
+\draw[-, dashed](02.00, 07.00)--(01.50, 05.88);
+\draw[-, dashed](04.00, 04.00)--(02.19, 04.28);
+\draw[-, dashed](04.00, 04.00)--(03.08, 03.08);
+\draw[-, dashed](04.00, 04.00)--(04.28, 02.19);
+\draw[-, dashed](07.00, 02.00)--(05.88, 01.50);
+\draw[-, dashed](07.00, 02.00)--(08.00, 01.00);
+
+\node at (axis cs:06.50, 06.50) {$\IGDplus$};
+\end{axis}
+\end{tikzpicture}
+}
+\end{figure}
+}
+\only<5>{
+\begin{figure}
+\scalebox{0.88}{
+\begin{tikzpicture}
+\begin{axis}[
+axis lines = left,
+xlabel = $f_{1}(\textrm{minimize})$,
+ylabel = $f_{2}(\textrm{minimize})$,
+xmin = 00.00,
+xmax = 10.00,
+ymin = 00.00,
+ymax = 10.00,
+xtick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+]
+\addplot[myblue2, mark=*, only marks] coordinates {
+(02.00, 07.00)
+(04.00, 04.00)
+(06.00, 03.00)
+(07.00, 02.00)
+};
+
+\addplot[mygreen2, mark=star, only marks] coordinates {
+(09.00, 09.00)
+};
+
+\addplot[myorange2, mark=10-pointed star, only marks] coordinates {
+(01.00, 08.00)
+(01.50, 05.88)
+(02.19, 04.28)
+(03.08, 03.08)
+(04.28, 02.19)
+(05.88, 01.50)
+(08.00, 01.00)
+};
+
+\node[myblue2] at (axis cs:04.88, 03.63) {$S^{\star}$};
+
+\node[mygreen2] at (axis cs:09.45, 09.63) {$y^{ref}$};
+
+\node[myorange2] at (axis cs:02.50, 02.50) {$Y^{ref}$};
+
+\draw[-, dashed](02.00, 07.00)--(01.00, 08.00);
+\draw[-, dashed](02.00, 07.00)--(01.50, 05.88);
+\draw[-, dashed](04.00, 04.00)--(02.19, 04.28);
+\draw[-, dashed](04.00, 04.00)--(03.08, 03.08);
+\draw[-, dashed](04.00, 04.00)--(04.28, 02.19);
+\draw[-, dashed](07.00, 02.00)--(05.88, 01.50);
+\draw[-, dashed](07.00, 02.00)--(08.00, 01.00);
+
+\node at (axis cs:06.50, 06.50) {$\IGDplus$};
+\end{axis}
+\end{tikzpicture}
+}
+\end{figure}
+}
+\only<6>{
+\begin{figure}
+\scalebox{0.88}{
+\begin{tikzpicture}
+\begin{axis}[
+axis lines = left,
+xlabel = $f_{1}(\textrm{minimize})$,
+ylabel = $f_{2}(\textrm{minimize})$,
+xmin = 00.00,
+xmax = 10.00,
+ymin = 00.00,
+ymax = 10.00,
+xtick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+]
+\addplot[myblue2, mark=*, only marks] coordinates {
+(02.00, 07.00)
+(04.00, 04.00)
+(06.00, 03.00)
+(07.00, 02.00)
+};
+
+\addplot[mygreen2, mark=star, only marks] coordinates {
+(09.00, 09.00)
+};
+
+\addplot[myorange2, mark=10-pointed star, only marks] coordinates {
+(01.00, 08.00)
+(01.50, 05.88)
+(02.19, 04.28)
+(03.08, 03.08)
+(04.28, 02.19)
+(05.88, 01.50)
+(08.00, 01.00)
+};
+
+\node[myblue2] at (axis cs:04.88, 03.63) {$S^{\star}$};
+
+\node[mygreen2] at (axis cs:09.45, 09.63) {$y^{ref}$};
+
+\node[myorange2] at (axis cs:02.50, 02.50) {$Y^{ref}$};
+
+\draw[-, dashed](02.00, 07.00)--(01.00, 08.00);
+\draw[-, dashed](02.00, 07.00)--(01.50, 05.88);
+\draw[-, dashed](04.00, 04.00)--(02.19, 04.28);
+\draw[-, dashed](04.00, 04.00)--(03.08, 03.08);
+\draw[-, dashed](04.00, 04.00)--(04.28, 02.19);
+\draw[-, dashed](07.00, 02.00)--(05.88, 01.50);
+\draw[-, dashed](07.00, 02.00)--(08.00, 01.00);
+
+\draw[-, dotted](09.00, 09.00)--(01.00, 08.00);
+\draw[-, dotted](09.00, 09.00)--(01.50, 05.88);
+\draw[-, dotted](09.00, 09.00)--(02.19, 04.28);
+\draw[-, dotted](09.00, 09.00)--(03.08, 03.08);
+\draw[-, dotted](09.00, 09.00)--(04.28, 02.19);
+\draw[-, dotted](09.00, 09.00)--(05.88, 01.50);
+\draw[-, dotted](09.00, 09.00)--(08.00, 01.00);
+
+\node at (axis cs:06.50, 06.50) {$\NIGDplus$};
+\end{axis}
+\end{tikzpicture}
+}
+\end{figure}
+}
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Performance Indicators}
+\framesubtitle{Hypervolume Ratio~($\HVR$)}
+\only<1>{
+\begin{figure}
+\scalebox{0.88}{
+\begin{tikzpicture}
+\begin{axis}[
+axis lines = left,
+xlabel = $f_{1}(\textrm{minimize})$,
+ylabel = $f_{2}(\textrm{minimize})$,
+xmin = 00.00,
+xmax = 10.00,
+ymin = 00.00,
+ymax = 10.00,
+xtick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+]
+\end{axis}
+\end{tikzpicture}
+}
+\end{figure}
+}
+\only<2>{
+\begin{figure}
+\scalebox{0.88}{
+\begin{tikzpicture}
+\begin{axis}[
+axis lines = left,
+xlabel = $f_{1}(\textrm{minimize})$,
+ylabel = $f_{2}(\textrm{minimize})$,
+xmin = 00.00,
+xmax = 10.00,
+ymin = 00.00,
+ymax = 10.00,
+xtick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+]
+\addplot[myblue2, dashed, no marks] coordinates {
+(02.00, 10.00)
+(02.00, 07.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(04.00, 07.00)
+(02.00, 07.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(04.00, 07.00)
+(04.00, 04.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(06.00, 04.00)
+(04.00, 04.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(06.00, 04.00)
+(06.00, 03.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(07.00, 03.00)
+(06.00, 03.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(07.00, 03.00)
+(07.00, 02.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(10.00, 02.00)
+(07.00, 02.00)
+};
+
+\addplot[myblue2, mark=*, only marks] coordinates {
+(02.00, 07.00)
+(04.00, 04.00)
+(06.00, 03.00)
+(07.00, 02.00)
+};
+
+\node[myblue2] at (axis cs:04.88, 03.63) {$S^{\star}$};
+\end{axis}
+\end{tikzpicture}
+}
+\end{figure}
+}
+\only<3>{
+\begin{figure}
+\scalebox{0.88}{
+\begin{tikzpicture}
+\begin{axis}[
+axis lines = left,
+xlabel = $f_{1}(\textrm{minimize})$,
+ylabel = $f_{2}(\textrm{minimize})$,
+xmin = 00.00,
+xmax = 10.00,
+ymin = 00.00,
+ymax = 10.00,
+xtick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+]
+\addplot[myblue2, dashed, no marks] coordinates {
+(02.00, 10.00)
+(02.00, 07.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(04.00, 07.00)
+(02.00, 07.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(04.00, 07.00)
+(04.00, 04.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(06.00, 04.00)
+(04.00, 04.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(06.00, 04.00)
+(06.00, 03.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(07.00, 03.00)
+(06.00, 03.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(07.00, 03.00)
+(07.00, 02.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(10.00, 02.00)
+(07.00, 02.00)
+};
+
+\addplot[mygreen2, dotted, no marks] coordinates {
+(00.00, 09.00)
+(09.00, 09.00)
+};
+\addplot[mygreen2, dotted, no marks] coordinates {
+(09.00, 00.00)
+(09.00, 09.00)
+};
+
+\addplot[myblue2, mark=*, only marks] coordinates {
+(02.00, 07.00)
+(04.00, 04.00)
+(06.00, 03.00)
+(07.00, 02.00)
+};
+
+\addplot[mygreen2, mark=star, only marks] coordinates {
+(09.00, 09.00)
+};
+
+\node[myblue2] at (axis cs:04.88, 03.63) {$S^{\star}$};
+
+\node[mygreen2] at (axis cs:09.45, 09.63) {$y^{ref}$};
+\end{axis}
+\end{tikzpicture}
+}
+\end{figure}
+}
+\only<4>{
+\begin{figure}
+\scalebox{0.88}{
+\begin{tikzpicture}
+\begin{axis}[
+axis lines = left,
+xlabel = $f_{1}(\textrm{minimize})$,
+ylabel = $f_{2}(\textrm{minimize})$,
+xmin = 00.00,
+xmax = 10.00,
+ymin = 00.00,
+ymax = 10.00,
+xtick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+]
+\addplot[name path=top1, no marks, opacity=0.00] coordinates {
+(02.00, 09.00)
+(09.00, 09.00)
+(09.00, 02.00)
+};
+\addplot[name path=bot1, no marks, opacity=0.00] coordinates {
+(02.00, 09.00)
+(02.00, 07.00)
+(04.00, 07.00)
+(04.00, 04.00)
+(06.00, 04.00)
+(06.00, 03.00)
+(07.00, 03.00)
+(07.00, 02.00)
+(09.00, 02.00)
+};
+
+\addplot [gray, opacity=0.50] fill between [of=top1 and bot1];
+
+\addplot[myblue2, dashed, no marks] coordinates {
+(02.00, 10.00)
+(02.00, 07.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(04.00, 07.00)
+(02.00, 07.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(04.00, 07.00)
+(04.00, 04.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(06.00, 04.00)
+(04.00, 04.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(06.00, 04.00)
+(06.00, 03.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(07.00, 03.00)
+(06.00, 03.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(07.00, 03.00)
+(07.00, 02.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(10.00, 02.00)
+(07.00, 02.00)
+};
+
+\addplot[mygreen2, dotted, no marks] coordinates {
+(00.00, 09.00)
+(09.00, 09.00)
+};
+\addplot[mygreen2, dotted, no marks] coordinates {
+(09.00, 00.00)
+(09.00, 09.00)
+};
+
+\addplot[myblue2, mark=*, only marks] coordinates {
+(02.00, 07.00)
+(04.00, 04.00)
+(06.00, 03.00)
+(07.00, 02.00)
+};
+
+\addplot[mygreen2, mark=star, only marks] coordinates {
+(09.00, 09.00)
+};
+
+\node[myblue2] at (axis cs:04.88, 03.63) {$S^{\star}$};
+
+\node[mygreen2] at (axis cs:09.45, 09.63) {$y^{ref}$};
+
+\node at (axis cs:06.50, 06.50) {$\HV$};
+\end{axis}
+\end{tikzpicture}
+}
+\end{figure}
+}
+\only<5>{
+\begin{figure}
+\scalebox{0.88}{
+\begin{tikzpicture}
+\begin{axis}[
+axis lines = left,
+xlabel = $f_{1}(\textrm{minimize})$,
+ylabel = $f_{2}(\textrm{minimize})$,
+xmin = 00.00,
+xmax = 10.00,
+ymin = 00.00,
+ymax = 10.00,
+xtick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+]
+\addplot[name path=top1, no marks, opacity=0.00] coordinates {
+(02.00, 09.00)
+(09.00, 09.00)
+(09.00, 02.00)
+};
+\addplot[name path=bot1, no marks, opacity=0.00] coordinates {
+(02.00, 09.00)
+(02.00, 07.00)
+(04.00, 07.00)
+(04.00, 04.00)
+(06.00, 04.00)
+(06.00, 03.00)
+(07.00, 03.00)
+(07.00, 02.00)
+(09.00, 02.00)
+};
+
+\addplot [gray, opacity=0.50] fill between [of=top1 and bot1];
+
+\addplot[myblue2, dashed, no marks] coordinates {
+(02.00, 10.00)
+(02.00, 07.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(04.00, 07.00)
+(02.00, 07.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(04.00, 07.00)
+(04.00, 04.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(06.00, 04.00)
+(04.00, 04.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(06.00, 04.00)
+(06.00, 03.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(07.00, 03.00)
+(06.00, 03.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(07.00, 03.00)
+(07.00, 02.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(10.00, 02.00)
+(07.00, 02.00)
+};
+
+\addplot[mygreen2, dotted, no marks] coordinates {
+(00.00, 09.00)
+(09.00, 09.00)
+};
+\addplot[mygreen2, dotted, no marks] coordinates {
+(09.00, 00.00)
+(09.00, 09.00)
+};
+
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(01.00, 10.00)
+(01.00, 08.00)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(01.50, 08.00)
+(01.00, 08.00)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(01.50, 08.00)
+(01.50, 05.88)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(02.19, 05.88)
+(01.50, 05.88)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(02.19, 05.88)
+(02.19, 04.28)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(03.08, 04.28)
+(02.19, 04.28)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(03.08, 04.28)
+(03.08, 03.08)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(04.28, 03.08)
+(03.08, 03.08)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(04.28, 03.08)
+(04.28, 02.19)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(05.88, 02.19)
+(04.28, 02.19)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(05.88, 02.19)
+(05.88, 01.50)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(08.00, 01.50)
+(05.88, 01.50)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(08.00, 01.50)
+(08.00, 01.00)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(10.00, 01.00)
+(08.00, 01.00)
+};
+
+\addplot[myblue2, mark=*, only marks] coordinates {
+(02.00, 07.00)
+(04.00, 04.00)
+(06.00, 03.00)
+(07.00, 02.00)
+};
+
+\addplot[mygreen2, mark=star, only marks] coordinates {
+(09.00, 09.00)
+};
+
+\addplot[myorange2, mark=10-pointed star, only marks] coordinates {
+(01.00, 08.00)
+(01.50, 05.88)
+(02.19, 04.28)
+(03.08, 03.08)
+(04.28, 02.19)
+(05.88, 01.50)
+(08.00, 01.00)
+};
+
+\node[myblue2] at (axis cs:04.88, 03.63) {$S^{\star}$};
+
+\node[mygreen2] at (axis cs:09.45, 09.63) {$y^{ref}$};
+
+\node[myorange2] at (axis cs:02.50, 02.50) {$Y^{ref}$};
+
+\node at (axis cs:06.50, 06.50) {$\HV$};
+\end{axis}
+\end{tikzpicture}
+}
+\end{figure}
+}
+\only<6>{
+\begin{figure}
+\scalebox{0.88}{
+\begin{tikzpicture}
+\begin{axis}[
+axis lines = left,
+xlabel = $f_{1}(\textrm{minimize})$,
+ylabel = $f_{2}(\textrm{minimize})$,
+xmin = 00.00,
+xmax = 10.00,
+ymin = 00.00,
+ymax = 10.00,
+xtick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+]
+\addplot[name path=top1, no marks, opacity=0.00] coordinates {
+(02.00, 09.00)
+(09.00, 09.00)
+(09.00, 02.00)
+};
+\addplot[name path=top2, no marks, opacity=0.00] coordinates {
+(01.00, 09.00)
+(09.00, 09.00)
+(09.00, 01.00)
+};
+\addplot[name path=bot1, no marks, opacity=0.00] coordinates {
+(02.00, 09.00)
+(02.00, 07.00)
+(04.00, 07.00)
+(04.00, 04.00)
+(06.00, 04.00)
+(06.00, 03.00)
+(07.00, 03.00)
+(07.00, 02.00)
+(09.00, 02.00)
+};
+\addplot[name path=bot2, no marks, opacity=0.00] coordinates {
+(01.00, 09.00)
+(01.00, 08.00)
+(01.50, 08.00)
+(01.50, 05.88)
+(02.19, 05.88)
+(02.19, 04.28)
+(03.08, 04.28)
+(03.08, 03.08)
+(04.28, 03.08)
+(04.28, 02.19)
+(05.88, 02.19)
+(05.88, 01.50)
+(08.00, 01.50)
+(08.00, 01.00)
+(09.00, 01.00)
+};
+
+\addplot [gray, opacity=0.33] fill between [of=top1 and bot1];
+\addplot [gray, opacity=0.33] fill between [of=top2 and bot2];
+
+\addplot[myblue2, dashed, no marks] coordinates {
+(02.00, 10.00)
+(02.00, 07.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(04.00, 07.00)
+(02.00, 07.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(04.00, 07.00)
+(04.00, 04.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(06.00, 04.00)
+(04.00, 04.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(06.00, 04.00)
+(06.00, 03.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(07.00, 03.00)
+(06.00, 03.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(07.00, 03.00)
+(07.00, 02.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(10.00, 02.00)
+(07.00, 02.00)
+};
+
+\addplot[mygreen2, dotted, no marks] coordinates {
+(00.00, 09.00)
+(09.00, 09.00)
+};
+\addplot[mygreen2, dotted, no marks] coordinates {
+(09.00, 00.00)
+(09.00, 09.00)
+};
+
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(01.00, 10.00)
+(01.00, 08.00)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(01.50, 08.00)
+(01.00, 08.00)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(01.50, 08.00)
+(01.50, 05.88)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(02.19, 05.88)
+(01.50, 05.88)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(02.19, 05.88)
+(02.19, 04.28)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(03.08, 04.28)
+(02.19, 04.28)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(03.08, 04.28)
+(03.08, 03.08)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(04.28, 03.08)
+(03.08, 03.08)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(04.28, 03.08)
+(04.28, 02.19)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(05.88, 02.19)
+(04.28, 02.19)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(05.88, 02.19)
+(05.88, 01.50)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(08.00, 01.50)
+(05.88, 01.50)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(08.00, 01.50)
+(08.00, 01.00)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(10.00, 01.00)
+(08.00, 01.00)
+};
+
+\addplot[myblue2, mark=*, only marks] coordinates {
+(02.00, 07.00)
+(04.00, 04.00)
+(06.00, 03.00)
+(07.00, 02.00)
+};
+
+\addplot[mygreen2, mark=star, only marks] coordinates {
+(09.00, 09.00)
+};
+
+\addplot[myorange2, mark=10-pointed star, only marks] coordinates {
+(01.00, 08.00)
+(01.50, 05.88)
+(02.19, 04.28)
+(03.08, 03.08)
+(04.28, 02.19)
+(05.88, 01.50)
+(08.00, 01.00)
+};
+
+\node[myblue2] at (axis cs:04.88, 03.63) {$S^{\star}$};
+
+\node[mygreen2] at (axis cs:09.45, 09.63) {$y^{ref}$};
+
+\node[myorange2] at (axis cs:02.50, 02.50) {$Y^{ref}$};
+
+\node at (axis cs:06.50, 06.50) {$\HVR$};
+\end{axis}
+\end{tikzpicture}
+}
+\end{figure}
+}
+\end{frame}
+
+%========================================================================================
+\section{Results \& Analysis}
+
+\begin{frame}[plain]
+\begin{center}
+{\Huge Results \\ \& \\Analysis}
+\end{center}
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Results for a single instance}
+\framesubtitle{pci\_048\_n0135\_orig\_best}
+\begin{figure}
+\centering
+\includegraphics[width=0.42\textwidth]{figs/pci_048_n0135_orig_best.pdf}
+\end{figure}
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Overall Performance Comparison}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.42\textwidth]{figs/igd_plus.pdf}
+\includegraphics[width=0.42\textwidth]{figs/hypervolume.pdf}
+\end{figure}
+
+% \vspace{-0.3em}
+\begin{itemize}
+\item \textsc{NS-BRKGA} attains the best mean ranks on \textbf{both} $\NIGDplus$ and $\HVR$.
+\item Reported means: $\NIGDplus \approx 0.001$ and $\HVR \approx 0.93$ (\textsc{NSGA-II}: $0.009$ and $0.58$).
+\end{itemize}
+
+% Speaker note: Use this slide to make the main message unambiguous: “best overall, and with low variability”.
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Scalability with Problem Size}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.42\textwidth]{figs/igd_plus_mean_per_size.pdf}
+\includegraphics[width=0.42\textwidth]{figs/hypervolume_mean_per_size.pdf}
+\end{figure}
+
+% \vspace{-0.3em}
+\begin{itemize}
+\item As $|V|$ grows, baseline methods degrade, while \textsc{NS-BRKGA} remains stable.
+\item On the largest instances ($|V| = 4125$), \textsc{NS-BRKGA} maintains mean $\HVR \approx 0.87 \pm 0.08$ (\textsc{NSGA-II} $\approx 0.6 \pm 0.1$).
+\end{itemize}
+
+% Speaker note: Interpret the curves: NS-BRKGA’s advantage widens at scale.
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+% \begin{frame}
+% \frametitle{Robustness Across Instance Types}
+
+% \begin{table}[!htbp]
+% % \caption{Mean $\NIGDplus$ ($\downarrow$) and $\HVR$ ($\uparrow$) by instance type.}
+% \label{table:robustness}
+% \centering
+% \resizebox{0.99\textwidth}{!}{
+% \begin{tabular}{lcccccc}
+% \toprule
+% Algorithm          &                    \multicolumn{3}{c}{$\NIGDplus$ ($\downarrow$)}                    &                    \multicolumn{3}{c}{$\HVR$ ($\uparrow$)}                     \\
+% \cmidrule{2-7}
+%                    &        \texttt{full}       &       \texttt{orig}        &       \texttt{squz}        &      \texttt{full}       &      \texttt{orig}       &      \texttt{squz}       \\
+% \midrule
+% \textsc{NSGA-II}   &     $0.005 \pm 0.006$      &     $0.004 \pm 0.004$      &     $0.017 \pm 0.032$      &     $0.46 \pm 0.17$      &     $0.51 \pm 0.11$      &     $0.77 \pm 0.23$      \\
+% \textsc{NSPSO}     &     $0.011 \pm 0.007$      &     $0.011 \pm 0.006$      &     $0.029 \pm 0.037$      &     $0.22 \pm 0.14$      &     $0.20 \pm 0.11$      &     $0.49 \pm 0.30$      \\
+% \textsc{MOEA/D-DE} &     $0.007 \pm 0.005$      &     $0.006 \pm 0.004$      &     $0.017 \pm 0.030$      &     $0.27 \pm 0.12$      &     $0.30 \pm 0.13$      &     $0.53 \pm 0.27$      \\
+% \textsc{MHACO}     &     $0.011 \pm 0.007$      &     $0.011 \pm 0.007$      &     $0.033 \pm 0.039$      &     $0.15 \pm 0.07$      &     $0.17 \pm 0.09$      &     $0.47 \pm 0.30$      \\
+% \textsc{IHS}       &     $0.008 \pm 0.005$      &     $0.007 \pm 0.004$      &     $0.033 \pm 0.040$      &     $0.33 \pm 0.17$      &     $0.36 \pm 0.16$      &     $0.57 \pm 0.30$      \\
+% \textsc{NS-BRKGA}  & $\mathbf{0.001 \pm 0.001}$ & $\mathbf{0.001 \pm 0.001}$ & $\mathbf{0.002 \pm 0.007}$ & $\mathbf{0.90 \pm 0.09}$ & $\mathbf{0.91 \pm 0.08}$ & $\mathbf{0.97 \pm 0.05}$ \\
+% \bottomrule
+% \end{tabular}
+% }
+% \end{table}
+
+% % \vspace{-0.2em}
+% % \begin{itemize}
+% % \item \textsc{NS-BRKGA} is the top performer on all instance types.
+% % \item On \texttt{squz}: mean $\HVR \approx 0.97$ and mean $\NIGDplus \approx 0.002$.
+% % \end{itemize}
+
+% % Speaker note: Highlight the “small and fragmented feasible region” narrative: this supports why repair + feedback matters.
+% \end{frame}
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Robustness Across Instance Types}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.31\textwidth]{figs/igd_plus_full.pdf}
+\includegraphics[width=0.31\textwidth]{figs/igd_plus_orig.pdf}
+\includegraphics[width=0.31\textwidth]{figs/igd_plus_squz.pdf}
+\end{figure}
+\begin{figure}
+\centering
+\includegraphics[width=0.31\textwidth]{figs/hypervolume_full.pdf}
+\includegraphics[width=0.31\textwidth]{figs/hypervolume_orig.pdf}
+\includegraphics[width=0.31\textwidth]{figs/hypervolume_squz.pdf}
+\end{figure}
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Convergence \& Runtime Performance}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.42\textwidth]{figs/igd_plus_mean_snapshots.pdf}
+\includegraphics[width=0.42\textwidth]{figs/hypervolume_mean_snapshots.pdf}
+\end{figure}
+
+% \vspace{-0.3em}
+\begin{itemize}
+\item \textsc{NS-BRKGA} reaches high-quality fronts \textbf{very early} (within $\sim 30$s: $\HVR \approx 0.7 \pm 0.2$).
+\item Baselines often do not match this quality even after the full $15$-minute budget.
+\end{itemize}
+
+% Speaker note: This is a helpful slide for audiences who believe “memetic algorithms are slow”. Here, intensification pays off fast.
+\end{frame}
+
+%========================================================================================
+\section{Conclusion}
+
+\begin{frame}[plain]
+\begin{center}
+{\Huge Conclusion}
+\end{center}
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Conclusion}
+
+\begin{itemize}
+\item \textbf{MOPCI} is a practical LTE/5G optimization problem involving both \textbf{technological constraints} and multi-objective \textbf{operational concerns}.
+
+\item \textbf{Methodological contribution:} \textsc{NS-BRKGA} integrates a random-key evolutionary framework with a problem-specific decoder featuring \textbf{feasibility repair}, \textbf{lexicographically guided local search}, and \textbf{genotype feedback}.
+
+\item \textbf{Experimental evidence:} Across 291 real-world instances and five representative MOEAs, \textsc{NS-BRKGA} consistently achieves \textbf{strong Pareto-front quality} ($\HVR \approx 0.93$, $\NIGDplus \approx 0.001$), \textbf{scalability}, \textbf{robustness}, and \textbf{fast convergence} ($\sim 30$s).
+
+\item \textbf{Take-home message:} \textsc{NS-BRKGA} provides network operators with a highly practical way to quickly generate high-quality PCI plans that balance \textbf{radio performance}, \textbf{rollout safety}, and \textbf{operational stability}.
+\end{itemize}
+
+\end{frame}
+
+%========================================================================================
+\begin{frame}[plain]
+\begin{center}
+{\Huge That's all, folks!}
+\end{center}
+\end{frame}
+
+
+%========================================================================================
+\begin{frame}[plain]
+\begin{center}
+{\Huge Backup \\ Slides}
+\end{center}
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Non-dominated Sorting Biased Random-Key Genetic Algorithm}
 \framesubtitle{Non-dominated Sort}
 
 \centering        
@@ -1579,7 +2778,7 @@ ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
 }
 \end{figure}
 }
-% aqui
+
 \onslide<2->{
 $\textcolor{myblue2}{S^{\star}_{1} = \{x_{C}, x_{E}\}}$
 }
@@ -2864,1089 +4063,31 @@ $}
 
 %----------------------------------------------------------------------------------------
 \begin{frame}
-\frametitle{Non-dominated Sorting Biased Random-Key Genetic Algorithm}
-\framesubtitle{Other features}
-
-\begin{itemize}
-    \item Genotypic diversity.
-
-    ~\\
-
-    \item Migration.
-
-    ~\\
-
-    \item Implicit Path-Relinking.
-
-    ~\\
-
-    \item Shaking.
-
-    ~\\
-
-    \item Partial reset.
-\end{itemize}
-
-\end{frame}
-
-%========================================================================================
-\section{Computational Experiments}
-
-\begin{frame}[plain]
-\begin{center}
-{\Huge Computational\\Experiments}
-\end{center}
-\end{frame}
-
-%----------------------------------------------------------------------------------------
-\begin{frame}
 \frametitle{Experimental Setup}
+\framesubtitle{\textsc{NS-BRKGA} parameter settings}
 
-\begin{itemize}
-\item $291$ instances.
-
-~\\
-
-\item $5$ independent runs.
-
-~\\
-
-\item $15$ min per run.
-
-~\\
-
-\item Same reference fronts and indicators.
-
-~\\
-
-\item Same implementation language / PaGMO2 baselines.
-\end{itemize}
-
-~\\
-
-Computer setup: CPU of 3.30GHz and 32GB of RAM.
-\end{frame}
-
-%----------------------------------------------------------------------------------------
-% \begin{frame}
-% \frametitle{Experimental Setup}
-% \framesubtitle{\textsc{NS-BRKGA} parameter settings}
-
-% \begin{table}[!htbp]
-% \centering
-% \begin{tabular}{ll}
-% \toprule
-% \textbf{Parameter}                              & \textbf{Value}                                                    \\
-% \midrule
-% Population size $|P|$ (per subpopulation)       & $300$                                                             \\
-% Parent count $\pi$ (elitist $\pi_e$)            & $3$ (with $\pi_e = 2$ elites)                                     \\
-% Elite fraction $p^{e}_{\min}$ -- $p^{e}_{\max}$ & $0.10$ -- $0.30$                                                  \\
-% Bias function $\Phi(r)$                         & $1/\sqrt{r}$                                                      \\
-% Mutation probability $p_{m}$ (index $\eta_{m}$) & $0.01$ ($\eta_{m} = 50$)                                          \\
-% Number of subpopulations $p$                    & $3$                                                               \\
-% Migration interval (gen), size $k$              & $200$ gen, $k = 30$ solutions                                     \\
-% IPR interval (gen)                              & $500$ gen                                                         \\
-% Shaking trigger (stagnant gen)                  & $200$ gen ($p_{\text{shake}} = 0.33$, $\eta_{\text{shake}} = 20$) \\
-% Reset trigger (stagnant gen)                    & $500$ gen ($p_{\text{reset}} = 0.20$)                             \\
-% \bottomrule
-% \end{tabular}
-% \label{tab:nsbrkga_params}
-% \end{table}
-
-% % Speaker note: Optional slide. If time is tight, skip. Use it only if asked about parameters.
-% \end{frame}
-
-%----------------------------------------------------------------------------------------
-\begin{frame}
-\frametitle{Benchmark Instances}
-
-\begin{itemize}
-\item $291$ real-world MOPCI instances (sizes from $30$ to $4125$ cells)\footnote{Available at \href{https://github.com/ceandrade/pci\_assignment\_problem\_instances}{https://github.com/ceandrade/pci\_assignment\_problem\_instances}}.
-
-~\\
-
-\item Instance types (PCI groups):
-
-~\\
-
-\begin{itemize}
-\item \texttt{full}: $AP = \{0, \dots, 1007\}$ (least constrained),
-
-~\\
-
-\item \texttt{orig}: $AP = \{\min(\mathbf{O}), \dots, \max(\mathbf{O})\}$,
-
-~\\
-
-\item \texttt{squz}: minimal contiguous $AP$ that still admits feasibility (most constrained).
-\end{itemize}
-\end{itemize}
-\end{frame}
-
-%----------------------------------------------------------------------------------------
-\begin{frame}
-\frametitle{Baseline Algorithms}
-
-
-The proposed \textsc{NS-BRKGA} is benchmarked against the following algorithms\footnote{Implementations at: \href{https://esa.github.io/pagmo2/}{https://esa.github.io/pagmo2/}}:
-
-~\\
-
-\begin{itemize}
-\item \textbf{\textsc{NSGA-II}}: The Elitist Non-dominated Sorting Genetic Algorithm.
-
-~\\
-
-\item \textbf{\textsc{NSPSO}}: The Non-dominated Sorting Particle Swarm Optimizer.
-
-~\\
-
-\item \textbf{\textsc{MOEA/D-DE}}: The Multi-Objective Evolutionary Algorithm by Decomposition with Differential Evolution.
-
-~\\
-
-\item \textbf{\textsc{MHACO}}: The Multi-objective Hypervolume-based Ant Colony Optimizer.
-
-~\\
-
-\item \textbf{\textsc{IHS}}: The Improved Harmony Search.
-\end{itemize}
-\end{frame}
-
-%----------------------------------------------------------------------------------------
-\begin{frame}
-\frametitle{Performance Indicators}
-
-
-Two complementary quality indicators were employed:
-
-~\\
-
-\begin{enumerate}
-\item \textbf{Normalized Modified Inverted Generational Distance}~($\NIGDplus$),
-
-~\\
-
-\item \textbf{Hypervolume Ratio}~($\HVR$).
-\end{enumerate}
-\end{frame}
-
-%----------------------------------------------------------------------------------------
-\begin{frame}
-\frametitle{Performance Indicators}
-\framesubtitle{Normalized Modified Inverted Generational Distance~($\NIGDplus$)}
-\only<1>{
-\begin{figure}
-\scalebox{0.88}{
-\begin{tikzpicture}
-\begin{axis}[
-axis lines = left,
-xlabel = $f_{1}(\textrm{minimize})$,
-ylabel = $f_{2}(\textrm{minimize})$,
-xmin = 00.00,
-xmax = 10.00,
-ymin = 00.00,
-ymax = 10.00,
-xtick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
-ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
-]
-
-\end{axis}
-\end{tikzpicture}
-}
-\end{figure}
-}
-\only<2>{
-\begin{figure}
-\scalebox{0.88}{
-\begin{tikzpicture}
-\begin{axis}[
-axis lines = left,
-xlabel = $f_{1}(\textrm{minimize})$,
-ylabel = $f_{2}(\textrm{minimize})$,
-xmin = 00.00,
-xmax = 10.00,
-ymin = 00.00,
-ymax = 10.00,
-xtick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
-ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
-]
-\addplot[myblue2, mark=*, only marks] coordinates {
-(02.00, 07.00)
-(04.00, 04.00)
-(06.00, 03.00)
-(07.00, 02.00)
-};
-
-\node[myblue2] at (axis cs:04.88, 03.63) {$S^{\star}$};
-\end{axis}
-\end{tikzpicture}
-}
-\end{figure}
-}
-\only<3>{
-\begin{figure}
-\scalebox{0.88}{
-\begin{tikzpicture}
-\begin{axis}[
-axis lines = left,
-xlabel = $f_{1}(\textrm{minimize})$,
-ylabel = $f_{2}(\textrm{minimize})$,
-xmin = 00.00,
-xmax = 10.00,
-ymin = 00.00,
-ymax = 10.00,
-xtick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
-ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
-]
-\addplot[myblue2, mark=*, only marks] coordinates {
-(02.00, 07.00)
-(04.00, 04.00)
-(06.00, 03.00)
-(07.00, 02.00)
-};
-
-\addplot[myorange2, mark=10-pointed star, only marks] coordinates {
-(01.00, 08.00)
-(01.50, 05.88)
-(02.19, 04.28)
-(03.08, 03.08)
-(04.28, 02.19)
-(05.88, 01.50)
-(08.00, 01.00)
-};
-
-\node[myblue2] at (axis cs:04.88, 03.63) {$S^{\star}$};
-
-\node[myorange2] at (axis cs:02.50, 02.50) {$Y^{ref}$};
-\end{axis}
-\end{tikzpicture}
-}
-\end{figure}
-}
-\only<4>{
-\begin{figure}
-\scalebox{0.88}{
-\begin{tikzpicture}
-\begin{axis}[
-axis lines = left,
-xlabel = $f_{1}(\textrm{minimize})$,
-ylabel = $f_{2}(\textrm{minimize})$,
-xmin = 00.00,
-xmax = 10.00,
-ymin = 00.00,
-ymax = 10.00,
-xtick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
-ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
-]
-\addplot[myblue2, mark=*, only marks] coordinates {
-(02.00, 07.00)
-(04.00, 04.00)
-(06.00, 03.00)
-(07.00, 02.00)
-};
-
-\addplot[myorange2, mark=10-pointed star, only marks] coordinates {
-(01.00, 08.00)
-(01.50, 05.88)
-(02.19, 04.28)
-(03.08, 03.08)
-(04.28, 02.19)
-(05.88, 01.50)
-(08.00, 01.00)
-};
-
-\node[myblue2] at (axis cs:04.88, 03.63) {$S^{\star}$};
-
-\node[myorange2] at (axis cs:02.50, 02.50) {$Y^{ref}$};
-
-\draw[-, dashed](02.00, 07.00)--(01.00, 08.00);
-\draw[-, dashed](02.00, 07.00)--(01.50, 05.88);
-\draw[-, dashed](04.00, 04.00)--(02.19, 04.28);
-\draw[-, dashed](04.00, 04.00)--(03.08, 03.08);
-\draw[-, dashed](04.00, 04.00)--(04.28, 02.19);
-\draw[-, dashed](07.00, 02.00)--(05.88, 01.50);
-\draw[-, dashed](07.00, 02.00)--(08.00, 01.00);
-
-\node at (axis cs:06.50, 06.50) {$\IGDplus$};
-\end{axis}
-\end{tikzpicture}
-}
-\end{figure}
-}
-\only<5>{
-\begin{figure}
-\scalebox{0.88}{
-\begin{tikzpicture}
-\begin{axis}[
-axis lines = left,
-xlabel = $f_{1}(\textrm{minimize})$,
-ylabel = $f_{2}(\textrm{minimize})$,
-xmin = 00.00,
-xmax = 10.00,
-ymin = 00.00,
-ymax = 10.00,
-xtick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
-ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
-]
-\addplot[myblue2, mark=*, only marks] coordinates {
-(02.00, 07.00)
-(04.00, 04.00)
-(06.00, 03.00)
-(07.00, 02.00)
-};
-
-\addplot[mygreen2, mark=star, only marks] coordinates {
-(09.00, 09.00)
-};
-
-\addplot[myorange2, mark=10-pointed star, only marks] coordinates {
-(01.00, 08.00)
-(01.50, 05.88)
-(02.19, 04.28)
-(03.08, 03.08)
-(04.28, 02.19)
-(05.88, 01.50)
-(08.00, 01.00)
-};
-
-\node[myblue2] at (axis cs:04.88, 03.63) {$S^{\star}$};
-
-\node[mygreen2] at (axis cs:09.45, 09.63) {$y^{ref}$};
-
-\node[myorange2] at (axis cs:02.50, 02.50) {$Y^{ref}$};
-
-\draw[-, dashed](02.00, 07.00)--(01.00, 08.00);
-\draw[-, dashed](02.00, 07.00)--(01.50, 05.88);
-\draw[-, dashed](04.00, 04.00)--(02.19, 04.28);
-\draw[-, dashed](04.00, 04.00)--(03.08, 03.08);
-\draw[-, dashed](04.00, 04.00)--(04.28, 02.19);
-\draw[-, dashed](07.00, 02.00)--(05.88, 01.50);
-\draw[-, dashed](07.00, 02.00)--(08.00, 01.00);
-
-\node at (axis cs:06.50, 06.50) {$\IGDplus$};
-\end{axis}
-\end{tikzpicture}
-}
-\end{figure}
-}
-\only<6>{
-\begin{figure}
-\scalebox{0.88}{
-\begin{tikzpicture}
-\begin{axis}[
-axis lines = left,
-xlabel = $f_{1}(\textrm{minimize})$,
-ylabel = $f_{2}(\textrm{minimize})$,
-xmin = 00.00,
-xmax = 10.00,
-ymin = 00.00,
-ymax = 10.00,
-xtick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
-ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
-]
-\addplot[myblue2, mark=*, only marks] coordinates {
-(02.00, 07.00)
-(04.00, 04.00)
-(06.00, 03.00)
-(07.00, 02.00)
-};
-
-\addplot[mygreen2, mark=star, only marks] coordinates {
-(09.00, 09.00)
-};
-
-\addplot[myorange2, mark=10-pointed star, only marks] coordinates {
-(01.00, 08.00)
-(01.50, 05.88)
-(02.19, 04.28)
-(03.08, 03.08)
-(04.28, 02.19)
-(05.88, 01.50)
-(08.00, 01.00)
-};
-
-\node[myblue2] at (axis cs:04.88, 03.63) {$S^{\star}$};
-
-\node[mygreen2] at (axis cs:09.45, 09.63) {$y^{ref}$};
-
-\node[myorange2] at (axis cs:02.50, 02.50) {$Y^{ref}$};
-
-\draw[-, dashed](02.00, 07.00)--(01.00, 08.00);
-\draw[-, dashed](02.00, 07.00)--(01.50, 05.88);
-\draw[-, dashed](04.00, 04.00)--(02.19, 04.28);
-\draw[-, dashed](04.00, 04.00)--(03.08, 03.08);
-\draw[-, dashed](04.00, 04.00)--(04.28, 02.19);
-\draw[-, dashed](07.00, 02.00)--(05.88, 01.50);
-\draw[-, dashed](07.00, 02.00)--(08.00, 01.00);
-
-\draw[-, dotted](09.00, 09.00)--(01.00, 08.00);
-\draw[-, dotted](09.00, 09.00)--(01.50, 05.88);
-\draw[-, dotted](09.00, 09.00)--(02.19, 04.28);
-\draw[-, dotted](09.00, 09.00)--(03.08, 03.08);
-\draw[-, dotted](09.00, 09.00)--(04.28, 02.19);
-\draw[-, dotted](09.00, 09.00)--(05.88, 01.50);
-\draw[-, dotted](09.00, 09.00)--(08.00, 01.00);
-
-\node at (axis cs:06.50, 06.50) {$\NIGDplus$};
-\end{axis}
-\end{tikzpicture}
-}
-\end{figure}
-}
-\end{frame}
-
-%----------------------------------------------------------------------------------------
-\begin{frame}
-\frametitle{Performance Indicators}
-\framesubtitle{Hypervolume Ratio~($\HVR$)}
-\only<1>{
-\begin{figure}
-\scalebox{0.88}{
-\begin{tikzpicture}
-\begin{axis}[
-axis lines = left,
-xlabel = $f_{1}(\textrm{minimize})$,
-ylabel = $f_{2}(\textrm{minimize})$,
-xmin = 00.00,
-xmax = 10.00,
-ymin = 00.00,
-ymax = 10.00,
-xtick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
-ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
-]
-\end{axis}
-\end{tikzpicture}
-}
-\end{figure}
-}
-\only<2>{
-\begin{figure}
-\scalebox{0.88}{
-\begin{tikzpicture}
-\begin{axis}[
-axis lines = left,
-xlabel = $f_{1}(\textrm{minimize})$,
-ylabel = $f_{2}(\textrm{minimize})$,
-xmin = 00.00,
-xmax = 10.00,
-ymin = 00.00,
-ymax = 10.00,
-xtick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
-ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
-]
-\addplot[myblue2, dashed, no marks] coordinates {
-(02.00, 10.00)
-(02.00, 07.00)
-};
-\addplot[myblue2, dashed, no marks] coordinates {
-(04.00, 07.00)
-(02.00, 07.00)
-};
-\addplot[myblue2, dashed, no marks] coordinates {
-(04.00, 07.00)
-(04.00, 04.00)
-};
-\addplot[myblue2, dashed, no marks] coordinates {
-(06.00, 04.00)
-(04.00, 04.00)
-};
-\addplot[myblue2, dashed, no marks] coordinates {
-(06.00, 04.00)
-(06.00, 03.00)
-};
-\addplot[myblue2, dashed, no marks] coordinates {
-(07.00, 03.00)
-(06.00, 03.00)
-};
-\addplot[myblue2, dashed, no marks] coordinates {
-(07.00, 03.00)
-(07.00, 02.00)
-};
-\addplot[myblue2, dashed, no marks] coordinates {
-(10.00, 02.00)
-(07.00, 02.00)
-};
-
-\addplot[myblue2, mark=*, only marks] coordinates {
-(02.00, 07.00)
-(04.00, 04.00)
-(06.00, 03.00)
-(07.00, 02.00)
-};
-
-\node[myblue2] at (axis cs:04.88, 03.63) {$S^{\star}$};
-\end{axis}
-\end{tikzpicture}
-}
-\end{figure}
-}
-\only<3>{
-\begin{figure}
-\scalebox{0.88}{
-\begin{tikzpicture}
-\begin{axis}[
-axis lines = left,
-xlabel = $f_{1}(\textrm{minimize})$,
-ylabel = $f_{2}(\textrm{minimize})$,
-xmin = 00.00,
-xmax = 10.00,
-ymin = 00.00,
-ymax = 10.00,
-xtick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
-ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
-]
-\addplot[myblue2, dashed, no marks] coordinates {
-(02.00, 10.00)
-(02.00, 07.00)
-};
-\addplot[myblue2, dashed, no marks] coordinates {
-(04.00, 07.00)
-(02.00, 07.00)
-};
-\addplot[myblue2, dashed, no marks] coordinates {
-(04.00, 07.00)
-(04.00, 04.00)
-};
-\addplot[myblue2, dashed, no marks] coordinates {
-(06.00, 04.00)
-(04.00, 04.00)
-};
-\addplot[myblue2, dashed, no marks] coordinates {
-(06.00, 04.00)
-(06.00, 03.00)
-};
-\addplot[myblue2, dashed, no marks] coordinates {
-(07.00, 03.00)
-(06.00, 03.00)
-};
-\addplot[myblue2, dashed, no marks] coordinates {
-(07.00, 03.00)
-(07.00, 02.00)
-};
-\addplot[myblue2, dashed, no marks] coordinates {
-(10.00, 02.00)
-(07.00, 02.00)
-};
-
-\addplot[mygreen2, dotted, no marks] coordinates {
-(00.00, 09.00)
-(09.00, 09.00)
-};
-\addplot[mygreen2, dotted, no marks] coordinates {
-(09.00, 00.00)
-(09.00, 09.00)
-};
-
-\addplot[myblue2, mark=*, only marks] coordinates {
-(02.00, 07.00)
-(04.00, 04.00)
-(06.00, 03.00)
-(07.00, 02.00)
-};
-
-\addplot[mygreen2, mark=star, only marks] coordinates {
-(09.00, 09.00)
-};
-
-\node[myblue2] at (axis cs:04.88, 03.63) {$S^{\star}$};
-
-\node[mygreen2] at (axis cs:09.45, 09.63) {$y^{ref}$};
-\end{axis}
-\end{tikzpicture}
-}
-\end{figure}
-}
-\only<4>{
-\begin{figure}
-\scalebox{0.88}{
-\begin{tikzpicture}
-\begin{axis}[
-axis lines = left,
-xlabel = $f_{1}(\textrm{minimize})$,
-ylabel = $f_{2}(\textrm{minimize})$,
-xmin = 00.00,
-xmax = 10.00,
-ymin = 00.00,
-ymax = 10.00,
-xtick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
-ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
-]
-\addplot[name path=top1, no marks, opacity=0.00] coordinates {
-(02.00, 09.00)
-(09.00, 09.00)
-(09.00, 02.00)
-};
-\addplot[name path=bot1, no marks, opacity=0.00] coordinates {
-(02.00, 09.00)
-(02.00, 07.00)
-(04.00, 07.00)
-(04.00, 04.00)
-(06.00, 04.00)
-(06.00, 03.00)
-(07.00, 03.00)
-(07.00, 02.00)
-(09.00, 02.00)
-};
-
-\addplot [gray, opacity=0.50] fill between [of=top1 and bot1];
-
-\addplot[myblue2, dashed, no marks] coordinates {
-(02.00, 10.00)
-(02.00, 07.00)
-};
-\addplot[myblue2, dashed, no marks] coordinates {
-(04.00, 07.00)
-(02.00, 07.00)
-};
-\addplot[myblue2, dashed, no marks] coordinates {
-(04.00, 07.00)
-(04.00, 04.00)
-};
-\addplot[myblue2, dashed, no marks] coordinates {
-(06.00, 04.00)
-(04.00, 04.00)
-};
-\addplot[myblue2, dashed, no marks] coordinates {
-(06.00, 04.00)
-(06.00, 03.00)
-};
-\addplot[myblue2, dashed, no marks] coordinates {
-(07.00, 03.00)
-(06.00, 03.00)
-};
-\addplot[myblue2, dashed, no marks] coordinates {
-(07.00, 03.00)
-(07.00, 02.00)
-};
-\addplot[myblue2, dashed, no marks] coordinates {
-(10.00, 02.00)
-(07.00, 02.00)
-};
-
-\addplot[mygreen2, dotted, no marks] coordinates {
-(00.00, 09.00)
-(09.00, 09.00)
-};
-\addplot[mygreen2, dotted, no marks] coordinates {
-(09.00, 00.00)
-(09.00, 09.00)
-};
-
-\addplot[myblue2, mark=*, only marks] coordinates {
-(02.00, 07.00)
-(04.00, 04.00)
-(06.00, 03.00)
-(07.00, 02.00)
-};
-
-\addplot[mygreen2, mark=star, only marks] coordinates {
-(09.00, 09.00)
-};
-
-\node[myblue2] at (axis cs:04.88, 03.63) {$S^{\star}$};
-
-\node[mygreen2] at (axis cs:09.45, 09.63) {$y^{ref}$};
-
-\node at (axis cs:06.50, 06.50) {$\HV$};
-\end{axis}
-\end{tikzpicture}
-}
-\end{figure}
-}
-\only<5>{
-\begin{figure}
-\scalebox{0.88}{
-\begin{tikzpicture}
-\begin{axis}[
-axis lines = left,
-xlabel = $f_{1}(\textrm{minimize})$,
-ylabel = $f_{2}(\textrm{minimize})$,
-xmin = 00.00,
-xmax = 10.00,
-ymin = 00.00,
-ymax = 10.00,
-xtick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
-ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
-]
-\addplot[name path=top1, no marks, opacity=0.00] coordinates {
-(02.00, 09.00)
-(09.00, 09.00)
-(09.00, 02.00)
-};
-\addplot[name path=bot1, no marks, opacity=0.00] coordinates {
-(02.00, 09.00)
-(02.00, 07.00)
-(04.00, 07.00)
-(04.00, 04.00)
-(06.00, 04.00)
-(06.00, 03.00)
-(07.00, 03.00)
-(07.00, 02.00)
-(09.00, 02.00)
-};
-
-\addplot [gray, opacity=0.50] fill between [of=top1 and bot1];
-
-\addplot[myblue2, dashed, no marks] coordinates {
-(02.00, 10.00)
-(02.00, 07.00)
-};
-\addplot[myblue2, dashed, no marks] coordinates {
-(04.00, 07.00)
-(02.00, 07.00)
-};
-\addplot[myblue2, dashed, no marks] coordinates {
-(04.00, 07.00)
-(04.00, 04.00)
-};
-\addplot[myblue2, dashed, no marks] coordinates {
-(06.00, 04.00)
-(04.00, 04.00)
-};
-\addplot[myblue2, dashed, no marks] coordinates {
-(06.00, 04.00)
-(06.00, 03.00)
-};
-\addplot[myblue2, dashed, no marks] coordinates {
-(07.00, 03.00)
-(06.00, 03.00)
-};
-\addplot[myblue2, dashed, no marks] coordinates {
-(07.00, 03.00)
-(07.00, 02.00)
-};
-\addplot[myblue2, dashed, no marks] coordinates {
-(10.00, 02.00)
-(07.00, 02.00)
-};
-
-\addplot[mygreen2, dotted, no marks] coordinates {
-(00.00, 09.00)
-(09.00, 09.00)
-};
-\addplot[mygreen2, dotted, no marks] coordinates {
-(09.00, 00.00)
-(09.00, 09.00)
-};
-
-\addplot[myorange2, dashdotted, no marks] coordinates {
-(01.00, 10.00)
-(01.00, 08.00)
-};
-\addplot[myorange2, dashdotted, no marks] coordinates {
-(01.50, 08.00)
-(01.00, 08.00)
-};
-\addplot[myorange2, dashdotted, no marks] coordinates {
-(01.50, 08.00)
-(01.50, 05.88)
-};
-\addplot[myorange2, dashdotted, no marks] coordinates {
-(02.19, 05.88)
-(01.50, 05.88)
-};
-\addplot[myorange2, dashdotted, no marks] coordinates {
-(02.19, 05.88)
-(02.19, 04.28)
-};
-\addplot[myorange2, dashdotted, no marks] coordinates {
-(03.08, 04.28)
-(02.19, 04.28)
-};
-\addplot[myorange2, dashdotted, no marks] coordinates {
-(03.08, 04.28)
-(03.08, 03.08)
-};
-\addplot[myorange2, dashdotted, no marks] coordinates {
-(04.28, 03.08)
-(03.08, 03.08)
-};
-\addplot[myorange2, dashdotted, no marks] coordinates {
-(04.28, 03.08)
-(04.28, 02.19)
-};
-\addplot[myorange2, dashdotted, no marks] coordinates {
-(05.88, 02.19)
-(04.28, 02.19)
-};
-\addplot[myorange2, dashdotted, no marks] coordinates {
-(05.88, 02.19)
-(05.88, 01.50)
-};
-\addplot[myorange2, dashdotted, no marks] coordinates {
-(08.00, 01.50)
-(05.88, 01.50)
-};
-\addplot[myorange2, dashdotted, no marks] coordinates {
-(08.00, 01.50)
-(08.00, 01.00)
-};
-\addplot[myorange2, dashdotted, no marks] coordinates {
-(10.00, 01.00)
-(08.00, 01.00)
-};
-
-\addplot[myblue2, mark=*, only marks] coordinates {
-(02.00, 07.00)
-(04.00, 04.00)
-(06.00, 03.00)
-(07.00, 02.00)
-};
-
-\addplot[mygreen2, mark=star, only marks] coordinates {
-(09.00, 09.00)
-};
-
-\addplot[myorange2, mark=10-pointed star, only marks] coordinates {
-(01.00, 08.00)
-(01.50, 05.88)
-(02.19, 04.28)
-(03.08, 03.08)
-(04.28, 02.19)
-(05.88, 01.50)
-(08.00, 01.00)
-};
-
-\node[myblue2] at (axis cs:04.88, 03.63) {$S^{\star}$};
-
-\node[mygreen2] at (axis cs:09.45, 09.63) {$y^{ref}$};
-
-\node[myorange2] at (axis cs:02.50, 02.50) {$Y^{ref}$};
-
-\node at (axis cs:06.50, 06.50) {$\HV$};
-\end{axis}
-\end{tikzpicture}
-}
-\end{figure}
-}
-\only<6>{
-\begin{figure}
-\scalebox{0.88}{
-\begin{tikzpicture}
-\begin{axis}[
-axis lines = left,
-xlabel = $f_{1}(\textrm{minimize})$,
-ylabel = $f_{2}(\textrm{minimize})$,
-xmin = 00.00,
-xmax = 10.00,
-ymin = 00.00,
-ymax = 10.00,
-xtick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
-ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
-]
-\addplot[name path=top1, no marks, opacity=0.00] coordinates {
-(02.00, 09.00)
-(09.00, 09.00)
-(09.00, 02.00)
-};
-\addplot[name path=top2, no marks, opacity=0.00] coordinates {
-(01.00, 09.00)
-(09.00, 09.00)
-(09.00, 01.00)
-};
-\addplot[name path=bot1, no marks, opacity=0.00] coordinates {
-(02.00, 09.00)
-(02.00, 07.00)
-(04.00, 07.00)
-(04.00, 04.00)
-(06.00, 04.00)
-(06.00, 03.00)
-(07.00, 03.00)
-(07.00, 02.00)
-(09.00, 02.00)
-};
-\addplot[name path=bot2, no marks, opacity=0.00] coordinates {
-(01.00, 09.00)
-(01.00, 08.00)
-(01.50, 08.00)
-(01.50, 05.88)
-(02.19, 05.88)
-(02.19, 04.28)
-(03.08, 04.28)
-(03.08, 03.08)
-(04.28, 03.08)
-(04.28, 02.19)
-(05.88, 02.19)
-(05.88, 01.50)
-(08.00, 01.50)
-(08.00, 01.00)
-(09.00, 01.00)
-};
-
-\addplot [gray, opacity=0.33] fill between [of=top1 and bot1];
-\addplot [gray, opacity=0.33] fill between [of=top2 and bot2];
-
-\addplot[myblue2, dashed, no marks] coordinates {
-(02.00, 10.00)
-(02.00, 07.00)
-};
-\addplot[myblue2, dashed, no marks] coordinates {
-(04.00, 07.00)
-(02.00, 07.00)
-};
-\addplot[myblue2, dashed, no marks] coordinates {
-(04.00, 07.00)
-(04.00, 04.00)
-};
-\addplot[myblue2, dashed, no marks] coordinates {
-(06.00, 04.00)
-(04.00, 04.00)
-};
-\addplot[myblue2, dashed, no marks] coordinates {
-(06.00, 04.00)
-(06.00, 03.00)
-};
-\addplot[myblue2, dashed, no marks] coordinates {
-(07.00, 03.00)
-(06.00, 03.00)
-};
-\addplot[myblue2, dashed, no marks] coordinates {
-(07.00, 03.00)
-(07.00, 02.00)
-};
-\addplot[myblue2, dashed, no marks] coordinates {
-(10.00, 02.00)
-(07.00, 02.00)
-};
-
-\addplot[mygreen2, dotted, no marks] coordinates {
-(00.00, 09.00)
-(09.00, 09.00)
-};
-\addplot[mygreen2, dotted, no marks] coordinates {
-(09.00, 00.00)
-(09.00, 09.00)
-};
-
-\addplot[myorange2, dashdotted, no marks] coordinates {
-(01.00, 10.00)
-(01.00, 08.00)
-};
-\addplot[myorange2, dashdotted, no marks] coordinates {
-(01.50, 08.00)
-(01.00, 08.00)
-};
-\addplot[myorange2, dashdotted, no marks] coordinates {
-(01.50, 08.00)
-(01.50, 05.88)
-};
-\addplot[myorange2, dashdotted, no marks] coordinates {
-(02.19, 05.88)
-(01.50, 05.88)
-};
-\addplot[myorange2, dashdotted, no marks] coordinates {
-(02.19, 05.88)
-(02.19, 04.28)
-};
-\addplot[myorange2, dashdotted, no marks] coordinates {
-(03.08, 04.28)
-(02.19, 04.28)
-};
-\addplot[myorange2, dashdotted, no marks] coordinates {
-(03.08, 04.28)
-(03.08, 03.08)
-};
-\addplot[myorange2, dashdotted, no marks] coordinates {
-(04.28, 03.08)
-(03.08, 03.08)
-};
-\addplot[myorange2, dashdotted, no marks] coordinates {
-(04.28, 03.08)
-(04.28, 02.19)
-};
-\addplot[myorange2, dashdotted, no marks] coordinates {
-(05.88, 02.19)
-(04.28, 02.19)
-};
-\addplot[myorange2, dashdotted, no marks] coordinates {
-(05.88, 02.19)
-(05.88, 01.50)
-};
-\addplot[myorange2, dashdotted, no marks] coordinates {
-(08.00, 01.50)
-(05.88, 01.50)
-};
-\addplot[myorange2, dashdotted, no marks] coordinates {
-(08.00, 01.50)
-(08.00, 01.00)
-};
-\addplot[myorange2, dashdotted, no marks] coordinates {
-(10.00, 01.00)
-(08.00, 01.00)
-};
-
-\addplot[myblue2, mark=*, only marks] coordinates {
-(02.00, 07.00)
-(04.00, 04.00)
-(06.00, 03.00)
-(07.00, 02.00)
-};
-
-\addplot[mygreen2, mark=star, only marks] coordinates {
-(09.00, 09.00)
-};
-
-\addplot[myorange2, mark=10-pointed star, only marks] coordinates {
-(01.00, 08.00)
-(01.50, 05.88)
-(02.19, 04.28)
-(03.08, 03.08)
-(04.28, 02.19)
-(05.88, 01.50)
-(08.00, 01.00)
-};
-
-\node[myblue2] at (axis cs:04.88, 03.63) {$S^{\star}$};
-
-\node[mygreen2] at (axis cs:09.45, 09.63) {$y^{ref}$};
-
-\node[myorange2] at (axis cs:02.50, 02.50) {$Y^{ref}$};
-
-\node at (axis cs:06.50, 06.50) {$\HVR$};
-\end{axis}
-\end{tikzpicture}
-}
-\end{figure}
-}
-\end{frame}
-
-%========================================================================================
-\section{Results \& Analysis}
-
-\begin{frame}[plain]
-\begin{center}
-{\Huge Results \\ \& \\Analysis}
-\end{center}
-\end{frame}
-
-%----------------------------------------------------------------------------------------
-\begin{frame}
-\frametitle{Results for a single instance}
-\framesubtitle{pci\_048\_n0135\_orig\_best}
-\begin{figure}
+\begin{table}[!htbp]
 \centering
-\includegraphics[width=0.42\textwidth]{figs/pci_048_n0135_orig_best.pdf}
-\end{figure}
-\end{frame}
+\begin{tabular}{ll}
+\toprule
+\textbf{Parameter}                              & \textbf{Value}                                                    \\
+\midrule
+Population size $|P|$ (per subpopulation)       & $300$                                                             \\
+Parent count $\pi$ (elitist $\pi_e$)            & $3$ (with $\pi_e = 2$ elites)                                     \\
+Elite fraction $p^{e}_{\min}$ -- $p^{e}_{\max}$ & $0.10$ -- $0.30$                                                  \\
+Bias function $\Phi(r)$                         & $1/\sqrt{r}$                                                      \\
+Mutation probability $p_{m}$ (index $\eta_{m}$) & $0.01$ ($\eta_{m} = 50$)                                          \\
+Number of subpopulations $p$                    & $3$                                                               \\
+Migration interval (gen), size $k$              & $200$ gen, $k = 30$ solutions                                     \\
+IPR interval (gen)                              & $500$ gen                                                         \\
+Shaking trigger (stagnant gen)                  & $200$ gen ($p_{\text{shake}} = 0.33$, $\eta_{\text{shake}} = 20$) \\
+Reset trigger (stagnant gen)                    & $500$ gen ($p_{\text{reset}} = 0.20$)                             \\
+\bottomrule
+\end{tabular}
+\label{tab:nsbrkga_params}
+\end{table}
 
-%----------------------------------------------------------------------------------------
-\begin{frame}
-\frametitle{Overall Performance Comparison}
-
-\begin{figure}
-\centering
-\includegraphics[width=0.48\textwidth]{figs/igd_plus.pdf}
-\includegraphics[width=0.48\textwidth]{figs/hypervolume.pdf}
-\end{figure}
-
-% \vspace{-0.3em}
-% \begin{itemize}
-% \item \textsc{NS-BRKGA} attains the best mean ranks on \textbf{both} $\NIGDplus$ and $\HVR$.
-% \item Reported means: $\NIGDplus \approx 0.001$ and $\HVR \approx 0.93$ (\textsc{NSGA-II}: $0.009$ and $0.58$).
-% \end{itemize}
-
-% Speaker note: Use this slide to make the main message unambiguous: “best overall, and with low variability”.
+% Speaker note: Optional slide. If time is tight, skip. Use it only if asked about parameters.
 \end{frame}
 
 %----------------------------------------------------------------------------------------
@@ -3957,129 +4098,6 @@ ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
 \centering
 \includegraphics[width=0.42\textwidth]{figs/scatter.pdf}
 \end{figure}
-\end{frame}
-
-%----------------------------------------------------------------------------------------
-\begin{frame}
-\frametitle{Scalability with Problem Size}
-
-\begin{figure}
-\centering
-\includegraphics[width=0.48\textwidth]{figs/igd_plus_mean_per_size.pdf}
-\includegraphics[width=0.48\textwidth]{figs/hypervolume_mean_per_size.pdf}
-\end{figure}
-
-% \vspace{-0.3em}
-% \begin{itemize}
-% \item As $|V|$ grows, baseline methods degrade, while \textsc{NS-BRKGA} remains stable.
-% \item On the largest instances ($|V| = 4125$), \textsc{NS-BRKGA} maintains mean $\HVR \approx 0.87 \pm 0.08$ (\textsc{NSGA-II} $\approx 0.6 \pm 0.1$).
-% \end{itemize}
-
-% Speaker note: Interpret the curves: NS-BRKGA’s advantage widens at scale.
-\end{frame}
-
-%----------------------------------------------------------------------------------------
-\begin{frame}
-\frametitle{Robustness Across Instance Types}
-
-\begin{table}[!htbp]
-% \caption{Mean $\NIGDplus$ ($\downarrow$) and $\HVR$ ($\uparrow$) by instance type.}
-\label{table:robustness}
-\centering
-\resizebox{0.99\textwidth}{!}{
-\begin{tabular}{lcccccc}
-\toprule
-Algorithm          &                    \multicolumn{3}{c}{$\NIGDplus$ ($\downarrow$)}                    &                    \multicolumn{3}{c}{$\HVR$ ($\uparrow$)}                     \\
-\cmidrule{2-7}
-                   &        \texttt{full}       &       \texttt{orig}        &       \texttt{squz}        &      \texttt{full}       &      \texttt{orig}       &      \texttt{squz}       \\
-\midrule
-\textsc{NSGA-II}   &     $0.005 \pm 0.006$      &     $0.004 \pm 0.004$      &     $0.017 \pm 0.032$      &     $0.46 \pm 0.17$      &     $0.51 \pm 0.11$      &     $0.77 \pm 0.23$      \\
-\textsc{NSPSO}     &     $0.011 \pm 0.007$      &     $0.011 \pm 0.006$      &     $0.029 \pm 0.037$      &     $0.22 \pm 0.14$      &     $0.20 \pm 0.11$      &     $0.49 \pm 0.30$      \\
-\textsc{MOEA/D-DE} &     $0.007 \pm 0.005$      &     $0.006 \pm 0.004$      &     $0.017 \pm 0.030$      &     $0.27 \pm 0.12$      &     $0.30 \pm 0.13$      &     $0.53 \pm 0.27$      \\
-\textsc{MHACO}     &     $0.011 \pm 0.007$      &     $0.011 \pm 0.007$      &     $0.033 \pm 0.039$      &     $0.15 \pm 0.07$      &     $0.17 \pm 0.09$      &     $0.47 \pm 0.30$      \\
-\textsc{IHS}       &     $0.008 \pm 0.005$      &     $0.007 \pm 0.004$      &     $0.033 \pm 0.040$      &     $0.33 \pm 0.17$      &     $0.36 \pm 0.16$      &     $0.57 \pm 0.30$      \\
-\textsc{NS-BRKGA}  & $\mathbf{0.001 \pm 0.001}$ & $\mathbf{0.001 \pm 0.001}$ & $\mathbf{0.002 \pm 0.007}$ & $\mathbf{0.90 \pm 0.09}$ & $\mathbf{0.91 \pm 0.08}$ & $\mathbf{0.97 \pm 0.05}$ \\
-\bottomrule
-\end{tabular}
-}
-\end{table}
-
-% \vspace{-0.2em}
-% \begin{itemize}
-% \item \textsc{NS-BRKGA} is the top performer on all instance types.
-% \item On \texttt{squz}: mean $\HVR \approx 0.97$ and mean $\NIGDplus \approx 0.002$.
-% \end{itemize}
-
-% Speaker note: Highlight the “small and fragmented feasible region” narrative: this supports why repair + feedback matters.
-\end{frame}
-
-%----------------------------------------------------------------------------------------
-\begin{frame}
-\frametitle{Robustness Across Instance Types}
-
-\begin{figure}
-\centering
-\includegraphics[width=0.31\textwidth]{figs/igd_plus_full.pdf}
-\includegraphics[width=0.31\textwidth]{figs/igd_plus_orig.pdf}
-\includegraphics[width=0.31\textwidth]{figs/igd_plus_squz.pdf}
-\end{figure}
-\begin{figure}
-\centering
-\includegraphics[width=0.31\textwidth]{figs/hypervolume_full.pdf}
-\includegraphics[width=0.31\textwidth]{figs/hypervolume_orig.pdf}
-\includegraphics[width=0.31\textwidth]{figs/hypervolume_squz.pdf}
-\end{figure}
-\end{frame}
-
-%----------------------------------------------------------------------------------------
-\begin{frame}
-\frametitle{Convergence \& Runtime Performance}
-
-\begin{figure}
-\centering
-\includegraphics[width=0.48\textwidth]{figs/igd_plus_mean_snapshots.pdf}
-\includegraphics[width=0.48\textwidth]{figs/hypervolume_mean_snapshots.pdf}
-\end{figure}
-
-% \vspace{-0.3em}
-% \begin{itemize}
-% \item \textsc{NS-BRKGA} reaches high-quality fronts \textbf{very early} (within $\sim 30$s: $\HVR \approx 0.7 \pm 0.2$).
-% \item Baselines often do not match this quality even after the full $15$-minute budget.
-% \end{itemize}
-
-% Speaker note: This is a helpful slide for audiences who believe “memetic algorithms are slow”. Here, intensification pays off fast.
-\end{frame}
-
-%========================================================================================
-\section{Conclusion}
-
-\begin{frame}[plain]
-\begin{center}
-{\Huge Conclusion}
-\end{center}
-\end{frame}
-
-%----------------------------------------------------------------------------------------
-\begin{frame}
-\frametitle{Conclusion}
-
-\begin{itemize}
-\item \textbf{MOPCI} is a practical LTE/5G optimization problem involving both \textbf{technological constraints} and multi-objective \textbf{operational concerns}.
-
-\item \textbf{Methodological contribution:} \textsc{NS-BRKGA} integrates a random-key evolutionary framework with a problem-specific decoder featuring \textbf{feasibility repair}, \textbf{lexicographically guided local search}, and \textbf{genotype feedback}.
-
-\item \textbf{Experimental evidence:} Across 291 real-world instances and five representative MOEAs, \textsc{NS-BRKGA} consistently achieves \textbf{strong Pareto-front quality} ($\HVR \approx 0.93$, $\NIGDplus \approx 0.001$), \textbf{scalability}, \textbf{robustness}, and \textbf{fast convergence} ($\sim 30$s).
-
-\item \textbf{Take-home message:} \textsc{NS-BRKGA} provides network operators with a highly practical way to quickly generate high-quality PCI plans that balance \textbf{radio performance}, \textbf{rollout safety}, and \textbf{operational stability}.
-\end{itemize}
-
-\end{frame}
-
-%========================================================================================
-\begin{frame}[plain]
-\begin{center}
-{\Huge That's all, folks!}
-\end{center}
 \end{frame}
 
 \end{document}
