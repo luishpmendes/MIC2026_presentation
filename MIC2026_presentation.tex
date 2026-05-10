@@ -166,7 +166,7 @@
 %\setbeamertemplate{footline} % Uncomment this line to remove the footer line in all slides
 %\setbeamertemplate{footline}[page number] % Uncomment this line to replace the footer line in all slides with a simple slide count
 
-% \setbeamertemplate{navigation symbols}{} % Uncomment this line to remove the navigation symbols from the bottom of all slides
+\setbeamertemplate{navigation symbols}{} % Uncomment this line to remove the navigation symbols from the bottom of all slides
 
 \setbeamertemplate{page number in head/foot}[framenumber]
 
@@ -365,23 +365,23 @@ to Cell B or Cell C since they have the same PCI.
 \end{frame}
 
 %----------------------------------------------------------------------------------------
-\begin{frame}
-\frametitle{Operational constraints -- Batch deployment}
+% \begin{frame}
+% \frametitle{Operational constraints -- Batch deployment}
 
-When scheduling batches, a PCI shuffle may occur: a node \\
-receives the PCI number previously assigned to a neighbor \\
-or a second-level neighbor, which is assigned to another batch.
+% When scheduling batches, a PCI shuffle may occur: a node \\
+% receives the PCI number previously assigned to a neighbor \\
+% or a second-level neighbor, which is assigned to another batch.
 
-~\\
+% ~\\
 
-Since the batches are deployed in sequence, we may find collisions and/or confusions, and therefore, the deployment will not be validated.
+% Since the batches are deployed in sequence, we may find collisions and/or confusions, and therefore, the deployment will not be validated.
 
 
-\end{frame}
+% \end{frame}
 
 %----------------------------------------------------------------------------------------
 \begin{frame}
-\frametitle{PCI shuffle -- Example 1}
+\frametitle{Operational constraints -- PCI shuffle}
 
 \begin{columns}[c,onlytextwidth]
 \column{0.62\textwidth}
@@ -406,8 +406,7 @@ the PCI for B should be changed later on.
 
 ~\\
 
-To avoid PCI shuffle, we must proper \\
-order the batches for delivery.
+We call this a PCI shuffle.
 
 \column{0.38\textwidth}
 \centering
@@ -419,43 +418,43 @@ order the batches for delivery.
 \end{frame}
 
 %----------------------------------------------------------------------------------------
-\begin{frame}
-\frametitle{PCI shuffle -- Example 2}
+% \begin{frame}
+% \frametitle{PCI shuffle -- Example 2}
 
-\begin{columns}[c,onlytextwidth]
-\column{0.62\textwidth}
-Here, PCI $150$ must be assigned to cell A and PCI \\
-$100$ must be assigned to cell B (crossed PCI shuffle).
+% \begin{columns}[c,onlytextwidth]
+% \column{0.62\textwidth}
+% Here, PCI $150$ must be assigned to cell A and PCI \\
+% $100$ must be assigned to cell B (crossed PCI shuffle).
 
-~\\
+% ~\\
 
-In this case, it does not matter the \\
-other we try to deploy the batches \\
-because collisions will happen in any case.
+% In this case, it does not matter the \\
+% other we try to deploy the batches \\
+% because collisions will happen in any case.
 
-~\\
+% ~\\
 
-To avoid PCI shuffle we must assign \\
-dependent nodes (for which we must \\
-change the PCIs) in the same batch.
+% To avoid PCI shuffle we must assign \\
+% dependent nodes (for which we must \\
+% change the PCIs) in the same batch.
 
-~\\
+% ~\\
 
-However, each batch has a limited size or capacity.
+% However, each batch has a limited size or capacity.
 
-~\\
+% ~\\
 
-Therefore, it can be challenging \\
-to find a proper packing.
+% Therefore, it can be challenging \\
+% to find a proper packing.
 
-\column{0.38\textwidth}
-\centering
-\begin{figure}
-\includegraphics[width=0.96\textwidth]{figs/PCI_shuffle_2.pdf}
-\end{figure}
-\end{columns}
+% \column{0.38\textwidth}
+% \centering
+% \begin{figure}
+% \includegraphics[width=0.96\textwidth]{figs/PCI_shuffle_2.pdf}
+% \end{figure}
+% \end{columns}
 
-\end{frame}
+% \end{frame}
 
 %----------------------------------------------------------------------------------------
 \begin{frame}
@@ -1332,11 +1331,11 @@ k_{v} \leftarrow \frac{j + 0.5}{|AP|}\quad\Rightarrow\quad \left\lfloor k_{v} \c
 
 ~\\
 
-\item $5$ independent runs.
+\item $5$ independent runs for each algorithm and instance.
 
 ~\\
 
-\item $15$ min per run.
+\item $15$ minutes per run.
 
 ~\\
 
@@ -1344,7 +1343,7 @@ k_{v} \leftarrow \frac{j + 0.5}{|AP|}\quad\Rightarrow\quad \left\lfloor k_{v} \c
 
 ~\\
 
-\item Same implementation language / PaGMO2 baselines.
+\item Same implementation language~(C++).
 \end{itemize}
 
 ~\\
@@ -1419,892 +1418,18 @@ Two complementary quality indicators were employed:
 ~\\
 
 \begin{enumerate}
-\item \textbf{Normalized Modified Inverted Generational Distance}~($\NIGDplus$),
+\item \textbf{Normalized Modified Inverted Generational Distance}~($\NIGDplus$).
+\begin{itemize}
+\item lower is better
+\end{itemize}
 
 ~\\
 
 \item \textbf{Hypervolume Ratio}~($\HVR$).
+\begin{itemize}
+\item higher is better
+\end{itemize}
 \end{enumerate}
-\end{frame}
-
-%----------------------------------------------------------------------------------------
-\begin{frame}
-\frametitle{Performance Indicators}
-\framesubtitle{Normalized Modified Inverted Generational Distance~($\NIGDplus$)}
-\only<1>{
-\begin{figure}
-\scalebox{0.88}{
-\begin{tikzpicture}
-\begin{axis}[
-axis lines = left,
-xlabel = $f_{1}(\textrm{minimize})$,
-ylabel = $f_{2}(\textrm{minimize})$,
-xmin = 00.00,
-xmax = 10.00,
-ymin = 00.00,
-ymax = 10.00,
-xtick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
-ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
-]
-
-\end{axis}
-\end{tikzpicture}
-}
-\end{figure}
-}
-\only<2>{
-\begin{figure}
-\scalebox{0.88}{
-\begin{tikzpicture}
-\begin{axis}[
-axis lines = left,
-xlabel = $f_{1}(\textrm{minimize})$,
-ylabel = $f_{2}(\textrm{minimize})$,
-xmin = 00.00,
-xmax = 10.00,
-ymin = 00.00,
-ymax = 10.00,
-xtick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
-ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
-]
-\addplot[myblue2, mark=*, only marks] coordinates {
-(02.00, 07.00)
-(04.00, 04.00)
-(06.00, 03.00)
-(07.00, 02.00)
-};
-
-\node[myblue2] at (axis cs:04.88, 03.63) {$S^{\star}$};
-\end{axis}
-\end{tikzpicture}
-}
-\end{figure}
-}
-\only<3>{
-\begin{figure}
-\scalebox{0.88}{
-\begin{tikzpicture}
-\begin{axis}[
-axis lines = left,
-xlabel = $f_{1}(\textrm{minimize})$,
-ylabel = $f_{2}(\textrm{minimize})$,
-xmin = 00.00,
-xmax = 10.00,
-ymin = 00.00,
-ymax = 10.00,
-xtick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
-ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
-]
-\addplot[myblue2, mark=*, only marks] coordinates {
-(02.00, 07.00)
-(04.00, 04.00)
-(06.00, 03.00)
-(07.00, 02.00)
-};
-
-\addplot[myorange2, mark=10-pointed star, only marks] coordinates {
-(01.00, 08.00)
-(01.50, 05.88)
-(02.19, 04.28)
-(03.08, 03.08)
-(04.28, 02.19)
-(05.88, 01.50)
-(08.00, 01.00)
-};
-
-\node[myblue2] at (axis cs:04.88, 03.63) {$S^{\star}$};
-
-\node[myorange2] at (axis cs:02.50, 02.50) {$Y^{ref}$};
-\end{axis}
-\end{tikzpicture}
-}
-\end{figure}
-}
-\only<4>{
-\begin{figure}
-\scalebox{0.88}{
-\begin{tikzpicture}
-\begin{axis}[
-axis lines = left,
-xlabel = $f_{1}(\textrm{minimize})$,
-ylabel = $f_{2}(\textrm{minimize})$,
-xmin = 00.00,
-xmax = 10.00,
-ymin = 00.00,
-ymax = 10.00,
-xtick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
-ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
-]
-\addplot[myblue2, mark=*, only marks] coordinates {
-(02.00, 07.00)
-(04.00, 04.00)
-(06.00, 03.00)
-(07.00, 02.00)
-};
-
-\addplot[myorange2, mark=10-pointed star, only marks] coordinates {
-(01.00, 08.00)
-(01.50, 05.88)
-(02.19, 04.28)
-(03.08, 03.08)
-(04.28, 02.19)
-(05.88, 01.50)
-(08.00, 01.00)
-};
-
-\node[myblue2] at (axis cs:04.88, 03.63) {$S^{\star}$};
-
-\node[myorange2] at (axis cs:02.50, 02.50) {$Y^{ref}$};
-
-\draw[-, dashed](02.00, 07.00)--(01.00, 08.00);
-\draw[-, dashed](02.00, 07.00)--(01.50, 05.88);
-\draw[-, dashed](04.00, 04.00)--(02.19, 04.28);
-\draw[-, dashed](04.00, 04.00)--(03.08, 03.08);
-\draw[-, dashed](04.00, 04.00)--(04.28, 02.19);
-\draw[-, dashed](07.00, 02.00)--(05.88, 01.50);
-\draw[-, dashed](07.00, 02.00)--(08.00, 01.00);
-
-\node at (axis cs:06.50, 06.50) {$\IGDplus$};
-\end{axis}
-\end{tikzpicture}
-}
-\end{figure}
-}
-\only<5>{
-\begin{figure}
-\scalebox{0.88}{
-\begin{tikzpicture}
-\begin{axis}[
-axis lines = left,
-xlabel = $f_{1}(\textrm{minimize})$,
-ylabel = $f_{2}(\textrm{minimize})$,
-xmin = 00.00,
-xmax = 10.00,
-ymin = 00.00,
-ymax = 10.00,
-xtick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
-ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
-]
-\addplot[myblue2, mark=*, only marks] coordinates {
-(02.00, 07.00)
-(04.00, 04.00)
-(06.00, 03.00)
-(07.00, 02.00)
-};
-
-\addplot[mygreen2, mark=star, only marks] coordinates {
-(09.00, 09.00)
-};
-
-\addplot[myorange2, mark=10-pointed star, only marks] coordinates {
-(01.00, 08.00)
-(01.50, 05.88)
-(02.19, 04.28)
-(03.08, 03.08)
-(04.28, 02.19)
-(05.88, 01.50)
-(08.00, 01.00)
-};
-
-\node[myblue2] at (axis cs:04.88, 03.63) {$S^{\star}$};
-
-\node[mygreen2] at (axis cs:09.45, 09.63) {$y^{ref}$};
-
-\node[myorange2] at (axis cs:02.50, 02.50) {$Y^{ref}$};
-
-\draw[-, dashed](02.00, 07.00)--(01.00, 08.00);
-\draw[-, dashed](02.00, 07.00)--(01.50, 05.88);
-\draw[-, dashed](04.00, 04.00)--(02.19, 04.28);
-\draw[-, dashed](04.00, 04.00)--(03.08, 03.08);
-\draw[-, dashed](04.00, 04.00)--(04.28, 02.19);
-\draw[-, dashed](07.00, 02.00)--(05.88, 01.50);
-\draw[-, dashed](07.00, 02.00)--(08.00, 01.00);
-
-\node at (axis cs:06.50, 06.50) {$\IGDplus$};
-\end{axis}
-\end{tikzpicture}
-}
-\end{figure}
-}
-\only<6>{
-\begin{figure}
-\scalebox{0.88}{
-\begin{tikzpicture}
-\begin{axis}[
-axis lines = left,
-xlabel = $f_{1}(\textrm{minimize})$,
-ylabel = $f_{2}(\textrm{minimize})$,
-xmin = 00.00,
-xmax = 10.00,
-ymin = 00.00,
-ymax = 10.00,
-xtick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
-ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
-]
-\addplot[myblue2, mark=*, only marks] coordinates {
-(02.00, 07.00)
-(04.00, 04.00)
-(06.00, 03.00)
-(07.00, 02.00)
-};
-
-\addplot[mygreen2, mark=star, only marks] coordinates {
-(09.00, 09.00)
-};
-
-\addplot[myorange2, mark=10-pointed star, only marks] coordinates {
-(01.00, 08.00)
-(01.50, 05.88)
-(02.19, 04.28)
-(03.08, 03.08)
-(04.28, 02.19)
-(05.88, 01.50)
-(08.00, 01.00)
-};
-
-\node[myblue2] at (axis cs:04.88, 03.63) {$S^{\star}$};
-
-\node[mygreen2] at (axis cs:09.45, 09.63) {$y^{ref}$};
-
-\node[myorange2] at (axis cs:02.50, 02.50) {$Y^{ref}$};
-
-\draw[-, dashed](02.00, 07.00)--(01.00, 08.00);
-\draw[-, dashed](02.00, 07.00)--(01.50, 05.88);
-\draw[-, dashed](04.00, 04.00)--(02.19, 04.28);
-\draw[-, dashed](04.00, 04.00)--(03.08, 03.08);
-\draw[-, dashed](04.00, 04.00)--(04.28, 02.19);
-\draw[-, dashed](07.00, 02.00)--(05.88, 01.50);
-\draw[-, dashed](07.00, 02.00)--(08.00, 01.00);
-
-\draw[-, dotted](09.00, 09.00)--(01.00, 08.00);
-\draw[-, dotted](09.00, 09.00)--(01.50, 05.88);
-\draw[-, dotted](09.00, 09.00)--(02.19, 04.28);
-\draw[-, dotted](09.00, 09.00)--(03.08, 03.08);
-\draw[-, dotted](09.00, 09.00)--(04.28, 02.19);
-\draw[-, dotted](09.00, 09.00)--(05.88, 01.50);
-\draw[-, dotted](09.00, 09.00)--(08.00, 01.00);
-
-\node at (axis cs:06.50, 06.50) {$\NIGDplus$};
-\end{axis}
-\end{tikzpicture}
-}
-\end{figure}
-}
-\end{frame}
-
-%----------------------------------------------------------------------------------------
-\begin{frame}
-\frametitle{Performance Indicators}
-\framesubtitle{Hypervolume Ratio~($\HVR$)}
-\only<1>{
-\begin{figure}
-\scalebox{0.88}{
-\begin{tikzpicture}
-\begin{axis}[
-axis lines = left,
-xlabel = $f_{1}(\textrm{minimize})$,
-ylabel = $f_{2}(\textrm{minimize})$,
-xmin = 00.00,
-xmax = 10.00,
-ymin = 00.00,
-ymax = 10.00,
-xtick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
-ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
-]
-\end{axis}
-\end{tikzpicture}
-}
-\end{figure}
-}
-\only<2>{
-\begin{figure}
-\scalebox{0.88}{
-\begin{tikzpicture}
-\begin{axis}[
-axis lines = left,
-xlabel = $f_{1}(\textrm{minimize})$,
-ylabel = $f_{2}(\textrm{minimize})$,
-xmin = 00.00,
-xmax = 10.00,
-ymin = 00.00,
-ymax = 10.00,
-xtick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
-ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
-]
-\addplot[myblue2, dashed, no marks] coordinates {
-(02.00, 10.00)
-(02.00, 07.00)
-};
-\addplot[myblue2, dashed, no marks] coordinates {
-(04.00, 07.00)
-(02.00, 07.00)
-};
-\addplot[myblue2, dashed, no marks] coordinates {
-(04.00, 07.00)
-(04.00, 04.00)
-};
-\addplot[myblue2, dashed, no marks] coordinates {
-(06.00, 04.00)
-(04.00, 04.00)
-};
-\addplot[myblue2, dashed, no marks] coordinates {
-(06.00, 04.00)
-(06.00, 03.00)
-};
-\addplot[myblue2, dashed, no marks] coordinates {
-(07.00, 03.00)
-(06.00, 03.00)
-};
-\addplot[myblue2, dashed, no marks] coordinates {
-(07.00, 03.00)
-(07.00, 02.00)
-};
-\addplot[myblue2, dashed, no marks] coordinates {
-(10.00, 02.00)
-(07.00, 02.00)
-};
-
-\addplot[myblue2, mark=*, only marks] coordinates {
-(02.00, 07.00)
-(04.00, 04.00)
-(06.00, 03.00)
-(07.00, 02.00)
-};
-
-\node[myblue2] at (axis cs:04.88, 03.63) {$S^{\star}$};
-\end{axis}
-\end{tikzpicture}
-}
-\end{figure}
-}
-\only<3>{
-\begin{figure}
-\scalebox{0.88}{
-\begin{tikzpicture}
-\begin{axis}[
-axis lines = left,
-xlabel = $f_{1}(\textrm{minimize})$,
-ylabel = $f_{2}(\textrm{minimize})$,
-xmin = 00.00,
-xmax = 10.00,
-ymin = 00.00,
-ymax = 10.00,
-xtick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
-ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
-]
-\addplot[myblue2, dashed, no marks] coordinates {
-(02.00, 10.00)
-(02.00, 07.00)
-};
-\addplot[myblue2, dashed, no marks] coordinates {
-(04.00, 07.00)
-(02.00, 07.00)
-};
-\addplot[myblue2, dashed, no marks] coordinates {
-(04.00, 07.00)
-(04.00, 04.00)
-};
-\addplot[myblue2, dashed, no marks] coordinates {
-(06.00, 04.00)
-(04.00, 04.00)
-};
-\addplot[myblue2, dashed, no marks] coordinates {
-(06.00, 04.00)
-(06.00, 03.00)
-};
-\addplot[myblue2, dashed, no marks] coordinates {
-(07.00, 03.00)
-(06.00, 03.00)
-};
-\addplot[myblue2, dashed, no marks] coordinates {
-(07.00, 03.00)
-(07.00, 02.00)
-};
-\addplot[myblue2, dashed, no marks] coordinates {
-(10.00, 02.00)
-(07.00, 02.00)
-};
-
-\addplot[mygreen2, dotted, no marks] coordinates {
-(00.00, 09.00)
-(09.00, 09.00)
-};
-\addplot[mygreen2, dotted, no marks] coordinates {
-(09.00, 00.00)
-(09.00, 09.00)
-};
-
-\addplot[myblue2, mark=*, only marks] coordinates {
-(02.00, 07.00)
-(04.00, 04.00)
-(06.00, 03.00)
-(07.00, 02.00)
-};
-
-\addplot[mygreen2, mark=star, only marks] coordinates {
-(09.00, 09.00)
-};
-
-\node[myblue2] at (axis cs:04.88, 03.63) {$S^{\star}$};
-
-\node[mygreen2] at (axis cs:09.45, 09.63) {$y^{ref}$};
-\end{axis}
-\end{tikzpicture}
-}
-\end{figure}
-}
-\only<4>{
-\begin{figure}
-\scalebox{0.88}{
-\begin{tikzpicture}
-\begin{axis}[
-axis lines = left,
-xlabel = $f_{1}(\textrm{minimize})$,
-ylabel = $f_{2}(\textrm{minimize})$,
-xmin = 00.00,
-xmax = 10.00,
-ymin = 00.00,
-ymax = 10.00,
-xtick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
-ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
-]
-\addplot[name path=top1, no marks, opacity=0.00] coordinates {
-(02.00, 09.00)
-(09.00, 09.00)
-(09.00, 02.00)
-};
-\addplot[name path=bot1, no marks, opacity=0.00] coordinates {
-(02.00, 09.00)
-(02.00, 07.00)
-(04.00, 07.00)
-(04.00, 04.00)
-(06.00, 04.00)
-(06.00, 03.00)
-(07.00, 03.00)
-(07.00, 02.00)
-(09.00, 02.00)
-};
-
-\addplot [gray, opacity=0.50] fill between [of=top1 and bot1];
-
-\addplot[myblue2, dashed, no marks] coordinates {
-(02.00, 10.00)
-(02.00, 07.00)
-};
-\addplot[myblue2, dashed, no marks] coordinates {
-(04.00, 07.00)
-(02.00, 07.00)
-};
-\addplot[myblue2, dashed, no marks] coordinates {
-(04.00, 07.00)
-(04.00, 04.00)
-};
-\addplot[myblue2, dashed, no marks] coordinates {
-(06.00, 04.00)
-(04.00, 04.00)
-};
-\addplot[myblue2, dashed, no marks] coordinates {
-(06.00, 04.00)
-(06.00, 03.00)
-};
-\addplot[myblue2, dashed, no marks] coordinates {
-(07.00, 03.00)
-(06.00, 03.00)
-};
-\addplot[myblue2, dashed, no marks] coordinates {
-(07.00, 03.00)
-(07.00, 02.00)
-};
-\addplot[myblue2, dashed, no marks] coordinates {
-(10.00, 02.00)
-(07.00, 02.00)
-};
-
-\addplot[mygreen2, dotted, no marks] coordinates {
-(00.00, 09.00)
-(09.00, 09.00)
-};
-\addplot[mygreen2, dotted, no marks] coordinates {
-(09.00, 00.00)
-(09.00, 09.00)
-};
-
-\addplot[myblue2, mark=*, only marks] coordinates {
-(02.00, 07.00)
-(04.00, 04.00)
-(06.00, 03.00)
-(07.00, 02.00)
-};
-
-\addplot[mygreen2, mark=star, only marks] coordinates {
-(09.00, 09.00)
-};
-
-\node[myblue2] at (axis cs:04.88, 03.63) {$S^{\star}$};
-
-\node[mygreen2] at (axis cs:09.45, 09.63) {$y^{ref}$};
-
-\node at (axis cs:06.50, 06.50) {$\HV$};
-\end{axis}
-\end{tikzpicture}
-}
-\end{figure}
-}
-\only<5>{
-\begin{figure}
-\scalebox{0.88}{
-\begin{tikzpicture}
-\begin{axis}[
-axis lines = left,
-xlabel = $f_{1}(\textrm{minimize})$,
-ylabel = $f_{2}(\textrm{minimize})$,
-xmin = 00.00,
-xmax = 10.00,
-ymin = 00.00,
-ymax = 10.00,
-xtick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
-ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
-]
-\addplot[name path=top1, no marks, opacity=0.00] coordinates {
-(02.00, 09.00)
-(09.00, 09.00)
-(09.00, 02.00)
-};
-\addplot[name path=bot1, no marks, opacity=0.00] coordinates {
-(02.00, 09.00)
-(02.00, 07.00)
-(04.00, 07.00)
-(04.00, 04.00)
-(06.00, 04.00)
-(06.00, 03.00)
-(07.00, 03.00)
-(07.00, 02.00)
-(09.00, 02.00)
-};
-
-\addplot [gray, opacity=0.50] fill between [of=top1 and bot1];
-
-\addplot[myblue2, dashed, no marks] coordinates {
-(02.00, 10.00)
-(02.00, 07.00)
-};
-\addplot[myblue2, dashed, no marks] coordinates {
-(04.00, 07.00)
-(02.00, 07.00)
-};
-\addplot[myblue2, dashed, no marks] coordinates {
-(04.00, 07.00)
-(04.00, 04.00)
-};
-\addplot[myblue2, dashed, no marks] coordinates {
-(06.00, 04.00)
-(04.00, 04.00)
-};
-\addplot[myblue2, dashed, no marks] coordinates {
-(06.00, 04.00)
-(06.00, 03.00)
-};
-\addplot[myblue2, dashed, no marks] coordinates {
-(07.00, 03.00)
-(06.00, 03.00)
-};
-\addplot[myblue2, dashed, no marks] coordinates {
-(07.00, 03.00)
-(07.00, 02.00)
-};
-\addplot[myblue2, dashed, no marks] coordinates {
-(10.00, 02.00)
-(07.00, 02.00)
-};
-
-\addplot[mygreen2, dotted, no marks] coordinates {
-(00.00, 09.00)
-(09.00, 09.00)
-};
-\addplot[mygreen2, dotted, no marks] coordinates {
-(09.00, 00.00)
-(09.00, 09.00)
-};
-
-\addplot[myorange2, dashdotted, no marks] coordinates {
-(01.00, 10.00)
-(01.00, 08.00)
-};
-\addplot[myorange2, dashdotted, no marks] coordinates {
-(01.50, 08.00)
-(01.00, 08.00)
-};
-\addplot[myorange2, dashdotted, no marks] coordinates {
-(01.50, 08.00)
-(01.50, 05.88)
-};
-\addplot[myorange2, dashdotted, no marks] coordinates {
-(02.19, 05.88)
-(01.50, 05.88)
-};
-\addplot[myorange2, dashdotted, no marks] coordinates {
-(02.19, 05.88)
-(02.19, 04.28)
-};
-\addplot[myorange2, dashdotted, no marks] coordinates {
-(03.08, 04.28)
-(02.19, 04.28)
-};
-\addplot[myorange2, dashdotted, no marks] coordinates {
-(03.08, 04.28)
-(03.08, 03.08)
-};
-\addplot[myorange2, dashdotted, no marks] coordinates {
-(04.28, 03.08)
-(03.08, 03.08)
-};
-\addplot[myorange2, dashdotted, no marks] coordinates {
-(04.28, 03.08)
-(04.28, 02.19)
-};
-\addplot[myorange2, dashdotted, no marks] coordinates {
-(05.88, 02.19)
-(04.28, 02.19)
-};
-\addplot[myorange2, dashdotted, no marks] coordinates {
-(05.88, 02.19)
-(05.88, 01.50)
-};
-\addplot[myorange2, dashdotted, no marks] coordinates {
-(08.00, 01.50)
-(05.88, 01.50)
-};
-\addplot[myorange2, dashdotted, no marks] coordinates {
-(08.00, 01.50)
-(08.00, 01.00)
-};
-\addplot[myorange2, dashdotted, no marks] coordinates {
-(10.00, 01.00)
-(08.00, 01.00)
-};
-
-\addplot[myblue2, mark=*, only marks] coordinates {
-(02.00, 07.00)
-(04.00, 04.00)
-(06.00, 03.00)
-(07.00, 02.00)
-};
-
-\addplot[mygreen2, mark=star, only marks] coordinates {
-(09.00, 09.00)
-};
-
-\addplot[myorange2, mark=10-pointed star, only marks] coordinates {
-(01.00, 08.00)
-(01.50, 05.88)
-(02.19, 04.28)
-(03.08, 03.08)
-(04.28, 02.19)
-(05.88, 01.50)
-(08.00, 01.00)
-};
-
-\node[myblue2] at (axis cs:04.88, 03.63) {$S^{\star}$};
-
-\node[mygreen2] at (axis cs:09.45, 09.63) {$y^{ref}$};
-
-\node[myorange2] at (axis cs:02.50, 02.50) {$Y^{ref}$};
-
-\node at (axis cs:06.50, 06.50) {$\HV$};
-\end{axis}
-\end{tikzpicture}
-}
-\end{figure}
-}
-\only<6>{
-\begin{figure}
-\scalebox{0.88}{
-\begin{tikzpicture}
-\begin{axis}[
-axis lines = left,
-xlabel = $f_{1}(\textrm{minimize})$,
-ylabel = $f_{2}(\textrm{minimize})$,
-xmin = 00.00,
-xmax = 10.00,
-ymin = 00.00,
-ymax = 10.00,
-xtick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
-ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
-]
-\addplot[name path=top1, no marks, opacity=0.00] coordinates {
-(02.00, 09.00)
-(09.00, 09.00)
-(09.00, 02.00)
-};
-\addplot[name path=top2, no marks, opacity=0.00] coordinates {
-(01.00, 09.00)
-(09.00, 09.00)
-(09.00, 01.00)
-};
-\addplot[name path=bot1, no marks, opacity=0.00] coordinates {
-(02.00, 09.00)
-(02.00, 07.00)
-(04.00, 07.00)
-(04.00, 04.00)
-(06.00, 04.00)
-(06.00, 03.00)
-(07.00, 03.00)
-(07.00, 02.00)
-(09.00, 02.00)
-};
-\addplot[name path=bot2, no marks, opacity=0.00] coordinates {
-(01.00, 09.00)
-(01.00, 08.00)
-(01.50, 08.00)
-(01.50, 05.88)
-(02.19, 05.88)
-(02.19, 04.28)
-(03.08, 04.28)
-(03.08, 03.08)
-(04.28, 03.08)
-(04.28, 02.19)
-(05.88, 02.19)
-(05.88, 01.50)
-(08.00, 01.50)
-(08.00, 01.00)
-(09.00, 01.00)
-};
-
-\addplot [gray, opacity=0.33] fill between [of=top1 and bot1];
-\addplot [gray, opacity=0.33] fill between [of=top2 and bot2];
-
-\addplot[myblue2, dashed, no marks] coordinates {
-(02.00, 10.00)
-(02.00, 07.00)
-};
-\addplot[myblue2, dashed, no marks] coordinates {
-(04.00, 07.00)
-(02.00, 07.00)
-};
-\addplot[myblue2, dashed, no marks] coordinates {
-(04.00, 07.00)
-(04.00, 04.00)
-};
-\addplot[myblue2, dashed, no marks] coordinates {
-(06.00, 04.00)
-(04.00, 04.00)
-};
-\addplot[myblue2, dashed, no marks] coordinates {
-(06.00, 04.00)
-(06.00, 03.00)
-};
-\addplot[myblue2, dashed, no marks] coordinates {
-(07.00, 03.00)
-(06.00, 03.00)
-};
-\addplot[myblue2, dashed, no marks] coordinates {
-(07.00, 03.00)
-(07.00, 02.00)
-};
-\addplot[myblue2, dashed, no marks] coordinates {
-(10.00, 02.00)
-(07.00, 02.00)
-};
-
-\addplot[mygreen2, dotted, no marks] coordinates {
-(00.00, 09.00)
-(09.00, 09.00)
-};
-\addplot[mygreen2, dotted, no marks] coordinates {
-(09.00, 00.00)
-(09.00, 09.00)
-};
-
-\addplot[myorange2, dashdotted, no marks] coordinates {
-(01.00, 10.00)
-(01.00, 08.00)
-};
-\addplot[myorange2, dashdotted, no marks] coordinates {
-(01.50, 08.00)
-(01.00, 08.00)
-};
-\addplot[myorange2, dashdotted, no marks] coordinates {
-(01.50, 08.00)
-(01.50, 05.88)
-};
-\addplot[myorange2, dashdotted, no marks] coordinates {
-(02.19, 05.88)
-(01.50, 05.88)
-};
-\addplot[myorange2, dashdotted, no marks] coordinates {
-(02.19, 05.88)
-(02.19, 04.28)
-};
-\addplot[myorange2, dashdotted, no marks] coordinates {
-(03.08, 04.28)
-(02.19, 04.28)
-};
-\addplot[myorange2, dashdotted, no marks] coordinates {
-(03.08, 04.28)
-(03.08, 03.08)
-};
-\addplot[myorange2, dashdotted, no marks] coordinates {
-(04.28, 03.08)
-(03.08, 03.08)
-};
-\addplot[myorange2, dashdotted, no marks] coordinates {
-(04.28, 03.08)
-(04.28, 02.19)
-};
-\addplot[myorange2, dashdotted, no marks] coordinates {
-(05.88, 02.19)
-(04.28, 02.19)
-};
-\addplot[myorange2, dashdotted, no marks] coordinates {
-(05.88, 02.19)
-(05.88, 01.50)
-};
-\addplot[myorange2, dashdotted, no marks] coordinates {
-(08.00, 01.50)
-(05.88, 01.50)
-};
-\addplot[myorange2, dashdotted, no marks] coordinates {
-(08.00, 01.50)
-(08.00, 01.00)
-};
-\addplot[myorange2, dashdotted, no marks] coordinates {
-(10.00, 01.00)
-(08.00, 01.00)
-};
-
-\addplot[myblue2, mark=*, only marks] coordinates {
-(02.00, 07.00)
-(04.00, 04.00)
-(06.00, 03.00)
-(07.00, 02.00)
-};
-
-\addplot[mygreen2, mark=star, only marks] coordinates {
-(09.00, 09.00)
-};
-
-\addplot[myorange2, mark=10-pointed star, only marks] coordinates {
-(01.00, 08.00)
-(01.50, 05.88)
-(02.19, 04.28)
-(03.08, 03.08)
-(04.28, 02.19)
-(05.88, 01.50)
-(08.00, 01.00)
-};
-
-\node[myblue2] at (axis cs:04.88, 03.63) {$S^{\star}$};
-
-\node[mygreen2] at (axis cs:09.45, 09.63) {$y^{ref}$};
-
-\node[myorange2] at (axis cs:02.50, 02.50) {$Y^{ref}$};
-
-\node at (axis cs:06.50, 06.50) {$\HVR$};
-\end{axis}
-\end{tikzpicture}
-}
-\end{figure}
-}
 \end{frame}
 
 %========================================================================================
@@ -2314,16 +1439,6 @@ ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
 \begin{center}
 {\Huge Results \\ \& \\Analysis}
 \end{center}
-\end{frame}
-
-%----------------------------------------------------------------------------------------
-\begin{frame}
-\frametitle{Results for a single instance}
-\framesubtitle{pci\_048\_n0135\_orig\_best}
-\begin{figure}
-\centering
-\includegraphics[width=0.42\textwidth]{figs/pci_048_n0135_orig_best.pdf}
-\end{figure}
 \end{frame}
 
 %----------------------------------------------------------------------------------------
@@ -2365,56 +1480,38 @@ ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
 \end{frame}
 
 %----------------------------------------------------------------------------------------
-% \begin{frame}
-% \frametitle{Robustness Across Instance Types}
-
-% \begin{table}[!htbp]
-% % \caption{Mean $\NIGDplus$ ($\downarrow$) and $\HVR$ ($\uparrow$) by instance type.}
-% \label{table:robustness}
-% \centering
-% \resizebox{0.99\textwidth}{!}{
-% \begin{tabular}{lcccccc}
-% \toprule
-% Algorithm          &                    \multicolumn{3}{c}{$\NIGDplus$ ($\downarrow$)}                    &                    \multicolumn{3}{c}{$\HVR$ ($\uparrow$)}                     \\
-% \cmidrule{2-7}
-%                    &        \texttt{full}       &       \texttt{orig}        &       \texttt{squz}        &      \texttt{full}       &      \texttt{orig}       &      \texttt{squz}       \\
-% \midrule
-% \textsc{NSGA-II}   &     $0.005 \pm 0.006$      &     $0.004 \pm 0.004$      &     $0.017 \pm 0.032$      &     $0.46 \pm 0.17$      &     $0.51 \pm 0.11$      &     $0.77 \pm 0.23$      \\
-% \textsc{NSPSO}     &     $0.011 \pm 0.007$      &     $0.011 \pm 0.006$      &     $0.029 \pm 0.037$      &     $0.22 \pm 0.14$      &     $0.20 \pm 0.11$      &     $0.49 \pm 0.30$      \\
-% \textsc{MOEA/D-DE} &     $0.007 \pm 0.005$      &     $0.006 \pm 0.004$      &     $0.017 \pm 0.030$      &     $0.27 \pm 0.12$      &     $0.30 \pm 0.13$      &     $0.53 \pm 0.27$      \\
-% \textsc{MHACO}     &     $0.011 \pm 0.007$      &     $0.011 \pm 0.007$      &     $0.033 \pm 0.039$      &     $0.15 \pm 0.07$      &     $0.17 \pm 0.09$      &     $0.47 \pm 0.30$      \\
-% \textsc{IHS}       &     $0.008 \pm 0.005$      &     $0.007 \pm 0.004$      &     $0.033 \pm 0.040$      &     $0.33 \pm 0.17$      &     $0.36 \pm 0.16$      &     $0.57 \pm 0.30$      \\
-% \textsc{NS-BRKGA}  & $\mathbf{0.001 \pm 0.001}$ & $\mathbf{0.001 \pm 0.001}$ & $\mathbf{0.002 \pm 0.007}$ & $\mathbf{0.90 \pm 0.09}$ & $\mathbf{0.91 \pm 0.08}$ & $\mathbf{0.97 \pm 0.05}$ \\
-% \bottomrule
-% \end{tabular}
-% }
-% \end{table}
-
-% % \vspace{-0.2em}
-% % \begin{itemize}
-% % \item \textsc{NS-BRKGA} is the top performer on all instance types.
-% % \item On \texttt{squz}: mean $\HVR \approx 0.97$ and mean $\NIGDplus \approx 0.002$.
-% % \end{itemize}
-
-% % Speaker note: Highlight the “small and fragmented feasible region” narrative: this supports why repair + feedback matters.
-% \end{frame}
-
-%----------------------------------------------------------------------------------------
 \begin{frame}
 \frametitle{Robustness Across Instance Types}
 
-\begin{figure}
+\begin{table}[!htbp]
+% \caption{Mean $\NIGDplus$ ($\downarrow$) and $\HVR$ ($\uparrow$) by instance type.}
+\label{table:robustness}
 \centering
-\includegraphics[width=0.31\textwidth]{figs/igd_plus_full.pdf}
-\includegraphics[width=0.31\textwidth]{figs/igd_plus_orig.pdf}
-\includegraphics[width=0.31\textwidth]{figs/igd_plus_squz.pdf}
-\end{figure}
-\begin{figure}
-\centering
-\includegraphics[width=0.31\textwidth]{figs/hypervolume_full.pdf}
-\includegraphics[width=0.31\textwidth]{figs/hypervolume_orig.pdf}
-\includegraphics[width=0.31\textwidth]{figs/hypervolume_squz.pdf}
-\end{figure}
+\resizebox{0.99\textwidth}{!}{
+\begin{tabular}{lcccccc}
+\toprule
+Algorithm          &                    \multicolumn{3}{c}{$\NIGDplus$ ($\downarrow$)}                    &                    \multicolumn{3}{c}{$\HVR$ ($\uparrow$)}                     \\
+\cmidrule{2-7}
+                   &        \texttt{full}       &       \texttt{orig}        &       \texttt{squz}        &      \texttt{full}       &      \texttt{orig}       &      \texttt{squz}       \\
+\midrule
+\textsc{NSGA-II}   &     $0.005 \pm 0.006$      &     $0.004 \pm 0.004$      &     $0.017 \pm 0.032$      &     $0.46 \pm 0.17$      &     $0.51 \pm 0.11$      &     $0.77 \pm 0.23$      \\
+\textsc{NSPSO}     &     $0.011 \pm 0.007$      &     $0.011 \pm 0.006$      &     $0.029 \pm 0.037$      &     $0.22 \pm 0.14$      &     $0.20 \pm 0.11$      &     $0.49 \pm 0.30$      \\
+\textsc{MOEA/D-DE} &     $0.007 \pm 0.005$      &     $0.006 \pm 0.004$      &     $0.017 \pm 0.030$      &     $0.27 \pm 0.12$      &     $0.30 \pm 0.13$      &     $0.53 \pm 0.27$      \\
+\textsc{MHACO}     &     $0.011 \pm 0.007$      &     $0.011 \pm 0.007$      &     $0.033 \pm 0.039$      &     $0.15 \pm 0.07$      &     $0.17 \pm 0.09$      &     $0.47 \pm 0.30$      \\
+\textsc{IHS}       &     $0.008 \pm 0.005$      &     $0.007 \pm 0.004$      &     $0.033 \pm 0.040$      &     $0.33 \pm 0.17$      &     $0.36 \pm 0.16$      &     $0.57 \pm 0.30$      \\
+\textsc{NS-BRKGA}  & $\mathbf{0.001 \pm 0.001}$ & $\mathbf{0.001 \pm 0.001}$ & $\mathbf{0.002 \pm 0.007}$ & $\mathbf{0.90 \pm 0.09}$ & $\mathbf{0.91 \pm 0.08}$ & $\mathbf{0.97 \pm 0.05}$ \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+
+\vspace{-0.2em}
+\begin{itemize}
+\item \textsc{NS-BRKGA} is the top performer on all instance types.
+\item On \texttt{squz}: mean $\HVR \approx 0.97$ and mean $\NIGDplus \approx 0.002$.
+\end{itemize}
+
+% Speaker note: Highlight the “small and fragmented feasible region” narrative: this supports why repair + feedback matters.
 \end{frame}
 
 %----------------------------------------------------------------------------------------
@@ -4092,11 +3189,919 @@ Reset trigger (stagnant gen)                    & $500$ gen ($p_{\text{reset}} =
 
 %----------------------------------------------------------------------------------------
 \begin{frame}
+\frametitle{Performance Indicators}
+\framesubtitle{Normalized Modified Inverted Generational Distance~($\NIGDplus$)}
+\only<1>{
+\begin{figure}
+\scalebox{0.88}{
+\begin{tikzpicture}
+\begin{axis}[
+axis lines = left,
+xlabel = $f_{1}(\textrm{minimize})$,
+ylabel = $f_{2}(\textrm{minimize})$,
+xmin = 00.00,
+xmax = 10.00,
+ymin = 00.00,
+ymax = 10.00,
+xtick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+]
+
+\end{axis}
+\end{tikzpicture}
+}
+\end{figure}
+}
+\only<2>{
+\begin{figure}
+\scalebox{0.88}{
+\begin{tikzpicture}
+\begin{axis}[
+axis lines = left,
+xlabel = $f_{1}(\textrm{minimize})$,
+ylabel = $f_{2}(\textrm{minimize})$,
+xmin = 00.00,
+xmax = 10.00,
+ymin = 00.00,
+ymax = 10.00,
+xtick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+]
+\addplot[myblue2, mark=*, only marks] coordinates {
+(02.00, 07.00)
+(04.00, 04.00)
+(06.00, 03.00)
+(07.00, 02.00)
+};
+
+\node[myblue2] at (axis cs:04.88, 03.63) {$S^{\star}$};
+\end{axis}
+\end{tikzpicture}
+}
+\end{figure}
+}
+\only<3>{
+\begin{figure}
+\scalebox{0.88}{
+\begin{tikzpicture}
+\begin{axis}[
+axis lines = left,
+xlabel = $f_{1}(\textrm{minimize})$,
+ylabel = $f_{2}(\textrm{minimize})$,
+xmin = 00.00,
+xmax = 10.00,
+ymin = 00.00,
+ymax = 10.00,
+xtick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+]
+\addplot[myblue2, mark=*, only marks] coordinates {
+(02.00, 07.00)
+(04.00, 04.00)
+(06.00, 03.00)
+(07.00, 02.00)
+};
+
+\addplot[myorange2, mark=10-pointed star, only marks] coordinates {
+(01.00, 08.00)
+(01.50, 05.88)
+(02.19, 04.28)
+(03.08, 03.08)
+(04.28, 02.19)
+(05.88, 01.50)
+(08.00, 01.00)
+};
+
+\node[myblue2] at (axis cs:04.88, 03.63) {$S^{\star}$};
+
+\node[myorange2] at (axis cs:02.50, 02.50) {$Y^{ref}$};
+\end{axis}
+\end{tikzpicture}
+}
+\end{figure}
+}
+\only<4>{
+\begin{figure}
+\scalebox{0.88}{
+\begin{tikzpicture}
+\begin{axis}[
+axis lines = left,
+xlabel = $f_{1}(\textrm{minimize})$,
+ylabel = $f_{2}(\textrm{minimize})$,
+xmin = 00.00,
+xmax = 10.00,
+ymin = 00.00,
+ymax = 10.00,
+xtick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+]
+\addplot[myblue2, mark=*, only marks] coordinates {
+(02.00, 07.00)
+(04.00, 04.00)
+(06.00, 03.00)
+(07.00, 02.00)
+};
+
+\addplot[myorange2, mark=10-pointed star, only marks] coordinates {
+(01.00, 08.00)
+(01.50, 05.88)
+(02.19, 04.28)
+(03.08, 03.08)
+(04.28, 02.19)
+(05.88, 01.50)
+(08.00, 01.00)
+};
+
+\node[myblue2] at (axis cs:04.88, 03.63) {$S^{\star}$};
+
+\node[myorange2] at (axis cs:02.50, 02.50) {$Y^{ref}$};
+
+\draw[-, dashed](02.00, 07.00)--(01.00, 08.00);
+\draw[-, dashed](02.00, 07.00)--(01.50, 05.88);
+\draw[-, dashed](04.00, 04.00)--(02.19, 04.28);
+\draw[-, dashed](04.00, 04.00)--(03.08, 03.08);
+\draw[-, dashed](04.00, 04.00)--(04.28, 02.19);
+\draw[-, dashed](07.00, 02.00)--(05.88, 01.50);
+\draw[-, dashed](07.00, 02.00)--(08.00, 01.00);
+
+\node at (axis cs:06.50, 06.50) {$\IGDplus$};
+\end{axis}
+\end{tikzpicture}
+}
+\end{figure}
+}
+\only<5>{
+\begin{figure}
+\scalebox{0.88}{
+\begin{tikzpicture}
+\begin{axis}[
+axis lines = left,
+xlabel = $f_{1}(\textrm{minimize})$,
+ylabel = $f_{2}(\textrm{minimize})$,
+xmin = 00.00,
+xmax = 10.00,
+ymin = 00.00,
+ymax = 10.00,
+xtick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+]
+\addplot[myblue2, mark=*, only marks] coordinates {
+(02.00, 07.00)
+(04.00, 04.00)
+(06.00, 03.00)
+(07.00, 02.00)
+};
+
+\addplot[mygreen2, mark=star, only marks] coordinates {
+(09.00, 09.00)
+};
+
+\addplot[myorange2, mark=10-pointed star, only marks] coordinates {
+(01.00, 08.00)
+(01.50, 05.88)
+(02.19, 04.28)
+(03.08, 03.08)
+(04.28, 02.19)
+(05.88, 01.50)
+(08.00, 01.00)
+};
+
+\node[myblue2] at (axis cs:04.88, 03.63) {$S^{\star}$};
+
+\node[mygreen2] at (axis cs:09.45, 09.63) {$y^{ref}$};
+
+\node[myorange2] at (axis cs:02.50, 02.50) {$Y^{ref}$};
+
+\draw[-, dashed](02.00, 07.00)--(01.00, 08.00);
+\draw[-, dashed](02.00, 07.00)--(01.50, 05.88);
+\draw[-, dashed](04.00, 04.00)--(02.19, 04.28);
+\draw[-, dashed](04.00, 04.00)--(03.08, 03.08);
+\draw[-, dashed](04.00, 04.00)--(04.28, 02.19);
+\draw[-, dashed](07.00, 02.00)--(05.88, 01.50);
+\draw[-, dashed](07.00, 02.00)--(08.00, 01.00);
+
+\node at (axis cs:06.50, 06.50) {$\IGDplus$};
+\end{axis}
+\end{tikzpicture}
+}
+\end{figure}
+}
+\only<6>{
+\begin{figure}
+\scalebox{0.88}{
+\begin{tikzpicture}
+\begin{axis}[
+axis lines = left,
+xlabel = $f_{1}(\textrm{minimize})$,
+ylabel = $f_{2}(\textrm{minimize})$,
+xmin = 00.00,
+xmax = 10.00,
+ymin = 00.00,
+ymax = 10.00,
+xtick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+]
+\addplot[myblue2, mark=*, only marks] coordinates {
+(02.00, 07.00)
+(04.00, 04.00)
+(06.00, 03.00)
+(07.00, 02.00)
+};
+
+\addplot[mygreen2, mark=star, only marks] coordinates {
+(09.00, 09.00)
+};
+
+\addplot[myorange2, mark=10-pointed star, only marks] coordinates {
+(01.00, 08.00)
+(01.50, 05.88)
+(02.19, 04.28)
+(03.08, 03.08)
+(04.28, 02.19)
+(05.88, 01.50)
+(08.00, 01.00)
+};
+
+\node[myblue2] at (axis cs:04.88, 03.63) {$S^{\star}$};
+
+\node[mygreen2] at (axis cs:09.45, 09.63) {$y^{ref}$};
+
+\node[myorange2] at (axis cs:02.50, 02.50) {$Y^{ref}$};
+
+\draw[-, dashed](02.00, 07.00)--(01.00, 08.00);
+\draw[-, dashed](02.00, 07.00)--(01.50, 05.88);
+\draw[-, dashed](04.00, 04.00)--(02.19, 04.28);
+\draw[-, dashed](04.00, 04.00)--(03.08, 03.08);
+\draw[-, dashed](04.00, 04.00)--(04.28, 02.19);
+\draw[-, dashed](07.00, 02.00)--(05.88, 01.50);
+\draw[-, dashed](07.00, 02.00)--(08.00, 01.00);
+
+\draw[-, dotted](09.00, 09.00)--(01.00, 08.00);
+\draw[-, dotted](09.00, 09.00)--(01.50, 05.88);
+\draw[-, dotted](09.00, 09.00)--(02.19, 04.28);
+\draw[-, dotted](09.00, 09.00)--(03.08, 03.08);
+\draw[-, dotted](09.00, 09.00)--(04.28, 02.19);
+\draw[-, dotted](09.00, 09.00)--(05.88, 01.50);
+\draw[-, dotted](09.00, 09.00)--(08.00, 01.00);
+
+\node at (axis cs:06.50, 06.50) {$\NIGDplus$};
+\end{axis}
+\end{tikzpicture}
+}
+\end{figure}
+}
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Performance Indicators}
+\framesubtitle{Hypervolume Ratio~($\HVR$)}
+\only<1>{
+\begin{figure}
+\scalebox{0.88}{
+\begin{tikzpicture}
+\begin{axis}[
+axis lines = left,
+xlabel = $f_{1}(\textrm{minimize})$,
+ylabel = $f_{2}(\textrm{minimize})$,
+xmin = 00.00,
+xmax = 10.00,
+ymin = 00.00,
+ymax = 10.00,
+xtick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+]
+\end{axis}
+\end{tikzpicture}
+}
+\end{figure}
+}
+\only<2>{
+\begin{figure}
+\scalebox{0.88}{
+\begin{tikzpicture}
+\begin{axis}[
+axis lines = left,
+xlabel = $f_{1}(\textrm{minimize})$,
+ylabel = $f_{2}(\textrm{minimize})$,
+xmin = 00.00,
+xmax = 10.00,
+ymin = 00.00,
+ymax = 10.00,
+xtick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+]
+\addplot[myblue2, dashed, no marks] coordinates {
+(02.00, 10.00)
+(02.00, 07.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(04.00, 07.00)
+(02.00, 07.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(04.00, 07.00)
+(04.00, 04.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(06.00, 04.00)
+(04.00, 04.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(06.00, 04.00)
+(06.00, 03.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(07.00, 03.00)
+(06.00, 03.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(07.00, 03.00)
+(07.00, 02.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(10.00, 02.00)
+(07.00, 02.00)
+};
+
+\addplot[myblue2, mark=*, only marks] coordinates {
+(02.00, 07.00)
+(04.00, 04.00)
+(06.00, 03.00)
+(07.00, 02.00)
+};
+
+\node[myblue2] at (axis cs:04.88, 03.63) {$S^{\star}$};
+\end{axis}
+\end{tikzpicture}
+}
+\end{figure}
+}
+\only<3>{
+\begin{figure}
+\scalebox{0.88}{
+\begin{tikzpicture}
+\begin{axis}[
+axis lines = left,
+xlabel = $f_{1}(\textrm{minimize})$,
+ylabel = $f_{2}(\textrm{minimize})$,
+xmin = 00.00,
+xmax = 10.00,
+ymin = 00.00,
+ymax = 10.00,
+xtick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+]
+\addplot[myblue2, dashed, no marks] coordinates {
+(02.00, 10.00)
+(02.00, 07.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(04.00, 07.00)
+(02.00, 07.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(04.00, 07.00)
+(04.00, 04.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(06.00, 04.00)
+(04.00, 04.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(06.00, 04.00)
+(06.00, 03.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(07.00, 03.00)
+(06.00, 03.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(07.00, 03.00)
+(07.00, 02.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(10.00, 02.00)
+(07.00, 02.00)
+};
+
+\addplot[mygreen2, dotted, no marks] coordinates {
+(00.00, 09.00)
+(09.00, 09.00)
+};
+\addplot[mygreen2, dotted, no marks] coordinates {
+(09.00, 00.00)
+(09.00, 09.00)
+};
+
+\addplot[myblue2, mark=*, only marks] coordinates {
+(02.00, 07.00)
+(04.00, 04.00)
+(06.00, 03.00)
+(07.00, 02.00)
+};
+
+\addplot[mygreen2, mark=star, only marks] coordinates {
+(09.00, 09.00)
+};
+
+\node[myblue2] at (axis cs:04.88, 03.63) {$S^{\star}$};
+
+\node[mygreen2] at (axis cs:09.45, 09.63) {$y^{ref}$};
+\end{axis}
+\end{tikzpicture}
+}
+\end{figure}
+}
+\only<4>{
+\begin{figure}
+\scalebox{0.88}{
+\begin{tikzpicture}
+\begin{axis}[
+axis lines = left,
+xlabel = $f_{1}(\textrm{minimize})$,
+ylabel = $f_{2}(\textrm{minimize})$,
+xmin = 00.00,
+xmax = 10.00,
+ymin = 00.00,
+ymax = 10.00,
+xtick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+]
+\addplot[name path=top1, no marks, opacity=0.00] coordinates {
+(02.00, 09.00)
+(09.00, 09.00)
+(09.00, 02.00)
+};
+\addplot[name path=bot1, no marks, opacity=0.00] coordinates {
+(02.00, 09.00)
+(02.00, 07.00)
+(04.00, 07.00)
+(04.00, 04.00)
+(06.00, 04.00)
+(06.00, 03.00)
+(07.00, 03.00)
+(07.00, 02.00)
+(09.00, 02.00)
+};
+
+\addplot [gray, opacity=0.50] fill between [of=top1 and bot1];
+
+\addplot[myblue2, dashed, no marks] coordinates {
+(02.00, 10.00)
+(02.00, 07.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(04.00, 07.00)
+(02.00, 07.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(04.00, 07.00)
+(04.00, 04.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(06.00, 04.00)
+(04.00, 04.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(06.00, 04.00)
+(06.00, 03.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(07.00, 03.00)
+(06.00, 03.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(07.00, 03.00)
+(07.00, 02.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(10.00, 02.00)
+(07.00, 02.00)
+};
+
+\addplot[mygreen2, dotted, no marks] coordinates {
+(00.00, 09.00)
+(09.00, 09.00)
+};
+\addplot[mygreen2, dotted, no marks] coordinates {
+(09.00, 00.00)
+(09.00, 09.00)
+};
+
+\addplot[myblue2, mark=*, only marks] coordinates {
+(02.00, 07.00)
+(04.00, 04.00)
+(06.00, 03.00)
+(07.00, 02.00)
+};
+
+\addplot[mygreen2, mark=star, only marks] coordinates {
+(09.00, 09.00)
+};
+
+\node[myblue2] at (axis cs:04.88, 03.63) {$S^{\star}$};
+
+\node[mygreen2] at (axis cs:09.45, 09.63) {$y^{ref}$};
+
+\node at (axis cs:06.50, 06.50) {$\HV$};
+\end{axis}
+\end{tikzpicture}
+}
+\end{figure}
+}
+\only<5>{
+\begin{figure}
+\scalebox{0.88}{
+\begin{tikzpicture}
+\begin{axis}[
+axis lines = left,
+xlabel = $f_{1}(\textrm{minimize})$,
+ylabel = $f_{2}(\textrm{minimize})$,
+xmin = 00.00,
+xmax = 10.00,
+ymin = 00.00,
+ymax = 10.00,
+xtick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+]
+\addplot[name path=top1, no marks, opacity=0.00] coordinates {
+(02.00, 09.00)
+(09.00, 09.00)
+(09.00, 02.00)
+};
+\addplot[name path=bot1, no marks, opacity=0.00] coordinates {
+(02.00, 09.00)
+(02.00, 07.00)
+(04.00, 07.00)
+(04.00, 04.00)
+(06.00, 04.00)
+(06.00, 03.00)
+(07.00, 03.00)
+(07.00, 02.00)
+(09.00, 02.00)
+};
+
+\addplot [gray, opacity=0.50] fill between [of=top1 and bot1];
+
+\addplot[myblue2, dashed, no marks] coordinates {
+(02.00, 10.00)
+(02.00, 07.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(04.00, 07.00)
+(02.00, 07.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(04.00, 07.00)
+(04.00, 04.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(06.00, 04.00)
+(04.00, 04.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(06.00, 04.00)
+(06.00, 03.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(07.00, 03.00)
+(06.00, 03.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(07.00, 03.00)
+(07.00, 02.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(10.00, 02.00)
+(07.00, 02.00)
+};
+
+\addplot[mygreen2, dotted, no marks] coordinates {
+(00.00, 09.00)
+(09.00, 09.00)
+};
+\addplot[mygreen2, dotted, no marks] coordinates {
+(09.00, 00.00)
+(09.00, 09.00)
+};
+
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(01.00, 10.00)
+(01.00, 08.00)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(01.50, 08.00)
+(01.00, 08.00)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(01.50, 08.00)
+(01.50, 05.88)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(02.19, 05.88)
+(01.50, 05.88)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(02.19, 05.88)
+(02.19, 04.28)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(03.08, 04.28)
+(02.19, 04.28)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(03.08, 04.28)
+(03.08, 03.08)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(04.28, 03.08)
+(03.08, 03.08)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(04.28, 03.08)
+(04.28, 02.19)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(05.88, 02.19)
+(04.28, 02.19)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(05.88, 02.19)
+(05.88, 01.50)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(08.00, 01.50)
+(05.88, 01.50)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(08.00, 01.50)
+(08.00, 01.00)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(10.00, 01.00)
+(08.00, 01.00)
+};
+
+\addplot[myblue2, mark=*, only marks] coordinates {
+(02.00, 07.00)
+(04.00, 04.00)
+(06.00, 03.00)
+(07.00, 02.00)
+};
+
+\addplot[mygreen2, mark=star, only marks] coordinates {
+(09.00, 09.00)
+};
+
+\addplot[myorange2, mark=10-pointed star, only marks] coordinates {
+(01.00, 08.00)
+(01.50, 05.88)
+(02.19, 04.28)
+(03.08, 03.08)
+(04.28, 02.19)
+(05.88, 01.50)
+(08.00, 01.00)
+};
+
+\node[myblue2] at (axis cs:04.88, 03.63) {$S^{\star}$};
+
+\node[mygreen2] at (axis cs:09.45, 09.63) {$y^{ref}$};
+
+\node[myorange2] at (axis cs:02.50, 02.50) {$Y^{ref}$};
+
+\node at (axis cs:06.50, 06.50) {$\HV$};
+\end{axis}
+\end{tikzpicture}
+}
+\end{figure}
+}
+\only<6>{
+\begin{figure}
+\scalebox{0.88}{
+\begin{tikzpicture}
+\begin{axis}[
+axis lines = left,
+xlabel = $f_{1}(\textrm{minimize})$,
+ylabel = $f_{2}(\textrm{minimize})$,
+xmin = 00.00,
+xmax = 10.00,
+ymin = 00.00,
+ymax = 10.00,
+xtick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+ytick = {01.00, 02.00, 03.00, 04.00, 05.00, 06.00, 07.00, 08.00, 09.00},
+]
+\addplot[name path=top1, no marks, opacity=0.00] coordinates {
+(02.00, 09.00)
+(09.00, 09.00)
+(09.00, 02.00)
+};
+\addplot[name path=top2, no marks, opacity=0.00] coordinates {
+(01.00, 09.00)
+(09.00, 09.00)
+(09.00, 01.00)
+};
+\addplot[name path=bot1, no marks, opacity=0.00] coordinates {
+(02.00, 09.00)
+(02.00, 07.00)
+(04.00, 07.00)
+(04.00, 04.00)
+(06.00, 04.00)
+(06.00, 03.00)
+(07.00, 03.00)
+(07.00, 02.00)
+(09.00, 02.00)
+};
+\addplot[name path=bot2, no marks, opacity=0.00] coordinates {
+(01.00, 09.00)
+(01.00, 08.00)
+(01.50, 08.00)
+(01.50, 05.88)
+(02.19, 05.88)
+(02.19, 04.28)
+(03.08, 04.28)
+(03.08, 03.08)
+(04.28, 03.08)
+(04.28, 02.19)
+(05.88, 02.19)
+(05.88, 01.50)
+(08.00, 01.50)
+(08.00, 01.00)
+(09.00, 01.00)
+};
+
+\addplot [gray, opacity=0.33] fill between [of=top1 and bot1];
+\addplot [gray, opacity=0.33] fill between [of=top2 and bot2];
+
+\addplot[myblue2, dashed, no marks] coordinates {
+(02.00, 10.00)
+(02.00, 07.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(04.00, 07.00)
+(02.00, 07.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(04.00, 07.00)
+(04.00, 04.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(06.00, 04.00)
+(04.00, 04.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(06.00, 04.00)
+(06.00, 03.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(07.00, 03.00)
+(06.00, 03.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(07.00, 03.00)
+(07.00, 02.00)
+};
+\addplot[myblue2, dashed, no marks] coordinates {
+(10.00, 02.00)
+(07.00, 02.00)
+};
+
+\addplot[mygreen2, dotted, no marks] coordinates {
+(00.00, 09.00)
+(09.00, 09.00)
+};
+\addplot[mygreen2, dotted, no marks] coordinates {
+(09.00, 00.00)
+(09.00, 09.00)
+};
+
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(01.00, 10.00)
+(01.00, 08.00)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(01.50, 08.00)
+(01.00, 08.00)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(01.50, 08.00)
+(01.50, 05.88)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(02.19, 05.88)
+(01.50, 05.88)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(02.19, 05.88)
+(02.19, 04.28)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(03.08, 04.28)
+(02.19, 04.28)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(03.08, 04.28)
+(03.08, 03.08)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(04.28, 03.08)
+(03.08, 03.08)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(04.28, 03.08)
+(04.28, 02.19)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(05.88, 02.19)
+(04.28, 02.19)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(05.88, 02.19)
+(05.88, 01.50)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(08.00, 01.50)
+(05.88, 01.50)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(08.00, 01.50)
+(08.00, 01.00)
+};
+\addplot[myorange2, dashdotted, no marks] coordinates {
+(10.00, 01.00)
+(08.00, 01.00)
+};
+
+\addplot[myblue2, mark=*, only marks] coordinates {
+(02.00, 07.00)
+(04.00, 04.00)
+(06.00, 03.00)
+(07.00, 02.00)
+};
+
+\addplot[mygreen2, mark=star, only marks] coordinates {
+(09.00, 09.00)
+};
+
+\addplot[myorange2, mark=10-pointed star, only marks] coordinates {
+(01.00, 08.00)
+(01.50, 05.88)
+(02.19, 04.28)
+(03.08, 03.08)
+(04.28, 02.19)
+(05.88, 01.50)
+(08.00, 01.00)
+};
+
+\node[myblue2] at (axis cs:04.88, 03.63) {$S^{\star}$};
+
+\node[mygreen2] at (axis cs:09.45, 09.63) {$y^{ref}$};
+
+\node[myorange2] at (axis cs:02.50, 02.50) {$Y^{ref}$};
+
+\node at (axis cs:06.50, 06.50) {$\HVR$};
+\end{axis}
+\end{tikzpicture}
+}
+\end{figure}
+}
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Results for a single instance}
+\framesubtitle{pci\_048\_n0135\_orig\_best}
+\begin{figure}
+\centering
+\includegraphics[width=0.42\textwidth]{figs/pci_048_n0135_orig_best.pdf}
+\end{figure}
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
 \frametitle{Overall Performance Comparison}
 
 \begin{figure}
 \centering
 \includegraphics[width=0.42\textwidth]{figs/scatter.pdf}
+\end{figure}
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Robustness Across Instance Types}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.31\textwidth]{figs/igd_plus_full.pdf}
+\includegraphics[width=0.31\textwidth]{figs/igd_plus_orig.pdf}
+\includegraphics[width=0.31\textwidth]{figs/igd_plus_squz.pdf}
+\end{figure}
+\begin{figure}
+\centering
+\includegraphics[width=0.31\textwidth]{figs/hypervolume_full.pdf}
+\includegraphics[width=0.31\textwidth]{figs/hypervolume_orig.pdf}
+\includegraphics[width=0.31\textwidth]{figs/hypervolume_squz.pdf}
 \end{figure}
 \end{frame}
 
