@@ -497,16 +497,16 @@ We model the network as an undirected graph $G = (V,E)$:
 
 The edge set is partitioned:
 \[
-    E = T \cup N,\qquad T \cap N = \varnothing,
+E = T \cup N,\qquad T \cap N = \varnothing,
 \]
 \begin{itemize}
-    \item $T$: \textbf{top-neighbors} (critical relations) where modulo-$k$ collisions are \emph{forbidden};
-    \item $N$: regular neighbors where direct collisions are forbidden, and modulo-$k$ collisions are undesirable.
+\item $T$: \textbf{top-neighbors} (critical relations) where modulo-$k$ collisions are \emph{forbidden};
+\item $N$: regular neighbors where direct collisions are forbidden, and modulo-$k$ collisions are undesirable.
 \end{itemize}
 
 Second-level neighbors (used to model confusions):
 \[
-    S = \{(u,w)\mid (u,v)\in E,\ (v,w)\in E,\ (u,w)\notin E\}.
+S = \{(u,w)\mid (u,v)\in E,\ (v,w)\in E,\ (u,w)\notin E\}.
 \]
 
 % Speaker note: Top neighbors represent critical pairs (e.g., high handover). This is why we only enforce modulo-$k$ as a hard constraint on $T$.
@@ -518,7 +518,7 @@ Second-level neighbors (used to model confusions):
 
 Decision variable: assign each cell $v \in V$ an integer PCI $x_{v} \in AP \subseteq \{0, 1, \dots, PCI_{\max}\}$.
 
-\bigskip
+~\\
 
 \textbf{Hard constraints (must hold):}
 \begin{enumerate}
@@ -594,13 +594,13 @@ It is a framework that combines features from:
 \item The Biased Random-Key Genetic Algorithm\\with Multiple Parents and Implicit Path~Relinking~(\textsc{BRKGA-MP-IPR})
 \end{itemize}
 
-\bigskip
+~\\
 
 It has already been sucessefully applied to solve:
 \begin{itemize}
-    \item Bi-Objective Traveling Salesman Problem
-    \item Multi-Objective Multi-Dimensional Knapsack Problem
-    \item Continuous Bi-Objective Optimization Problems (ZDT)
+\item Bi-Objective Traveling Salesman Problem
+\item Multi-Objective Multi-Dimensional Knapsack Problem
+\item Continuous Bi-Objective Optimization Problems (ZDT)
 \end{itemize}
 \end{frame}
 
@@ -616,7 +616,7 @@ A chromosome is a vector of random keys:
 
 Let $AP$ be the sorted list of allowed PCIs, with $m = |AP|$.
 
-\bigskip
+~\\
 
 \textbf{Deterministic decoding (initial assignment):}
 \[
@@ -672,7 +672,7 @@ If repair cannot remove all violations, we penalize the first objective:
 \]
 with a large constant $M$ (set as $M = |N| + 1$).
 
-\bigskip
+~\\
 
 Returned fitness is:
 \[
@@ -1027,31 +1027,31 @@ k_{v} \leftarrow \frac{j + 0.5}{|AP|}\quad\Rightarrow\quad \left\lfloor k_{v} \c
 \begin{columns}[c,onlytextwidth]
 \column{0.50\textwidth}
 \begin{itemize}
-    \item Biased Multi-Parent Crossover.
+\item Biased Multi-Parent Crossover.
 
-    ~\\
+~\\
 
-    \item Polynomial Mutation.
+\item Polynomial Mutation.
 
-    ~\\
+~\\
 
-    \item Genotypic Diversity at Elite Selection.
+\item Genotypic Diversity at Elite Selection.
 
-    ~\\
+~\\
 
-    \item Migration on Multiple Populations.
+\item Migration on Multiple Populations.
 \end{itemize}
 \column{0.50\textwidth}
 \begin{itemize}
-    \item Implicit Path-Relinking.
+\item Implicit Path-Relinking.
 
-    ~\\
+~\\
 
-    \item Shaking.
+\item Shaking.
 
-    ~\\
+~\\
 
-    \item Partial reset.
+\item Partial reset.
 \end{itemize}
 \end{columns}
 \end{frame}
@@ -1141,7 +1141,7 @@ The proposed \textsc{NS-BRKGA} is benchmarked against the following algorithms\f
 
 ~\\
 
-\item \textbf{\textsc{MOEA/D-DE}}: The Multi-Objective Evolutionary Algorithm by Decomposition with Differential Evolution.
+\item \textbf{\textsc{MOEA/D-DE}}: The Multi-Objective Evolutionary Algorithm by Decomposition\\with Differential Evolution.
 
 ~\\
 
@@ -1307,6 +1307,10 @@ Algorithm          &                    \multicolumn{3}{c}{$\NIGDplus$ ($\downar
 \begin{frame}[plain]
 \begin{center}
 {\Huge That's all, folks!}
+
+% ~\\
+
+% \includegraphics[width=0.23\textwidth]{figs/qr_linkedin_luishpmendes.png}
 \end{center}
 \end{frame}
 
@@ -1920,7 +1924,7 @@ $\textcolor{mygreen2}{S^{\star}_{3} = \{x_{D}\}}$
 \begin{frame}
 \frametitle{Non-dominated Sorting Biased Random-Key Genetic Algorithm}
 \framesubtitle{Crowding Distance}
-    
+
 \only<1>{
 \begin{figure}
 \scalebox{0.88}{
