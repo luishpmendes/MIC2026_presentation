@@ -1292,13 +1292,19 @@ Algorithm          &                    \multicolumn{3}{c}{$\NIGDplus$ ($\downar
 \frametitle{Conclusion}
 
 \begin{itemize}
-\item \textbf{MOPCI} is a practical LTE/5G optimization problem involving both \textbf{technological constraints} and multi-objective \textbf{operational concerns}.
+\item MOPCI captures practical LTE/5G PCI planning trade-offs.
 
-\item \textbf{Methodological contribution:} \textsc{NS-BRKGA} integrates a random-key evolutionary framework with a problem-specific decoder featuring \textbf{feasibility repair}, \textbf{lexicographically guided local search}, and \textbf{genotype feedback}.
+~\\
 
-\item \textbf{Experimental evidence:} Across 291 real-world instances and five representative MOEAs, \textsc{NS-BRKGA} consistently achieves \textbf{strong Pareto-front quality} ($\HVR \approx 0.93$, $\NIGDplus \approx 0.001$), \textbf{scalability}, \textbf{robustness}, and \textbf{fast convergence} ($\sim 30$s).
+\item \textsc{NS-BRKGA} combines random keys, repair, local search, and genotype feedback.
 
-\item \textbf{Take-home message:} \textsc{NS-BRKGA} provides network operators with a highly practical way to quickly generate high-quality PCI plans that balance \textbf{radio performance}, \textbf{rollout safety}, and \textbf{operational stability}.
+~\\
+
+\item On $291$ real-world instances, it outperformed five MOEAs.
+
+~\\
+
+\item \textbf{Take-home message:} \textsc{NS-BRKGA} is fast, and provides high-quality PCI plans balancing performance, rollout safety, and stability.
 \end{itemize}
 
 \end{frame}
